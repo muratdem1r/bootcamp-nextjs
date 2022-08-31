@@ -6,11 +6,11 @@ function BootcampItem({ bootcamp }) {
   const router = useRouter();
 
   const showDetailsHandler = () => {
-    router.push("/bootcamps/" + bootcamp.id);
+    router.push("/bootcamps/" + bootcamp._id);
   };
 
   return (
-    <Card>
+    <Card className="bg-slate-300">
       <h1 className="text-white font-bold text-2xl text-center">
         {bootcamp.name}
       </h1>
@@ -20,13 +20,13 @@ function BootcampItem({ bootcamp }) {
           {bootcamp.careers.map((career) => {
             return (
               <div className="bg-neutral-200 m-0.5 p-0.5">
-                <span className="gradient-text font-bold">{career}</span>
+                <span className="gradient-text-purple font-bold">{career}</span>
               </div>
             );
           })}
         </div>
         <Button
-          className="text-xs py-1 px-3 rounded"
+          className="text-xs py-1 px-3 rounded bg-indigo-800"
           onClick={showDetailsHandler}
         >
           More info

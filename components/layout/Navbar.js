@@ -66,7 +66,7 @@ function Navbar() {
               }}
               className={router.pathname === "/signin" ? styles.active : ""}
             >
-              <Button className={"py-2.5 px-5"}>
+              <Button className="py-2.5 px-5 bg-indigo-800">
                 <Link href="/signin">Sign-in</Link>
               </Button>
             </li>

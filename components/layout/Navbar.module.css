@@ -8,7 +8,7 @@
     md:mr-8
     text-sm
     text-stone-900
-    hover:text-sufle
+    hover:text-custom-orange
     ease-in
     duration-100
 }
@@ -17,12 +17,12 @@
     @apply underline
     underline-offset-8
     decoration-wavy
-    decoration-sufle
+    decoration-custom-orange
 }
 .logo a{
     @apply text-4xl 
     text-white 
-    bg-sufle 
+    bg-custom-orange
     font-bold 
     px-4  
     rounded-br-3xl 

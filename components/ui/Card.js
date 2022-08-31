@@ -1,8 +1,10 @@
 import React from "react";
 
-function Card({ children }) {
+function Card({ children, className }) {
   return (
-    <div className="bg-slate-300 shadow-md grid items-start gap-y-5 p-5 rounded">
+    <div
+      className={`shadow-md grid items-start gap-y-5 p-5 rounded ${className}`}
+    >
       {children}
     </div>
   );

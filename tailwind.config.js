@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        sufle: "#FC521D",
+        "custom-orange": "#FC521D",
       },
     },
   },
