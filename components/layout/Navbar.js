@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { GiTireIronCross } from "react-icons/gi";
 import { IoIosMenu } from "react-icons/io";
+import Button from "../ui/Button";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
@@ -42,7 +43,7 @@ function Navbar() {
           } `}
           id="navbar"
         >
-          <ul className="flex flex-col md:flex-row">
+          <ul className="flex flex-col items-center md:flex-row">
             <li
               onClick={() => {
                 setIsOpen(false);
@@ -58,6 +59,16 @@ function Navbar() {
               className={router.pathname === "/courses" ? styles.active : ""}
             >
               <Link href="/courses">Courses</Link>
+            </li>
+            <li
+              onClick={() => {
+                setIsOpen(false);
+              }}
+              className={router.pathname === "/signin" ? styles.active : ""}
+            >
+              <Button className={"py-2.5 px-5"}>
+                <Link href="/signin">Sign-in</Link>
+              </Button>
             </li>
           </ul>
         </nav>

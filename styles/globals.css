@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Roboto+Mono:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,4 +10,24 @@
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
+}
+body{
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+}
+p{
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+}
+.gradient-text{
+    background-image: radial-gradient(circle farthest-corner at 50% 100%,#e463f9,#777bff);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.clamp{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }

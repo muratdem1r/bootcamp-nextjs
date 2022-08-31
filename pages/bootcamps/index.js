@@ -2,12 +2,11 @@
 import axios from "axios";
 import BootcampList from "../../components/bootcamps/BootcampList";
 
-function BootcampsPage(props) {
-  console.log(props.bootcamps.data);
+function BootcampsPage({ bootcamps }) {
   return (
     <>
       <h1 className="text-3xl font-bold underline text-center">Bootcamps!</h1>
-      <BootcampList />
+      <BootcampList bootcamps={bootcamps} />
     </>
   );
 }
@@ -15,10 +14,11 @@ function BootcampsPage(props) {
 export async function getStaticProps() {
   // Fetching data from API
   const res = await axios.get(process.env.HOST + "/api/v1/bootcamps");
+  const data = res.data.data;
 
   return {
     props: {
-      bootcamps: res.data,
+      bootcamps: data,
     },
     revalidate: 10,
   };
