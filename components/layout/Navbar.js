@@ -17,7 +17,7 @@ function Navbar() {
     <header className={styles.header}>
       <div className="w-11/12 max-w-7xl mx-auto flex justify-between items-center py-5">
         <div className={styles.logo}>
-          <Link href="/">sufle</Link>
+          <Link href="/">murat</Link>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}

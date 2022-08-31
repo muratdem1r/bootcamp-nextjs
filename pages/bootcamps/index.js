@@ -14,7 +14,7 @@ function BootcampsPage(props) {
 
 export async function getStaticProps() {
   // Fetching data from API
-  const res = await axios.get("http://localhost:5000/api/v1/bootcamps");
+  const res = await axios.get(process.env.HOST + "/api/v1/bootcamps");
 
   return {
     props: {
