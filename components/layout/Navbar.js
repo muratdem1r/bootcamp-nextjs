@@ -61,9 +61,9 @@ function Navbar() {
               <Link href="/courses">Courses</Link>
             </li>
             <li>
-              <Button className="py-2.5 px-5 bg-indigo-800">
-                <Link href="/signin-signup">Sign-in</Link>
-              </Button>
+              <Link href="/signin-signup">
+                <Button className="py-2.5 px-5 bg-indigo-800">Sign-in</Button>
+              </Link>
             </li>
           </ul>
         </nav>
