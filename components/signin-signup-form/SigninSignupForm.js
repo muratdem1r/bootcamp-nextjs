@@ -1,12 +1,15 @@
 import React from "react";
+import { toast } from "react-toastify";
 import Button from "../ui/Button";
 
 function SigninSignupForm() {
   const registerSubmitHandler = (e) => {
     e.preventDefault();
+    toast.success("register");
   };
   const loginSubmitHandler = (e) => {
     e.preventDefault();
+    toast.success("login");
   };
 
   return (
