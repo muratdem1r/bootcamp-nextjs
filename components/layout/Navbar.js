@@ -60,14 +60,9 @@ function Navbar() {
             >
               <Link href="/courses">Courses</Link>
             </li>
-            <li
-              onClick={() => {
-                setIsOpen(false);
-              }}
-              className={router.pathname === "/signin" ? styles.active : ""}
-            >
+            <li>
               <Button className="py-2.5 px-5 bg-indigo-800">
-                <Link href="/signin">Sign-in</Link>
+                <Link href="/signin-signup">Sign-in</Link>
               </Button>
             </li>
           </ul>

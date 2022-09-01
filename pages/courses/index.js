@@ -1,12 +1,16 @@
 // domain.com/courses
 
 import axios from "axios";
+import { FaRegHandPointDown } from "react-icons/fa";
 import CoursesList from "../../components/courses/CoursesList";
 
 function CoursesPage({ courses }) {
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-center">Courses!</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Courses
+        <FaRegHandPointDown className="inline" />
+      </h1>
       <CoursesList courses={courses} />
     </>
   );
