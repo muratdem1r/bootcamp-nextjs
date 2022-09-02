@@ -6,7 +6,8 @@
     @apply mt-5
     md:mt-0
     md:mr-8
-    text-sm
+    text-lg
+    lg:text-sm
     text-stone-900
     hover:text-custom-orange
     ease-in

@@ -5,6 +5,8 @@ import "../styles/globals.css";
 import Router from "next/router";
 import { useState } from "react";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
+import { store } from "../store";
+import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -17,11 +19,13 @@ function MyApp({ Component, pageProps }) {
   });
 
   return (
-    <Layout>
-      {loading && <LoadingSpinner />}
-      {!loading && <Component {...pageProps} />}
-      <ToastContainer />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        {loading && <LoadingSpinner />}
+        {!loading && <Component {...pageProps} />}
+        <ToastContainer />
+      </Layout>
+    </Provider>
   );
 }
 
