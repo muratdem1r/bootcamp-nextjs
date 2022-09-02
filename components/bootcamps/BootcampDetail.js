@@ -1,4 +1,4 @@
-import React from "react";
+import ReviewsList from "../reviews/ReviewsList";
 import Image from "next/image";
 
 function BootcampDetail({ bootcamp, reviews }) {
@@ -36,6 +36,7 @@ function BootcampDetail({ bootcamp, reviews }) {
           })}
         </ul>
       </div>
+      <ReviewsList reviews={reviews} />
     </>
   );
 }
