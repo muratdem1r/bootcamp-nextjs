@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
   const paths = data.map((bootcamp) => {
     return {
-      params: { bootcampId: bootcamp.id },
+      params: { bootcampId: bootcamp._id },
     };
   });
 
