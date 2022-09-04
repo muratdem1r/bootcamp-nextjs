@@ -3,9 +3,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Button from "../ui/Button";
+import { setCurrentUser } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 function SigninSignupForm() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [registerInputs, setRegisterInputs] = useState({
     name: "",
@@ -63,13 +66,15 @@ function SigninSignupForm() {
           password: loginInputs.password,
         }
       );
-      toast.success("You have successfully logged in.");
+
       const resCurrentUser = await axios.get(
         process.env.NEXT_PUBLIC_HOST + "/api/v1/auth/me",
         { headers: { Authorization: "Bearer " + res.data.token } }
       );
-      console.log(resCurrentUser);
+
+      dispatch(setCurrentUser(resCurrentUser.data.data));
       localStorage.setItem("token", res.data.token);
+      toast.success("You have successfully logged in.");
       router.push("/");
     } catch (error) {
       console.log(error);

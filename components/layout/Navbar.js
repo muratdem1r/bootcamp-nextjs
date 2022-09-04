@@ -1,18 +1,33 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { logout } from "../../features/auth/authSlice";
+
 import { GiTireIronCross } from "react-icons/gi";
 import { IoIosMenu } from "react-icons/io";
+
 import Button from "../ui/Button";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(false);
   }, []);
+
+  const logoutHandler = () => {
+    localStorage.clear("token");
+    dispatch(logout());
+    toast.success("Logged out!");
+  };
 
   return (
     <header className={styles.header}>
@@ -65,9 +80,18 @@ function Navbar() {
                 setIsOpen(false);
               }}
             >
-              <Link href="/signin-signup">
-                <Button className="py-2.5 px-5 bg-indigo-800">Sign-in</Button>
-              </Link>
+              {currentUser ? (
+                <Button
+                  onClick={logoutHandler}
+                  className="py-2.5 px-5 bg-indigo-800"
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button className="py-2.5 px-5 bg-indigo-800">
+                  <Link href="/signin-signup">Sign-in</Link>
+                </Button>
+              )}
             </li>
           </ul>
         </nav>

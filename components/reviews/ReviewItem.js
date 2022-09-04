@@ -1,7 +1,6 @@
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 function ReviewItem({ review }) {
-  console.log(review);
   return (
     <li className="bg-slate-500 my-10 p-5 text-white grid gap-1">
       <p className="mb-1">
