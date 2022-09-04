@@ -60,7 +60,11 @@ function Navbar() {
             >
               <Link href="/courses">Courses</Link>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
               <Link href="/signin-signup">
                 <Button className="py-2.5 px-5 bg-indigo-800">Sign-in</Button>
               </Link>

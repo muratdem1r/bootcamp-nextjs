@@ -64,7 +64,11 @@ function SigninSignupForm() {
         }
       );
       toast.success("You have successfully logged in.");
-
+      const resCurrentUser = await axios.get(
+        process.env.NEXT_PUBLIC_HOST + "/api/v1/auth/me",
+        { headers: { Authorization: "Bearer " + res.data.token } }
+      );
+      console.log(resCurrentUser);
       localStorage.setItem("token", res.data.token);
       router.push("/");
     } catch (error) {

@@ -1,6 +1,7 @@
 
 .header{
     @apply bg-slate-100
+    z-50
 }
 .header li{
     @apply mt-5
