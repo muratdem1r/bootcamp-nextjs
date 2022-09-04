@@ -9,9 +9,9 @@ function ReviewItem({ review }) {
       <div className="flex">
         {[...Array(10)].map((star, i) => {
           if (i <= review.rating) {
-            return <AiFillStar className="text-yellow-300" />;
+            return <AiFillStar key={i} className="text-yellow-300" />;
           }
-          return <AiOutlineStar />;
+          return <AiOutlineStar key={i} />;
         })}
       </div>
       <h5 className="text font-bold text-lg">{review.title}</h5>

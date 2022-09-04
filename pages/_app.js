@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const loggedInUser = async () => {
       const token = localStorage.getItem("token");
-      console.log("returning");
+
       if (token === null) return;
 
       try {

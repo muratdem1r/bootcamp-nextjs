@@ -1,11 +1,12 @@
 import ReviewsList from "../reviews/ReviewsList";
 import Image from "next/image";
+import Link from "next/link";
 import { GrMoney } from "react-icons/gr";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { CgWebsite } from "react-icons/cg";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
 
-function BootcampDetail({ bootcamp, reviews }) {
+function BootcampDetail({ bootcamp, reviews, courses }) {
   const photo = "/" + bootcamp.photo;
   const options = {
     weekday: "long",
@@ -74,13 +75,15 @@ function BootcampDetail({ bootcamp, reviews }) {
         </div>
         <ul className="flex flex-wrap gap-y-2 gap-x-4">
           <h5 className="w-full font-bold">Courses</h5>
-          {bootcamp.careers.map((career, i) => {
+          {courses.map((course, i) => {
             return (
               <li
-                className="bg-slate-500 text-slate-200 p-1 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
+                className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
                 key={i}
               >
-                {career}
+                <Link href={"/courses/" + course.id}>
+                  <a className="inline-block p-1">{course.name}</a>
+                </Link>
               </li>
             );
           })}

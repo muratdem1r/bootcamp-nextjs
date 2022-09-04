@@ -88,9 +88,13 @@ function Navbar() {
                   Logout
                 </Button>
               ) : (
-                <Button className="py-2.5 px-5 bg-indigo-800">
-                  <Link href="/signin-signup">Sign-in</Link>
-                </Button>
+                <Link href="/signin-signup">
+                  <a>
+                    <Button className="py-2.5 px-5 bg-indigo-800">
+                      Sign-in
+                    </Button>
+                  </a>
+                </Link>
               )}
             </li>
           </ul>

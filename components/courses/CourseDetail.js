@@ -46,9 +46,14 @@ function CourseDetail({ course }) {
         <p className="my-3 max-w-2xl text-slate-600">
           {course.bootcamp.description}
         </p>
-        <Button className="py-2.5 px-5 bg-indigo-800 text-sm">
-          <Link href={"/bootcamps/" + course.bootcamp.id}>check out</Link>
-        </Button>
+
+        <Link className="w-full" href={"/bootcamps/" + course.bootcamp.id}>
+          <a>
+            <Button className="py-2.5 px-5 bg-indigo-800 text-sm">
+              check out
+            </Button>
+          </a>
+        </Link>
       </div>
     </div>
   );

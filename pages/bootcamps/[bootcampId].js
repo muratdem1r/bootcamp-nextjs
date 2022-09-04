@@ -3,8 +3,10 @@
 import axios from "axios";
 import BootcampDetail from "../../components/bootcamps/BootcampDetail";
 
-function BootcampDetailsPage({ bootcamp, reviews }) {
-  return <BootcampDetail bootcamp={bootcamp} reviews={reviews} />;
+function BootcampDetailsPage({ bootcamp, reviews, courses }) {
+  return (
+    <BootcampDetail bootcamp={bootcamp} reviews={reviews} courses={courses} />
+  );
 }
 
 export async function getStaticPaths() {
@@ -25,10 +27,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   // Fetching single bootcamp from API
-
   const bootcampId = context.params.bootcampId;
 
   // Bootcamp Details
+
   const res = await axios.get(
     process.env.HOST + "/api/v1/bootcamps/" + bootcampId
   );
@@ -36,6 +38,7 @@ export async function getStaticProps(context) {
 
   // Reviews for bootcamp
   const path = `/api/v1/bootcamps/${bootcampId}/reviews`;
+
   const resReviews = await axios.get(process.env.HOST + path);
   const dataReviews = resReviews.data.data;
 
@@ -64,12 +67,21 @@ export async function getStaticProps(context) {
     };
   });
 
+  // Courses for bootcamp
+  const resCourses = await axios.get(
+    process.env.HOST + `/api/v1/bootcamps/${bootcampId}/courses`
+  );
+  const dataCourses = resCourses.data.data.map((course) => {
+    return { id: course._id, name: course.title };
+  });
+
   return {
     props: {
       bootcamp: data,
       reviews: await Promise.all(reviews),
+      courses: dataCourses,
     },
-    revalidate: 10,
+    revalidate: 100,
   };
 }
 
