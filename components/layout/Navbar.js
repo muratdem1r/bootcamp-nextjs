@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import Link from "next/link";
+import NextLink from "../ui/NextLink";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +38,7 @@ function Navbar() {
     <header className={styles.header}>
       <div className="w-11/12 max-w-7xl mx-auto flex justify-between items-center py-5">
         <div className={styles.logo}>
-          <Link href="/">murat</Link>
+          <NextLink href="/">murat</NextLink>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -70,7 +70,7 @@ function Navbar() {
               }}
               className={router.pathname === "/bootcamps" ? styles.active : ""}
             >
-              <Link href="/bootcamps">Bootcamps</Link>
+              <NextLink href="/bootcamps">Bootcamps</NextLink>
             </li>
             <li
               onClick={() => {
@@ -78,7 +78,7 @@ function Navbar() {
               }}
               className={router.pathname === "/courses" ? styles.active : ""}
             >
-              <Link href="/courses">Courses</Link>
+              <NextLink href="/courses">Courses</NextLink>
             </li>
             <li>
               {currentUser ? (
@@ -105,19 +105,21 @@ function Navbar() {
                       <div className="px-1 py-1 ">
                         <Menu.Item>
                           {({ active }) => (
-                            <button
-                              onClick={() => {
-                                setIsOpen(false);
-                              }}
-                              className={`${
-                                active
-                                  ? "bg-gray-500 text-white"
-                                  : "text-gray-900"
-                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                            >
-                              <BiUser className="mr-2" />
-                              Profile
-                            </button>
+                            <NextLink href="/profile">
+                              <button
+                                onClick={() => {
+                                  setIsOpen(false);
+                                }}
+                                className={`${
+                                  active
+                                    ? "bg-gray-500 text-white"
+                                    : "text-gray-900"
+                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                              >
+                                <BiUser className="mr-2" />
+                                Profile
+                              </button>
+                            </NextLink>
                           )}
                         </Menu.Item>
                         <Menu.Item>
@@ -140,18 +142,16 @@ function Navbar() {
                   </Transition>
                 </Menu>
               ) : (
-                <Link href="/signin-signup">
-                  <a>
-                    <Button
-                      onClick={() => {
-                        setIsOpen(false);
-                      }}
-                      className="py-2.5 px-5 bg-indigo-800"
-                    >
-                      Sign-in
-                    </Button>
-                  </a>
-                </Link>
+                <NextLink href="/signin-signup">
+                  <Button
+                    onClick={() => {
+                      setIsOpen(false);
+                    }}
+                    className="py-2.5 px-5 bg-indigo-800"
+                  >
+                    Sign-in
+                  </Button>
+                </NextLink>
               )}
             </li>
           </ul>
