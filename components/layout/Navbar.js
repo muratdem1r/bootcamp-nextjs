@@ -1,11 +1,15 @@
+import React, { Fragment } from "react";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { logout } from "../../features/auth/authSlice";
+import { Menu, Transition } from "@headlessui/react";
 
 import { GiTireIronCross } from "react-icons/gi";
+import { BiChevronDown, BiUser, BiLogOut } from "react-icons/bi";
 import { IoIosMenu } from "react-icons/io";
 
 import Button from "../ui/Button";
@@ -24,6 +28,7 @@ function Navbar() {
   }, []);
 
   const logoutHandler = () => {
+    setIsOpen(false);
     localStorage.clear("token");
     dispatch(logout());
     toast.success("Logged out!");
@@ -75,22 +80,74 @@ function Navbar() {
             >
               <Link href="/courses">Courses</Link>
             </li>
-            <li
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
+            <li>
               {currentUser ? (
-                <Button
-                  onClick={logoutHandler}
-                  className="py-2.5 px-5 bg-indigo-800"
-                >
-                  Logout
-                </Button>
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="text-black inline-flex justify-center items-center rounded-md bg-opacity-20 bg-slate-400 px-2 py-1  hover:bg-opacity-30 hover:text-black">
+                      {currentUser.name}
+                      <BiChevronDown
+                        className="ml-2 -mr-1 h-5 w-5 text-black "
+                        aria-hidden="true"
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute -right-14 md:right-0 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ">
+                      <div className="px-1 py-1 ">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={() => {
+                                setIsOpen(false);
+                              }}
+                              className={`${
+                                active
+                                  ? "bg-gray-500 text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              <BiUser className="mr-2" />
+                              Profile
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              onClick={logoutHandler}
+                              className={`${
+                                active
+                                  ? "bg-gray-500 text-white"
+                                  : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                              <BiLogOut className="mr-2" />
+                              Logout
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               ) : (
                 <Link href="/signin-signup">
                   <a>
-                    <Button className="py-2.5 px-5 bg-indigo-800">
+                    <Button
+                      onClick={() => {
+                        setIsOpen(false);
+                      }}
+                      className="py-2.5 px-5 bg-indigo-800"
+                    >
                       Sign-in
                     </Button>
                   </a>
