@@ -1,6 +1,8 @@
-import ReviewsList from "../reviews/ReviewsList";
 import Image from "next/image";
 import Link from "next/link";
+
+// Components
+import ReviewsList from "../reviews/ReviewsList";
 import { GrMoney } from "react-icons/gr";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { CgWebsite } from "react-icons/cg";
@@ -81,8 +83,8 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
                 className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
                 key={i}
               >
-                <Link href={"/courses/" + course.id}>
-                  <a className="inline-block p-1">{course.name}</a>
+                <Link href={"/courses/" + course._id}>
+                  <a className="inline-block p-1">{course.title}</a>
                 </Link>
               </li>
             );

@@ -5,18 +5,19 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { logout } from "../../features/auth/authSlice";
-import { Menu, Transition } from "@headlessui/react";
+import { logout } from "../../store/slices/currentUserSlice";
 
+// Components
+import { Menu, Transition } from "@headlessui/react";
 import { GiTireIronCross } from "react-icons/gi";
 import { BiChevronDown, BiUser, BiLogOut } from "react-icons/bi";
 import { IoIosMenu } from "react-icons/io";
-
 import Button from "../ui/Button";
+
 import styles from "./Navbar.module.css";
 
 function Navbar() {
-  const currentUser = useSelector((state) => state.auth.user);
+  const currentUser = useSelector((state) => state.currentUser.user);
 
   const dispatch = useDispatch();
 
@@ -85,7 +86,7 @@ function Navbar() {
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="text-black inline-flex justify-center items-center rounded-md bg-opacity-20 bg-slate-400 px-2 py-1  hover:bg-opacity-30 hover:text-black">
-                      {currentUser.name}
+                      {currentUser.data.name}
                       <BiChevronDown
                         className="ml-2 -mr-1 h-5 w-5 text-black "
                         aria-hidden="true"

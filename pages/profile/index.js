@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 function ProfilePage() {
   const router = useRouter();
-  const currentUser = useSelector((state) => state.auth.user);
+  const currentUser = useSelector((state) => state.currentUser.user);
 
   useEffect(() => {
     if (!currentUser) router.push("/");
@@ -13,8 +13,8 @@ function ProfilePage() {
   return (
     currentUser && (
       <div>
-        <p>{currentUser.name}</p>
-        <p>{currentUser.email}</p>
+        <p>{currentUser.data.name}</p>
+        <p>{currentUser.data.email}</p>
       </div>
     )
   );

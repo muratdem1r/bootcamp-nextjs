@@ -1,84 +1,79 @@
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import Button from "../ui/Button";
-import { setCurrentUser } from "../../features/auth/authSlice";
+import { setCurrentUser } from "../../store/slices/currentUserSlice";
 import { useDispatch } from "react-redux";
+import {
+  useRegisterMutation,
+  useLoginMutation,
+  useGetLoggedinUserQuery,
+} from "../../services/authApi";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+
+// Components
+import Button from "../ui/Button";
 
 function SigninSignupForm() {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const [registerInputs, setRegisterInputs] = useState({
+  const [token, setToken] = useState(skipToken);
+  const [login] = useLoginMutation();
+  const [register] = useRegisterMutation();
+
+  const { data: user, isSuccess } = useGetLoggedinUserQuery(token);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setCurrentUser(user));
+      router.push("/");
+    }
+  }, [user, isSuccess]);
+
+  const [inputs, setInputs] = useState({
     name: "",
     email: "",
     password: "",
     role: "user",
   });
-  const [loginInputs, setloginInputs] = useState({
-    email: "",
-    password: "",
-  });
 
-  const registerInputHandler = (e) => {
+  const inputHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setRegisterInputs((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
-  const loginInputHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setloginInputs((prev) => {
+    setInputs((prev) => {
       return { ...prev, [name]: value };
     });
   };
 
   const registerSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        process.env.NEXT_PUBLIC_HOST + "/api/v1/auth/register",
-        {
-          name: registerInputs.name,
-          email: registerInputs.email,
-          password: registerInputs.password,
-          role: registerInputs.role,
-        }
-      );
 
-      toast.success("You have successfully registered.");
-      router.push("/");
-    } catch (error) {
-      console.log(error);
+    const res = await register({
+      name: inputs.name,
+      email: inputs.email,
+      password: inputs.password,
+      role: inputs.role,
+    });
+    if (res.error) {
       toast.error("This account allready exists!");
+    } else {
+      loginSubmitHandler(e);
+      toast.success("You have successfully registered.");
     }
   };
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        process.env.NEXT_PUBLIC_HOST + "/api/v1/auth/login",
-        {
-          email: loginInputs.email,
-          password: loginInputs.password,
-        }
-      );
 
-      const resCurrentUser = await axios.get(
-        process.env.NEXT_PUBLIC_HOST + "/api/v1/auth/me",
-        { headers: { Authorization: "Bearer " + res.data.token } }
-      );
-
-      dispatch(setCurrentUser(resCurrentUser.data.data));
-      localStorage.setItem("token", res.data.token);
-      toast.success("You have successfully logged in.");
-      router.push("/");
-    } catch (error) {
-      console.log(error);
+    const res = await login({
+      email: inputs.email,
+      password: inputs.password,
+    });
+    if (res.error) {
       toast.error("Wrong email or password!");
+    } else {
+      localStorage.setItem("token", res.data.token);
+      setToken(res.data.token);
+      toast.success("Welcome");
     }
   };
 
@@ -96,7 +91,8 @@ function SigninSignupForm() {
             type="name"
             name="name"
             id="registerName"
-            onChange={registerInputHandler}
+            onChange={inputHandler}
+            value={inputs.name}
             required
           />
         </div>
@@ -107,18 +103,21 @@ function SigninSignupForm() {
             type="email"
             name="email"
             id="registerEmail"
-            onChange={registerInputHandler}
+            onChange={inputHandler}
+            value={inputs.email}
             required
           />
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="password">Password</label>
           <input
+            minLength={6}
             className="border"
             type="password"
             name="password"
             id="registerPassword"
-            onChange={registerInputHandler}
+            onChange={inputHandler}
+            value={inputs.password}
             required
           />
         </div>
@@ -136,7 +135,8 @@ function SigninSignupForm() {
             type="email"
             name="email"
             id="email"
-            onChange={loginInputHandler}
+            onChange={inputHandler}
+            value={inputs.email}
             required
           />
         </div>
@@ -147,7 +147,8 @@ function SigninSignupForm() {
             type="password"
             name="password"
             id="password"
-            onChange={loginInputHandler}
+            onChange={inputHandler}
+            value={inputs.password}
             required
           />
         </div>

@@ -1,12 +1,15 @@
+import React from "react";
 import Link from "next/link";
 
-function NextLink(props) {
+const NextLink = React.forwardRef((props, ref) => {
   const { href, children, ...rest } = props;
   return (
     <Link href={href}>
-      <a {...rest}>{children}</a>
+      <a {...rest} ref={ref}>
+        {children}
+      </a>
     </Link>
   );
-}
+});
 
 export default NextLink;

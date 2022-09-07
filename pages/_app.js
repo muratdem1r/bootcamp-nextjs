@@ -1,54 +1,49 @@
-import Layout from "../components/layout/Layout";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
-import Router from "next/router";
+
 import { useEffect, useState } from "react";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
-import { wrapper } from "../store";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { setCurrentUser } from "../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+
+import { skipToken } from "@reduxjs/toolkit/dist/query/react";
+
+// Store
+import { wrapper } from "../store/store";
+import { setCurrentUser } from "../store/slices/currentUserSlice";
+
+// Services
+import { useGetLoggedinUserQuery } from "../services/authApi";
+
+// Components
+import Layout from "../components/layout/Layout";
+import { ToastContainer } from "react-toastify";
 
 function MyApp({ Component, pageProps }) {
-  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
+  const [token, setToken] = useState(skipToken);
 
-  const [loading, setLoading] = useState(false);
-
-  Router.events.on("routeChangeStart", (url) => {
-    setLoading(true);
-  });
-  Router.events.on("routeChangeComplete", (url) => {
-    setLoading(false);
-  });
+  const {
+    data: user,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetLoggedinUserQuery(token);
 
   useEffect(() => {
-    const loggedInUser = async () => {
-      const token = localStorage.getItem("token");
-
-      if (token === null) return;
-
-      try {
-        const resCurrentUser = await axios.get(
-          process.env.NEXT_PUBLIC_HOST + "/api/v1/auth/me",
-          { headers: { Authorization: "Bearer " + token } }
-        );
-
-        dispatch(setCurrentUser(resCurrentUser.data.data));
-      } catch (error) {
-        localStorage.clear("token");
-        console.log(error);
-      }
-    };
-
-    loggedInUser();
+    const localToken = localStorage.getItem("token");
+    if (localToken === null) return;
+    setToken(localToken);
   }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setCurrentUser(user));
+    }
+  }, [user, isSuccess]);
 
   return (
     <Layout>
-      {loading && <LoadingSpinner />}
-      {!loading && <Component {...pageProps} />}
+      <Component {...pageProps} />
       <ToastContainer />
     </Layout>
   );

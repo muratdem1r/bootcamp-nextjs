@@ -1,7 +1,8 @@
-import React from "react";
+import Link from "next/link";
+
+// Components
 import Button from "../../components/ui/Button";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
-import Link from "next/link";
 
 function CourseDetail({ course }) {
   const options = {

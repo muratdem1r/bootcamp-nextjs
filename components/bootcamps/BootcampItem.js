@@ -1,4 +1,6 @@
 import Link from "next/link";
+
+// Components
 import Card from "../ui/Card";
 import Button from "../ui/Button";
 

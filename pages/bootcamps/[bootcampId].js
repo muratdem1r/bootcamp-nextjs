@@ -1,88 +1,68 @@
 // domain.com/bootcamps/bootcampId
 
-import axios from "axios";
+import { useRouter } from "next/router";
+import { useBootcampQuery } from "../../services/bootcampsApi";
+import { useCoursesBootcampQuery } from "../../services/coursesApi";
+import { useReviewsBootcampQuery } from "../../services/reviewsApi";
+
+// Components
 import BootcampDetail from "../../components/bootcamps/BootcampDetail";
+import NotFound from "../../components/not-found/NotFound";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
-function BootcampDetailsPage({ bootcamp, reviews, courses }) {
-  return (
-    <BootcampDetail bootcamp={bootcamp} reviews={reviews} courses={courses} />
-  );
-}
+function BootcampDetailsPage() {
+  const router = useRouter();
 
-export async function getStaticPaths() {
-  const res = await axios.get(process.env.HOST + "/api/v1/bootcamps");
-  const data = res.data.data;
+  const id = router.query.bootcampId;
 
-  const paths = data.map((bootcamp) => {
-    return {
-      params: { bootcampId: bootcamp._id },
-    };
-  });
+  const {
+    data: bootcamp,
+    isLoading: isBootcampLoading,
+    isSuccess: isBootcampSuccess,
+    isError: isBootcampError,
+    error: bootcampError,
+  } = useBootcampQuery(id);
 
-  return {
-    fallback: false,
-    paths: paths,
-  };
-}
+  const {
+    data: courses,
+    isLoading: isCoursesLoading,
+    isSuccess: isCoursesSuccess,
+    isError: isCoursesError,
+    error: coursesError,
+  } = useCoursesBootcampQuery(id);
 
-export async function getStaticProps(context) {
-  // Fetching single bootcamp from API
-  const bootcampId = context.params.bootcampId;
+  const {
+    data: reviews,
+    isLoading: isReviewsLoading,
+    isSuccess: isReviewsSuccess,
+    isError: isReviewsError,
+    error: reviewsError,
+  } = useReviewsBootcampQuery(id);
 
-  // Bootcamp Details
+  let content;
 
-  const res = await axios.get(
-    process.env.HOST + "/api/v1/bootcamps/" + bootcampId
-  );
-  const data = res.data.data;
-
-  // Reviews for bootcamp
-  const path = `/api/v1/bootcamps/${bootcampId}/reviews`;
-
-  const resReviews = await axios.get(process.env.HOST + path);
-  const dataReviews = resReviews.data.data;
-
-  const config = {
-    headers: {
-      Authorization: "Bearer " + process.env.ADMIN_TOKEN,
-    },
-  };
-
-  const reviews = dataReviews.map(async (review) => {
-    // User Infos
-    const userRes = await axios.get(
-      process.env.HOST + "/api/v1/users/" + review.user,
-      config
+  if (isBootcampLoading && isCoursesLoading && isReviewsLoading) {
+    content = <LoadingSpinner />;
+  } else if (isBootcampSuccess && isCoursesSuccess && isReviewsSuccess) {
+    content = (
+      <BootcampDetail
+        bootcamp={bootcamp.data}
+        reviews={reviews.data}
+        courses={courses.data}
+      />
     );
-    const user = userRes.data.data;
+  } else if (isBootcampError) {
+    console.log(bootcampError);
+    content = <NotFound />;
+  } else if (isReviewsError) {
+    console.log(reviewsError);
+    content = <NotFound />;
+  } else if (isCoursesError) {
+    console.log(coursesError);
+    content = <NotFound />;
+  }
 
-    // Reviews with user infos
-    return {
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      title: review.title,
-      text: review.text,
-      rating: review.rating,
-    };
-  });
-
-  // Courses for bootcamp
-  const resCourses = await axios.get(
-    process.env.HOST + `/api/v1/bootcamps/${bootcampId}/courses`
-  );
-  const dataCourses = resCourses.data.data.map((course) => {
-    return { id: course._id, name: course.title };
-  });
-
-  return {
-    props: {
-      bootcamp: data,
-      reviews: await Promise.all(reviews),
-      courses: dataCourses,
-    },
-    revalidate: 100,
-  };
+  return content;
 }
 
 export default BootcampDetailsPage;

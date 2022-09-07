@@ -1,3 +1,4 @@
+// Components
 import ReviewItem from "./ReviewItem";
 
 function ReviewsList({ reviews }) {

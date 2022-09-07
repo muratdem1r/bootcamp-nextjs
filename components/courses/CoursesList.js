@@ -1,3 +1,4 @@
+// Components
 import CourseItem from "./CourseItem";
 
 function CoursesList({ courses }) {

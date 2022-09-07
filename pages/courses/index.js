@@ -1,32 +1,39 @@
 // domain.com/courses
 
-import axios from "axios";
 import { FaRegHandPointDown } from "react-icons/fa";
+import { useCoursesQuery } from "../../services/coursesApi";
+
+// Components
 import CoursesList from "../../components/courses/CoursesList";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
-function CoursesPage({ courses }) {
-  return (
-    <>
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Courses
-        <FaRegHandPointDown className="inline" />
-      </h1>
-      <CoursesList courses={courses} />
-    </>
-  );
-}
+function CoursesPage() {
+  const {
+    data: courses,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useCoursesQuery();
 
-export async function getStaticProps() {
-  // Fetching data from API
-  const res = await axios.get(process.env.HOST + "/api/v1/courses");
-  const data = res.data.data;
+  let content;
+  if (isLoading) {
+    content = <LoadingSpinner />;
+  } else if (isSuccess) {
+    content = (
+      <>
+        <h1 className="text-3xl font-bold text-center mb-8">
+          Courses
+          <FaRegHandPointDown className="inline" />
+        </h1>
+        <CoursesList courses={courses.data} />
+      </>
+    );
+  } else if (isError) {
+    content = <p>{error}</p>;
+  }
 
-  return {
-    props: {
-      courses: data,
-    },
-    revalidate: 10,
-  };
+  return content;
 }
 
 export default CoursesPage;

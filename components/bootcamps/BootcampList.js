@@ -1,4 +1,4 @@
-import React from "react";
+// Components
 import BootcampItem from "./BootcampItem";
 
 function BootcampList({ bootcamps }) {

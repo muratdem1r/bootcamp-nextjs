@@ -1,49 +1,37 @@
 // domain.com/courses/courseId
 
-import axios from "axios";
 import { useRouter } from "next/router";
+import { useCourseQuery } from "../../services/coursesApi";
 
+// Components
 import CourseDetail from "../../components/courses/CourseDetail";
+import NotFound from "../../components/not-found/NotFound";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
-function CourseDetailPage({ course }) {
+function CourseDetailPage() {
   const router = useRouter();
+  const id = router.query.courseId;
 
-  const courseId = router.query.courseId;
+  const {
+    data: course,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useCourseQuery(id);
 
-  return <CourseDetail course={course} />;
-}
+  let content;
 
-export async function getStaticPaths() {
-  const res = await axios.get(process.env.HOST + "/api/v1/courses");
-  const data = res.data.data;
+  if (isLoading) {
+    content = <LoadingSpinner />;
+  } else if (isSuccess) {
+    content = <CourseDetail course={course.data} />;
+  } else if (isError) {
+    console.log(error);
+    content = <NotFound />;
+  }
 
-  const paths = data.map((course) => {
-    return {
-      params: { courseId: course._id },
-    };
-  });
-
-  return {
-    fallback: false,
-    paths: paths,
-  };
-}
-
-export async function getStaticProps(context) {
-  // Fetching single course from API
-
-  const courseId = context.params.courseId;
-
-  // Course Details
-  const res = await axios.get(process.env.HOST + "/api/v1/courses/" + courseId);
-  const data = res.data.data;
-
-  return {
-    props: {
-      course: data,
-    },
-    revalidate: 10,
-  };
+  return content;
 }
 
 export default CourseDetailPage;
