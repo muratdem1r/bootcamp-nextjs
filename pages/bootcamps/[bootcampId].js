@@ -41,7 +41,7 @@ function BootcampDetailsPage() {
 
   let content;
 
-  if (isBootcampLoading && isCoursesLoading && isReviewsLoading) {
+  if (isBootcampLoading || isCoursesLoading || isReviewsLoading) {
     content = <LoadingSpinner />;
   } else if (isBootcampSuccess && isCoursesSuccess && isReviewsSuccess) {
     content = (
