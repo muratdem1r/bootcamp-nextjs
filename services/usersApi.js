@@ -5,12 +5,7 @@ const ADMIN = process.env.NEXT_PUBLIC_ADMIN_TOKEN;
 export const usersApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     users: builder.query({
-      query: () => ({
-        url: "users",
-        headers: {
-          Authorization: "Bearer " + ADMIN,
-        },
-      }),
+      query: () => "users",
       providesTags: ["Users"],
     }),
 
@@ -25,36 +20,27 @@ export const usersApi = rootApi.injectEndpoints({
     }),
 
     newUser: builder.mutation({
-      query: (data, token) => ({
+      query: (data) => ({
         url: "users",
         method: "POST",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Users"],
     }),
 
     updateUser: builder.mutation({
-      query: (data, id, token) => ({
+      query: (data, id) => ({
         url: `users/${id}`,
         method: "PUT",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Users"],
     }),
 
     deleteUser: builder.mutation({
-      query: (id, token) => ({
+      query: (id) => ({
         url: `users/${id}`,
         method: "DEL",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Users"],
     }),

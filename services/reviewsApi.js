@@ -3,57 +3,42 @@ import { rootApi } from "./rootApi";
 export const reviewsApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     reviews: builder.query({
-      query: () => ({
-        url: "reviews",
-      }),
+      query: () => "reviews",
       providesTags: ["Reviews"],
     }),
 
     reviewsBootcamp: builder.query({
-      query: (id) => ({
-        url: `bootcamps/${id}/reviews`,
-      }),
+      query: (id) => `bootcamps/${id}/reviews`,
       providesTags: ["Reviews"],
     }),
 
     review: builder.query({
-      query: (id) => ({
-        url: `reviews/${id}`,
-      }),
+      query: (id) => `reviews/${id}`,
       providesTags: ["Reviews"],
     }),
 
     newReview: builder.mutation({
-      query: ({ data, id, token }) => ({
+      query: ({ data, id }) => ({
         url: `bootcamps/${id}/reviews`,
         method: "POST",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Reviews"],
     }),
 
     updateReview: builder.mutation({
-      query: (data, id, token) => ({
+      query: (data, id) => ({
         url: `reviews/${id}`,
         method: "PUT",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Reviews"],
     }),
 
     deleteReview: builder.mutation({
-      query: (id, token) => ({
+      query: (id) => ({
         url: `reviews/${id}`,
         method: "DEL",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Reviews"],
     }),

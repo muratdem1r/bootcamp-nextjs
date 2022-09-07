@@ -4,9 +4,8 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_HOST + "/api/v1/",
     prepareHeaders: (headers, { getState }) => {
-      const states = getState();
-      console.log("States: " + states);
-
+      const accessToken = localStorage.getItem("token");
+      headers.set("Authorization", `Bearer ${accessToken}`);
       return headers;
     },
   }),

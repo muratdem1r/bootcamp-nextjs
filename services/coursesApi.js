@@ -18,36 +18,27 @@ export const coursesApi = rootApi.injectEndpoints({
     }),
 
     newCourse: builder.mutation({
-      query: (data, id, token) => ({
+      query: (data, id) => ({
         url: `bootcamps/${id}/courses`,
         method: "POST",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Courses"],
     }),
 
     updateCourse: builder.mutation({
-      query: (data, id, token) => ({
+      query: (data, id) => ({
         url: `courses/${id}`,
         method: "PUT",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Courses"],
     }),
 
     deleteCourse: builder.mutation({
-      query: (id, token) => ({
+      query: (id) => ({
         url: `courses/${id}`,
         method: "DEL",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Courses"],
     }),

@@ -13,36 +13,27 @@ export const bootcampsApi = rootApi.injectEndpoints({
     }),
 
     newBootcamp: builder.mutation({
-      query: (data, token) => ({
+      query: (data) => ({
         url: "bootcamps",
         method: "POST",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Bootcamps"],
     }),
 
     updateBootcamp: builder.mutation({
-      query: (data, id, token) => ({
+      query: (data, id) => ({
         url: `bootcamps/${id}`,
         method: "PUT",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Bootcamps"],
     }),
 
     deleteBootcamp: builder.mutation({
-      query: (id, token) => ({
+      query: (id) => ({
         url: `bootcamps/${id}`,
         method: "DEL",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Bootcamps"],
     }),
@@ -53,13 +44,10 @@ export const bootcampsApi = rootApi.injectEndpoints({
     }),
 
     uploadBootcampPhoto: builder.mutation({
-      query: (photo, id, token) => ({
+      query: (photo, id) => ({
         url: `bootcamps/${id}`,
         method: "PUT",
         body: photo,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Bootcamps"],
     }),

@@ -25,7 +25,7 @@ function SigninSignupForm() {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setCurrentUser({ user: user.data, token: token }));
+      dispatch(setCurrentUser({ user: user.data }));
       router.push("/");
     }
   }, [user, isSuccess]);

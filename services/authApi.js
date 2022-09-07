@@ -21,12 +21,7 @@ export const authApi = rootApi.injectEndpoints({
     }),
 
     getLoggedinUser: builder.query({
-      query: (token) => ({
-        url: "auth/me",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }),
+      query: () => "auth/me",
       providesTags: ["Auth"],
     }),
 
@@ -49,25 +44,19 @@ export const authApi = rootApi.injectEndpoints({
     }),
 
     updateUserDetails: builder.mutation({
-      query: (data, token) => ({
+      query: (data) => ({
         url: "auth/updatedetails",
         method: "PUT",
         body: data,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Auth"],
     }),
 
     updatePass: builder.mutation({
-      query: (passwords, token) => ({
+      query: (passwords) => ({
         url: "auth/updatepassword",
         method: "PUT",
         body: passwords,
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }),
       invalidatesTags: ["Auth"],
     }),
