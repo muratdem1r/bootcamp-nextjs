@@ -3,8 +3,6 @@ import { rootApi } from "./rootApi";
 const ADMIN = process.env.NEXT_PUBLIC_ADMIN_TOKEN;
 
 export const usersApi = rootApi.injectEndpoints({
-  reducerPath: "usersApi",
-
   endpoints: (builder) => ({
     users: builder.query({
       query: () => ({
@@ -61,6 +59,7 @@ export const usersApi = rootApi.injectEndpoints({
       invalidatesTags: ["Users"],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {

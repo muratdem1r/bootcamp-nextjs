@@ -1,8 +1,6 @@
 import { rootApi } from "./rootApi";
 
 export const coursesApi = rootApi.injectEndpoints({
-  reducerPath: "coursesApi",
-
   endpoints: (builder) => ({
     courses: builder.query({
       query: () => "courses",
@@ -54,6 +52,7 @@ export const coursesApi = rootApi.injectEndpoints({
       invalidatesTags: ["Courses"],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {

@@ -1,8 +1,6 @@
 import { rootApi } from "./rootApi";
 
 export const authApi = rootApi.injectEndpoints({
-  reducerPath: "authApi",
-
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (user) => ({
@@ -74,6 +72,7 @@ export const authApi = rootApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {
@@ -82,5 +81,6 @@ export const {
   useGetLoggedinUserQuery,
   useForgotPassMutation,
   useResetPassMutation,
-  useforgotPassMutation,
+  useUpdateUserDetailsMutation,
+  useUpdatePassMutation,
 } = authApi;

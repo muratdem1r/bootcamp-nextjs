@@ -13,8 +13,8 @@ function ProfilePage() {
   return (
     currentUser && (
       <div>
-        <p>{currentUser.data.name}</p>
-        <p>{currentUser.data.email}</p>
+        <p>{currentUser.name}</p>
+        <p>{currentUser.email}</p>
       </div>
     )
   );

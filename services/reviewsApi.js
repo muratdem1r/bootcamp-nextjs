@@ -1,8 +1,6 @@
 import { rootApi } from "./rootApi";
 
 export const reviewsApi = rootApi.injectEndpoints({
-  reducerPath: "reviewsApi",
-
   endpoints: (builder) => ({
     reviews: builder.query({
       query: () => ({
@@ -60,6 +58,7 @@ export const reviewsApi = rootApi.injectEndpoints({
       invalidatesTags: ["Reviews"],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {

@@ -87,7 +87,7 @@ function Navbar() {
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="text-black inline-flex justify-center items-center rounded-md bg-opacity-20 bg-slate-400 px-2 py-1  hover:bg-opacity-30 hover:text-black">
-                      {currentUser.data.name}
+                      {currentUser.name}
                       <BiChevronDown
                         className="ml-2 -mr-1 h-5 w-5 text-black "
                         aria-hidden="true"

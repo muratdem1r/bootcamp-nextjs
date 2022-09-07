@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-//const accessToken = localStorage.getItem("token");
-/**
- * prepareHeaders: (headers, { getState }) => {
-      headers.set("Authorization", `Bearer ${accessToken}`);
-      return headers;
-    },
- */
-export const rootApi = createApi({
+export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_HOST + "/api/v1/",
-  }),
+    prepareHeaders: (headers, { getState }) => {
+      const states = getState();
+      console.log("States: " + states);
 
-  tagTypes: ["Auth", "Bootcamps", "Courses", "Reviews", "Users"],
+      return headers;
+    },
+  }),
   endpoints: () => ({}),
+});
+export const rootApi = api.enhanceEndpoints({
+  addTagTypes: ["Auth", "Bootcamps", "Courses", "Reviews", "Users"],
 });

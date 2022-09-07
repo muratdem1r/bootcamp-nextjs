@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setCurrentUser(user));
+      dispatch(setCurrentUser({ user: user.data, token: token }));
     }
   }, [user, isSuccess]);
 

@@ -1,8 +1,6 @@
 import { rootApi } from "./rootApi";
 
 export const bootcampsApi = rootApi.injectEndpoints({
-  reducerPath: "bootcampsApi",
-
   endpoints: (builder) => ({
     bootcamps: builder.query({
       query: () => "bootcamps",
@@ -66,6 +64,7 @@ export const bootcampsApi = rootApi.injectEndpoints({
       invalidatesTags: ["Bootcamps"],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const {
