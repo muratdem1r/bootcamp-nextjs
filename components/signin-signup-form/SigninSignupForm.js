@@ -88,7 +88,7 @@ function SigninSignupForm() {
           <label htmlFor="name">Name</label>
           <input
             className="border"
-            type="name"
+            type="text"
             name="name"
             id="registerName"
             onChange={inputHandler}

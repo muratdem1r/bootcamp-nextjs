@@ -51,14 +51,7 @@ function BootcampDetailsPage() {
         courses={courses.data}
       />
     );
-  } else if (isBootcampError) {
-    console.log(bootcampError);
-    content = <NotFound />;
-  } else if (isReviewsError) {
-    console.log(reviewsError);
-    content = <NotFound />;
-  } else if (isCoursesError) {
-    console.log(coursesError);
+  } else if (isBootcampError || isCoursesError || isReviewsError) {
     content = <NotFound />;
   }
 

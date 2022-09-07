@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 
+import Link from "next/link";
 import NextLink from "../ui/NextLink";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -39,7 +40,7 @@ function Navbar() {
     <header className={styles.header}>
       <div className="w-11/12 max-w-7xl mx-auto flex justify-between items-center py-5">
         <div className={styles.logo}>
-          <NextLink href="/">murat</NextLink>
+          <Link href="/">murat</Link>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -71,7 +72,7 @@ function Navbar() {
               }}
               className={router.pathname === "/bootcamps" ? styles.active : ""}
             >
-              <NextLink href="/bootcamps">Bootcamps</NextLink>
+              <Link href="/bootcamps">Bootcamps</Link>
             </li>
             <li
               onClick={() => {
@@ -79,7 +80,7 @@ function Navbar() {
               }}
               className={router.pathname === "/courses" ? styles.active : ""}
             >
-              <NextLink href="/courses">Courses</NextLink>
+              <Link href="/courses">Courses</Link>
             </li>
             <li>
               {currentUser ? (

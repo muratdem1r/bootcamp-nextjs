@@ -26,7 +26,7 @@ export const reviewsApi = rootApi.injectEndpoints({
     }),
 
     newReview: builder.mutation({
-      query: (data, token) => ({
+      query: ({ data, id, token }) => ({
         url: `bootcamps/${id}/reviews`,
         method: "POST",
         body: data,

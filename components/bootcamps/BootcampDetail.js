@@ -7,8 +7,12 @@ import { GrMoney } from "react-icons/gr";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { CgWebsite } from "react-icons/cg";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import ReviewForm from "../reviews/ReviewForm";
 
 function BootcampDetail({ bootcamp, reviews, courses }) {
+  const currentUser = useSelector((state) => state.currentUser.user);
+
   const photo = "/" + bootcamp.photo;
   const options = {
     weekday: "long",
@@ -91,6 +95,7 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
           })}
         </ul>
       </div>
+      {currentUser && <ReviewForm id={bootcamp.id} />}
       <ReviewsList reviews={reviews} />
     </>
   );
