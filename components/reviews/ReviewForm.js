@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { toast } from "react-toastify";
 import { useNewReviewMutation } from "../../services/reviewsApi";
 import Button from "../ui/Button";
 
@@ -22,10 +23,15 @@ function ReviewForm({ id }) {
     });
   };
 
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = async (e) => {
     e.preventDefault();
 
-    newReview({ data: inputs, id, token });
+    const res = await newReview({ data: inputs, id });
+    if (res.error) {
+      toast.error("Something went wrong!");
+    } else {
+      toast.success("You have successfully commented.");
+    }
   };
 
   return (
@@ -51,6 +57,7 @@ function ReviewForm({ id }) {
           className="border"
           name="text"
           id="text"
+          rows={5}
           onChange={inputHandler}
           required
         />

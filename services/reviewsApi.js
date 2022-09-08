@@ -27,7 +27,7 @@ export const reviewsApi = rootApi.injectEndpoints({
     }),
 
     updateReview: builder.mutation({
-      query: (data, id) => ({
+      query: ({ data, id }) => ({
         url: `reviews/${id}`,
         method: "PUT",
         body: data,
@@ -36,9 +36,9 @@ export const reviewsApi = rootApi.injectEndpoints({
     }),
 
     deleteReview: builder.mutation({
-      query: (id) => ({
+      query: ({ id }) => ({
         url: `reviews/${id}`,
-        method: "DEL",
+        method: "DELETE",
       }),
       invalidatesTags: ["Reviews"],
     }),

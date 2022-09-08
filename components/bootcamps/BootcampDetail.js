@@ -9,8 +9,10 @@ import { CgWebsite } from "react-icons/cg";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import ReviewForm from "../reviews/ReviewForm";
+import { useState } from "react";
 
 function BootcampDetail({ bootcamp, reviews, courses }) {
+  const [canReview, setCanReview] = useState(true);
   const currentUser = useSelector((state) => state.currentUser.user);
 
   const photo = "/" + bootcamp.photo;
@@ -95,8 +97,8 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
           })}
         </ul>
       </div>
-      {currentUser && <ReviewForm id={bootcamp.id} />}
-      <ReviewsList reviews={reviews} />
+      {currentUser && canReview && <ReviewForm id={bootcamp.id} />}
+      <ReviewsList reviews={reviews} setCanReview={setCanReview} />
     </>
   );
 }
