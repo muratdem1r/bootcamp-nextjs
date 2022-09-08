@@ -16,16 +16,13 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
   const currentUser = useSelector((state) => state.currentUser.user);
 
   const photo = "/" + bootcamp.photo;
-  const options = {
+
+  const date = new Date(bootcamp.createdAt).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-  };
-  const date = new Date(bootcamp.createdAt).toLocaleDateString(
-    "en-US",
-    options
-  );
+  });
 
   return (
     <>
