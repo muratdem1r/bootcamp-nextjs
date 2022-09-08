@@ -98,7 +98,7 @@ function Profile() {
       <div className="flex flex-col gap-2">
         <h1 className="font-bold">Name</h1>
         <input
-          className={`bg-white ${
+          className={`bg-white duration-100 ease-in-out ${
             updatePressed &&
             "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
           }`}
@@ -114,7 +114,7 @@ function Profile() {
       <div className="flex flex-col gap-2">
         <h1 className="font-bold">Email</h1>
         <input
-          className={`bg-white ${
+          className={`bg-white duration-100 ease-in-out ${
             updatePressed &&
             "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
           }`}

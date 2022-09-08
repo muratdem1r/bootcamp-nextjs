@@ -1,7 +1,5 @@
 import { rootApi } from "./rootApi";
 
-const ADMIN = process.env.NEXT_PUBLIC_ADMIN_TOKEN;
-
 export const usersApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     users: builder.query({
@@ -10,12 +8,7 @@ export const usersApi = rootApi.injectEndpoints({
     }),
 
     user: builder.query({
-      query: (id) => ({
-        url: `users/${id}`,
-        headers: {
-          Authorization: "Bearer " + ADMIN,
-        },
-      }),
+      query: (id) => `users/${id}`,
       providesTags: ["Users"],
     }),
 

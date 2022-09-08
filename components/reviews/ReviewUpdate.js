@@ -15,7 +15,7 @@ import {
 } from "../../services/reviewsApi";
 import Button from "../ui/Button";
 
-function ReviewUpdate({ user, review, setCanReview }) {
+function ReviewUpdate({ review, setCanReview }) {
   const [updatePressed, setUpdatePressed] = useState(false);
   const [updateReview] = useUpdateReviewMutation();
   const [deleteReview] = useDeleteReviewMutation();
@@ -24,6 +24,13 @@ function ReviewUpdate({ user, review, setCanReview }) {
     title: review.title,
     text: review.text,
     rating: review.rating,
+  });
+
+  const date = new Date(review.createdAt).toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   useEffect(() => {
@@ -44,7 +51,7 @@ function ReviewUpdate({ user, review, setCanReview }) {
       toast.error("Something went wrong!");
     } else {
       setUpdatePressed(false);
-      toast.success("You have successfully updated your comment.");
+      toast.success("You have updated your review.");
     }
   };
   const confirmDeleteHandler = async () => {
@@ -54,7 +61,7 @@ function ReviewUpdate({ user, review, setCanReview }) {
       toast.error("Something went wrong!");
     } else {
       setCanReview(true);
-      toast.success("Your review was deleted.");
+      toast.success("Your review has been deleted.");
     }
   };
   const deleteHandler = () => {
@@ -88,27 +95,27 @@ function ReviewUpdate({ user, review, setCanReview }) {
   return (
     <li className="order-first">
       <form
-        className="bg-slate-500 my-10 p-5 text-white grid gap-1"
+        className="bg-slate-500 my-10 p-5 text-white grid gap-1 relative"
         onSubmit={submitHandler}
       >
-        <div className="flex justify-between">
-          <p>
-            {user.data.name}
-            <span className="opacity-20">({user.data.role})</span>
-          </p>
-          <div className="flex text-lg gap-2">
-            <AiFillDelete
-              onClick={deleteHandler}
-              className="text-red-400 cursor-pointer text-xl"
-            />
-            <AiFillEdit
-              onClick={() => setUpdatePressed(!updatePressed)}
-              className="text-green-500 cursor-pointer text-xl"
-            />
-          </div>
-        </div>
-        <p className="mb-1 opacity-40">{user.data.email}</p>
-        <div className="flex">
+        <h5 className="text font-bold text-lg">
+          <input
+            className={`bg-slate-500 font-bold text-lg ease-in-out duration-100 ${
+              updatePressed &&
+              "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
+            }`}
+            type="text"
+            name="title"
+            id="title"
+            value={inputs.title}
+            onChange={inputHandler}
+            disabled={!updatePressed}
+            required
+          />
+          <div className="opacity-40 text-sm font-light">Your review</div>
+        </h5>
+        <p className="opacity-60">{date}</p>
+        <div className="flex my-2">
           {[...Array(10)].map((star, i) => {
             if (i < inputs.rating) {
               return (
@@ -123,7 +130,7 @@ function ReviewUpdate({ user, review, setCanReview }) {
                   key={i}
                   className={
                     updatePressed
-                      ? "cursor-pointer text-yellow-300"
+                      ? "cursor-pointer text-yellow-300 text-xl ease-in-out duration-100"
                       : "text-yellow-300"
                   }
                 />
@@ -139,26 +146,17 @@ function ReviewUpdate({ user, review, setCanReview }) {
                   }
                 }}
                 key={i}
-                className={updatePressed ? "cursor-pointer" : ""}
+                className={
+                  updatePressed
+                    ? "cursor-pointer text-xl ease-in-out duration-100"
+                    : ""
+                }
               />
             );
           })}
         </div>
-        <input
-          className={`bg-slate-500 font-bold text-lg resize-none h-fix ${
-            updatePressed &&
-            "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
-          }`}
-          type="text"
-          name="title"
-          id="title"
-          value={inputs.title}
-          onChange={inputHandler}
-          disabled={!updatePressed}
-          required
-        />
         <textarea
-          className={`bg-slate-500 font-['Nunito'] resize-none h-fix ${
+          className={`bg-slate-500 font-['Nunito'] resize-none ease-in-out duration-100 ${
             updatePressed &&
             "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100"
           }`}
@@ -170,9 +168,19 @@ function ReviewUpdate({ user, review, setCanReview }) {
           disabled={!updatePressed}
           required
         />
+        <div className="flex gap-2 absolute top-0 right-0 m-5">
+          <AiFillDelete
+            onClick={deleteHandler}
+            className="text-red-400 cursor-pointer text-xl"
+          />
+          <AiFillEdit
+            onClick={() => setUpdatePressed(!updatePressed)}
+            className="text-green-500 cursor-pointer text-xl"
+          />
+        </div>
         {updatePressed && (
           <Button className="py-2.5 px-5 bg-green-500 w-1/4 ml-auto mt-2">
-            Save
+            Update
           </Button>
         )}
       </form>

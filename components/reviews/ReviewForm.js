@@ -30,7 +30,7 @@ function ReviewForm({ id }) {
     if (res.error) {
       toast.error("Something went wrong!");
     } else {
-      toast.success("You have successfully commented.");
+      toast.success("Your review has been sent.");
     }
   };
 
@@ -39,11 +39,11 @@ function ReviewForm({ id }) {
       className="flex flex-col gap-5 p-5 shadow my-5"
       onSubmit={formSubmitHandler}
     >
-      <h1 className="font-bold">Leave a Comment</h1>
+      <h1 className="font-bold">Leave a Review</h1>
       <div className="flex flex-col gap-2">
         <label htmlFor="title">Title</label>
         <input
-          className="border"
+          className="border p-1"
           type="text"
           name="title"
           id="title"
@@ -54,7 +54,7 @@ function ReviewForm({ id }) {
       <div className="flex flex-col gap-2">
         <label htmlFor="text">Text</label>
         <textarea
-          className="border"
+          className="border p-1"
           name="text"
           id="text"
           rows={5}
