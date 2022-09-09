@@ -1,9 +1,45 @@
-import BootcampHome from "../components/bootcamps/BootcampHome";
+import HomeCard from "../components/ui/HomeCard";
+import { useBootcampsQuery } from "../services/bootcampsApi";
+import { useCoursesQuery } from "../services/coursesApi";
 
 function HomePage() {
+  // First Bootcamp
+  const { data: bootcamps, isSuccess: isSuccessFirstBootcamp } =
+    useBootcampsQuery();
+
+  let firstBootcamp;
+  let firstBootcampPhoto;
+  let firstBootcampLink;
+
+  if (isSuccessFirstBootcamp) {
+    firstBootcamp = bootcamps?.data[0];
+    firstBootcampPhoto = "/" + firstBootcamp?.photo;
+    firstBootcampLink = `/bootcamps/${firstBootcamp?.id}`;
+  }
+
+  // First Course
+  const { data: courses, isSuccess: isSuccessFirstCourse } = useCoursesQuery();
+
+  let firstCourse;
+  let firstCoursePhoto;
+  let firstCourseLink;
+
+  if (isSuccessFirstCourse) {
+    firstCourse = courses?.data[0];
+    firstCoursePhoto = "/course.jpg";
+    firstCourseLink = `/courses/${firstCourse?._id}`;
+  }
+
   return (
     <>
-      <BootcampHome />
+      <HomeCard
+        name={firstBootcamp?.name}
+        desc={firstBootcamp?.description}
+        link={firstBootcampLink}
+        photo={firstBootcampPhoto}
+        textGradient={"gradient-text-purple"}
+        photoGradient={"after:from-indigo-500 after:to-pink-500"}
+      />
       <div className="my-20">
         <h1 className="gradient-text-purple font-bold text-2xl">
           What is a coding bootcamp?
@@ -50,6 +86,14 @@ function HomePage() {
           the need of skilled software engineers in industry.
         </p>
       </div>
+      <HomeCard
+        name={firstCourse?.title}
+        desc={firstCourse?.description}
+        link={firstCourseLink}
+        photo={firstCoursePhoto}
+        textGradient={"gradient-text-orange"}
+        photoGradient={"after:from-pink-500 after:to-orange-500"}
+      />
     </>
   );
 }
