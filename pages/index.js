@@ -33,6 +33,7 @@ function HomePage() {
   return (
     <>
       <HomeCard
+        title={"Check this bootcamp!"}
         name={firstBootcamp?.name}
         desc={firstBootcamp?.description}
         link={firstBootcampLink}
@@ -87,6 +88,7 @@ function HomePage() {
         </p>
       </div>
       <HomeCard
+        title={"Check this course!"}
         name={firstCourse?.title}
         desc={firstCourse?.description}
         link={firstCourseLink}
@@ -94,6 +96,32 @@ function HomePage() {
         textGradient={"gradient-text-orange"}
         photoGradient={"after:from-pink-500 after:to-orange-500"}
       />
+      <div className="my-20">
+        <h1 className="gradient-text-orange text-center font-bold text-2xl">
+          There's a lot to learn!
+        </h1>
+        <p className="font-bold text-center leading-7 my-4">
+          Getting professional-level development skills takes a lot of work and
+          there are many different skills that are important to learn!
+        </p>
+        <p className="text-center leading-7 my-4">
+          Regardless of the program you choose to enroll in its important to
+          know that as a professional developer it is important to have certain
+          skill sets. Things like: a programming language, a web framework,
+          experience with server and hosting functionality, and databases are
+          all important skills to learn. Within each of these categories of
+          technologies there are specific technologies, each with trade-offs and
+          benefits both for and against them.
+        </p>
+        <p className="text-center leading-7 my-4">
+          Does this sound like a big commitment to you? If it does I don’t blame
+          you. Luckily, when learning a skill as complex as programming picking
+          up the foundations will set you up better in the long run. Given the
+          programming field changes so frequently, your best bet is to focus
+          your energy on understanding the programming concepts that will
+          withstand the test of time.
+        </p>
+      </div>
     </>
   );
 }
