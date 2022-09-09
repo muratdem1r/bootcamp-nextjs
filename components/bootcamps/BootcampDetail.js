@@ -43,6 +43,12 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
         </div>
         <p className="my-3 max-w-2xl">{bootcamp.description}</p>
         <div className="flex items-center gap-x-2">
+          Average Rating:{" "}
+          <span className="font-bold text-yellow-500">
+            {bootcamp.averageRating}
+          </span>
+        </div>
+        <div className="flex items-center gap-x-2">
           Job Assistance:
           {bootcamp.jobAssistance ? (
             <BsCheckLg className="text-green-600 text-xl" />
