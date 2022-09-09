@@ -53,10 +53,13 @@ export const authApi = rootApi.injectEndpoints({
     }),
 
     updatePass: builder.mutation({
-      query: (passwords) => ({
+      query: ({ currentPassword, newPassword }) => ({
         url: "auth/updatepassword",
         method: "PUT",
-        body: passwords,
+        body: {
+          currentPassword,
+          newPassword,
+        },
       }),
       invalidatesTags: ["Auth"],
     }),

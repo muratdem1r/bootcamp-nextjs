@@ -22,7 +22,7 @@ export const usersApi = rootApi.injectEndpoints({
     }),
 
     updateUser: builder.mutation({
-      query: (data, id) => ({
+      query: ({ data, id }) => ({
         url: `users/${id}`,
         method: "PUT",
         body: data,

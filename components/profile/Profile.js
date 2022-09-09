@@ -1,18 +1,33 @@
 import { useState } from "react";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useDeleteUserMutation } from "../../services/usersApi";
+import {
+  useUpdatePassMutation,
+  useUpdateUserDetailsMutation,
+} from "../../services/authApi";
 import Button from "../ui/Button";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Profile() {
   const currentUser = useSelector((state) => state.currentUser.user);
-  const [deleteUser] = useDeleteUserMutation();
+  const [updateUser] = useUpdateUserDetailsMutation();
+  const [updatePass] = useUpdatePassMutation();
 
   const [updatePressed, setUpdatePressed] = useState(false);
-  const [password, setPassword] = useState("");
+  const [mismatchedPass, setMismatchedPass] = useState(false);
+  const [wrongPass, setWrongPass] = useState(false);
+
+  const [passwords, setPasswords] = useState({
+    currentPass: "",
+    newPass: "",
+    newPassConfirm: "",
+  });
+  const [passwordTypes, setPasswordTypes] = useState({
+    currentPass: "password",
+    newPass: "password",
+    newPassConfirm: "password",
+  });
 
   const [inputs, setInputs] = useState({
     name: currentUser.name,
@@ -26,137 +41,252 @@ function Profile() {
       return { ...prev, [name]: value };
     });
   };
+
   const updateSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(password);
+    const res = await updateUser(inputs);
+    if (res.error) {
+      toast.error("Something went wrong!");
+    } else {
+      setUpdatePressed(false);
+      toast.success("You have updated your profile.");
+    }
+  };
+  const changePassSubmitHandler = async (e) => {
+    e.preventDefault();
+    const { currentPass, newPass, newPassConfirm } = passwords;
+
+    if (newPass !== newPassConfirm) {
+      setMismatchedPass(true);
+    } else {
+      setMismatchedPass(false);
+      const res = await updatePass({
+        currentPassword: currentPass,
+        newPassword: newPass,
+      });
+      if (res.error) {
+        if (res.error.status === 401) {
+          setWrongPass(true);
+          return;
+        } else {
+          toast.error("Something went wrong!");
+        }
+      } else {
+        setUpdatePressed(false);
+        setWrongPass(false);
+        toast.success("You have updated your password.");
+      }
+    }
   };
 
-  const options = {
+  const date = new Date(currentUser.createdAt).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
-  };
-  const date = new Date(currentUser.createdAt).toLocaleDateString(
-    "en-US",
-    options
-  );
-
-  const confirmDeleteHandler = async () => {
-    const res = await deleteUser({ id: currentUser._id });
-    if (res.error) {
-      console.log(res.error);
-      toast.error("Something went wrong!");
-    } else {
-      localStorage.clear("token");
-      toast.success("Your account has been deleted.");
-    }
-  };
-  const deleteHandler = () => {
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div className="custom-ui ">
-            <h1>Are you sure?</h1>
-            <p>You want to delete this acount?</p>
-            <button
-              className="text-green-500 block border border-green-500 rounded p-2 my-2 w-full hover:bg-green-500 hover:text-white ease-in-out duration-300"
-              onClick={onClose}
-            >
-              No
-            </button>
-            <button
-              className="text-red-500 block border border-red-500 rounded p-2 my-2 w-full hover:bg-red-500 hover:text-white  ease-in-out duration-300"
-              onClick={() => {
-                confirmDeleteHandler();
-                onClose();
-              }}
-            >
-              Yes, Delete it!
-            </button>
-          </div>
-        );
-      },
-    });
-  };
+  });
 
   return (
-    <form
-      onSubmit={updateSubmitHandler}
-      className="flex flex-col gap-5 p-5 shadow my-10 relative"
-    >
-      <div className="flex text-lg gap-2 absolute right-0 top-0 m-5">
-        <AiFillDelete
-          onClick={deleteHandler}
-          className="text-red-400 cursor-pointer text-xl"
-        />
-        <AiFillEdit
-          onClick={() => setUpdatePressed(!updatePressed)}
-          className="text-green-500 cursor-pointer text-xl"
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <h1 className="font-bold">Name</h1>
-        <input
-          className={`bg-white duration-100 ease-in-out ${
-            updatePressed &&
-            "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
-          }`}
-          type="text"
-          name="name"
-          id="name"
-          value={inputs.name}
-          onChange={inputHandler}
-          disabled={!updatePressed}
-          required
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <h1 className="font-bold">Email</h1>
-        <input
-          className={`bg-white duration-100 ease-in-out ${
-            updatePressed &&
-            "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
-          }`}
-          type="email"
-          name="email"
-          id="email"
-          value={inputs.email}
-          onChange={inputHandler}
-          disabled={!updatePressed}
-          required
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <h1 className="font-bold">Role</h1>
-        <p>{currentUser.role}</p>
-      </div>
-      <div className="flex flex-col gap-2">
-        <h1 className="font-bold">Created At</h1>
-        <p>{date}</p>
-      </div>
-      {updatePressed && (
-        <div className="flex items-center">
-          <div>
-            <p className="text-red-600 font-bold">Enter your password</p>
-            <input
-              className="border-2 border-red-300 rounded p-2 focus:outline-none focus:border-red-100 mb-5"
-              minLength={6}
-              type="password"
-              name="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <Button className="py-2.5 px-5 bg-green-500 w-1/4 ml-auto mt-2">
+    <>
+      <form
+        onSubmit={updateSubmitHandler}
+        className="flex flex-col gap-5 p-5 shadow my-10 relative"
+      >
+        <div className="flex text-lg gap-2 absolute right-0 top-0 m-5">
+          <AiFillEdit
+            onClick={() => setUpdatePressed(!updatePressed)}
+            className="text-green-500 cursor-pointer text-xl"
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-bold">Name</h1>
+          <input
+            className={`bg-white duration-100 ease-in-out ${
+              updatePressed &&
+              "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
+            }`}
+            type="text"
+            name="name"
+            id="name"
+            value={inputs.name}
+            onChange={inputHandler}
+            disabled={!updatePressed}
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-bold">Email</h1>
+          <input
+            className={`bg-white duration-100 ease-in-out ${
+              updatePressed &&
+              "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
+            }`}
+            type="email"
+            name="email"
+            id="email"
+            value={inputs.email}
+            onChange={inputHandler}
+            disabled={!updatePressed}
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-bold">Role</h1>
+          <p>{currentUser.role}</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-bold">Created At</h1>
+          <p>{date}</p>
+        </div>
+        {updatePressed && (
+          <Button className="py-2.5 px-5 bg-green-500  mt-2 sm:w-1/4 sm:ml-auto">
             Save
           </Button>
-        </div>
+        )}
+      </form>
+      {updatePressed && (
+        <form onSubmit={changePassSubmitHandler} className="flex flex-col">
+          <div className="my-5 flex flex-col sm:flex-row sm:items-center gap-3">
+            <label htmlFor="currentPass">Current Password:</label>
+            <div>
+              <input
+                className={`
+                border-2 rounded p-2 focus:outline-none  ml-2 ${
+                  wrongPass
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-slate-300 focus:border-slate-100"
+                }`}
+                type={passwordTypes.currentPass}
+                name="currentPass"
+                id="currentPass"
+                required
+                minLength={6}
+                value={passwords.currentPass}
+                onChange={(e) =>
+                  setPasswords((prev) => {
+                    return { ...prev, currentPass: e.target.value };
+                  })
+                }
+              />
+              {passwordTypes.currentPass === "password" ? (
+                <FaEyeSlash
+                  onClick={() =>
+                    setPasswordTypes((prev) => {
+                      return { ...prev, currentPass: "text" };
+                    })
+                  }
+                  className="inline ml-2 cursor-pointer"
+                />
+              ) : (
+                <FaEye
+                  onClick={() =>
+                    setPasswordTypes((prev) => {
+                      return { ...prev, currentPass: "password" };
+                    })
+                  }
+                  className="inline ml-2 cursor-pointer"
+                />
+              )}
+            </div>
+          </div>
+          <div className="my-5 flex flex-col sm:flex-row sm:items-center gap-3">
+            <label htmlFor="newPass">New Password:</label>
+            <div>
+              <input
+                className={`
+                border-2 rounded p-2 focus:outline-none  ml-2 ${
+                  mismatchedPass
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-slate-300 focus:border-slate-100"
+                }`}
+                type={passwordTypes.newPass}
+                name="newPass"
+                id="newPass"
+                required
+                minLength={6}
+                value={passwords.newPass}
+                onChange={(e) =>
+                  setPasswords((prev) => {
+                    return { ...prev, newPass: e.target.value };
+                  })
+                }
+              />
+              {passwordTypes.newPass === "password" ? (
+                <FaEyeSlash
+                  onClick={() =>
+                    setPasswordTypes((prev) => {
+                      return { ...prev, newPass: "text" };
+                    })
+                  }
+                  className="inline ml-2 cursor-pointer"
+                />
+              ) : (
+                <FaEye
+                  onClick={() =>
+                    setPasswordTypes((prev) => {
+                      return { ...prev, newPass: "password" };
+                    })
+                  }
+                  className="inline ml-2 cursor-pointer"
+                />
+              )}
+            </div>
+          </div>
+          <div className="my-5 flex flex-col sm:flex-row sm:items-center gap-3">
+            <label htmlFor="newPassConfirm">Confirm:</label>
+            <div>
+              <input
+                className={`
+                border-2 rounded p-2 focus:outline-none  ml-2 ${
+                  mismatchedPass
+                    ? "border-red-500 focus:border-red-400"
+                    : "border-slate-300 focus:border-slate-100"
+                }`}
+                type={passwordTypes.newPassConfirm}
+                name="newPassConfirm"
+                id="newPassConfirm"
+                required
+                minLength={6}
+                value={passwords.newPassConfirm}
+                onChange={(e) =>
+                  setPasswords((prev) => {
+                    return { ...prev, newPassConfirm: e.target.value };
+                  })
+                }
+              />
+              {passwordTypes.newPassConfirm === "password" ? (
+                <FaEyeSlash
+                  onClick={() =>
+                    setPasswordTypes((prev) => {
+                      return { ...prev, newPassConfirm: "text" };
+                    })
+                  }
+                  className="inline ml-2 cursor-pointer"
+                />
+              ) : (
+                <FaEye
+                  onClick={() =>
+                    setPasswordTypes((prev) => {
+                      return { ...prev, newPassConfirm: "password" };
+                    })
+                  }
+                  className="inline ml-2 cursor-pointer"
+                />
+              )}
+            </div>
+          </div>
+          {mismatchedPass && (
+            <p className="text-red-600 font-bold">passwords must match.</p>
+          )}
+          {wrongPass && (
+            <p className="text-red-600 font-bold">Wrong password.</p>
+          )}
+          <Button className="py-2.5 px-5 bg-red-600 mt-2 sm:w-1/4">
+            Change Password
+          </Button>
+        </form>
       )}
-    </form>
+    </>
   );
 }
 
