@@ -1,8 +1,14 @@
 import HomeCard from "../components/ui/HomeCard";
 import { useBootcampsQuery } from "../services/bootcampsApi";
 import { useCoursesQuery } from "../services/coursesApi";
+import { useInView } from "react-intersection-observer";
 
 function HomePage() {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
   // First Bootcamp
   const { data: bootcamps, isSuccess: isSuccessFirstBootcamp } =
     useBootcampsQuery();
@@ -87,15 +93,19 @@ function HomePage() {
           the need of skilled software engineers in industry.
         </p>
       </div>
-      <HomeCard
-        title={"Check this course!"}
-        name={firstCourse?.title}
-        desc={firstCourse?.description}
-        link={firstCourseLink}
-        photo={firstCoursePhoto}
-        textGradient={"gradient-text-orange"}
-        photoGradient={"after:from-pink-500 after:to-orange-500"}
-      />
+      <div ref={ref}>
+        {inView && (
+          <HomeCard
+            title={"Check this course!"}
+            name={firstCourse?.title}
+            desc={firstCourse?.description}
+            link={firstCourseLink}
+            photo={firstCoursePhoto}
+            textGradient={"gradient-text-orange"}
+            photoGradient={"after:from-pink-500 after:to-orange-500"}
+          />
+        )}
+      </div>
       <div className="my-20">
         <h1 className="gradient-text-orange text-center font-bold text-2xl">
           There's a lot to learn!

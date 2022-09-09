@@ -17,7 +17,7 @@ function HomeCard({
   const [isShowing, setIsShowing] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsShowing(true), 500);
+    const timer = setTimeout(() => setIsShowing(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
