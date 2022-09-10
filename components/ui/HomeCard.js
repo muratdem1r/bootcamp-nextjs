@@ -17,13 +17,12 @@ function HomeCard({
   const [isShowing, setIsShowing] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsShowing(true), 300);
-    return () => clearTimeout(timer);
+    setIsShowing(true);
   }, []);
 
   return (
     <div
-      className={`flex flex-col justify-between items-center shadow-sm p-5  border border-black rounded md:flex-row md:px-24 md:py-24 ${className}`}
+      className={`flex flex-col overflow-hidden justify-between items-center shadow-md p-5 border-black rounded md:flex-row md:px-24 md:py-24 ${className}`}
     >
       <div>
         {name && (
@@ -38,7 +37,7 @@ function HomeCard({
           enterFrom="translate-y-52 opacity-0"
           enterTo="translate-y-0 opacity-100"
         >
-          <h1 className="text-2xl font-bold">{name}</h1>
+          <h1 className="text-2xl font-bold deneme">{name}</h1>
           <p className="my-3 max-w-xl">{desc}</p>
           {link && (
             <NextLink href={link || ""}>
@@ -53,21 +52,20 @@ function HomeCard({
       </div>
       {photo && (
         <Transition
-          className="overflow-hidden"
           show={isShowing}
-          enter="transition duration-700 ease-out"
+          enter="transition duration-500 ease-in"
           enterFrom="translate-x-52 opacity-0"
           enterTo="translate-x-0 opacity-100"
         >
           <div
-            className={`relative after:w-1/2 after:h-1/2 after:bg-gradient-to-r after:absolute after:bottom-0 after:-right-1 after:rounded-br after:-z-10 md:ml-5 ${photoGradient}`}
+            className={`relative w-[320px] h-[320px]  after:w-1/2 after:h-1/2 after:bg-gradient-to-r after:absolute after:-bottom-1.5 after:-right-1.5 after:rounded after:-z-10 md:ml-5 ${photoGradient}`}
           >
             <Image
-              width={320}
-              height={320}
+              width="320"
+              height="320"
               src={photo}
               alt={name}
-              className="rounded"
+              className="rounded overflow-visible"
             />
           </div>
         </Transition>

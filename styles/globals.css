@@ -14,10 +14,15 @@
 body{
     font-family: 'Roboto Mono', monospace;
     font-weight: 300;
+    overflow-x: hidden;
+    
 }
 p{
     font-family: 'Nunito', sans-serif;
     font-weight: 300;
+}
+p,h1,h2,h3,h4,h5{
+    word-break: break-word;
 }
 
 @layer utilities{
