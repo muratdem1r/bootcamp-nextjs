@@ -22,7 +22,7 @@ function HomeCard({
 
   return (
     <div
-      className={`flex flex-col overflow-hidden justify-between items-center shadow-md p-5 border-black rounded md:flex-row md:px-24 md:py-24 ${className}`}
+      className={`flex flex-col overflow-hidden justify-between items-center shadow p-5 border-black rounded md:flex-row md:px-24 md:py-24 ${className}`}
     >
       <div>
         {name && (
@@ -31,7 +31,7 @@ function HomeCard({
           </p>
         )}
         <Transition
-          className="overflow-hidden"
+          className="overflow-hidden flex flex-col gap-3"
           show={isShowing}
           enter="transition duration-500 ease-in"
           enterFrom="translate-y-52 opacity-0"
@@ -42,7 +42,7 @@ function HomeCard({
           {link && (
             <NextLink href={link || ""}>
               <Button
-                className={`border border-black p-2 text-xl font-bold mb-5 ${textGradient}`}
+                className={`py-4 px-8 border-2  border-black shadow-lg rounded text-xl font-bold mb-5 ml-1 ${textGradient}  `}
               >
                 Check out
               </Button>

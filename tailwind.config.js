@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         "custom-orange": "#FC521D",
       },
+      backgroundImage: {
+        "p-quadro": "url('/quadro.svg')",
+      },
     },
   },
   plugins: [],
