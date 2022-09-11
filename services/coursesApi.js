@@ -3,7 +3,10 @@ import { rootApi } from "./rootApi";
 export const coursesApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     courses: builder.query({
-      query: () => "courses",
+      query: (page = 1) => ({
+        url: "courses",
+        params: { limit: 12, page: page },
+      }),
       providesTags: ["Courses"],
     }),
 

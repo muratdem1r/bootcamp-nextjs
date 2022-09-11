@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 
 function BootcampItem({ bootcamp }) {
   return (
-    <Card className="bg-slate-300">
+    <Card className="bg-slate-300 h-full">
       <h1 className="text-white font-bold text-2xl text-center">
         {bootcamp.name}
       </h1>
@@ -21,15 +21,14 @@ function BootcampItem({ bootcamp }) {
             );
           })}
         </ul>
-
-        <Link href={"/bootcamps/" + bootcamp._id}>
-          <a>
-            <Button className="text-xs py-1 px-3 rounded bg-indigo-800">
-              More info
-            </Button>
-          </a>
-        </Link>
       </div>
+      <Link href={"/bootcamps/" + bootcamp._id}>
+        <a className="ml-auto">
+          <Button className="text-xs p-3 rounded bg-indigo-800">
+            More info
+          </Button>
+        </a>
+      </Link>
     </Card>
   );
 }

@@ -2,19 +2,27 @@
 
 import { FaRegHandPointDown } from "react-icons/fa";
 import { useCoursesQuery } from "../../services/coursesApi";
+import { useState, useEffect } from "react";
 
 // Components
 import CoursesList from "../../components/courses/CoursesList";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 function CoursesPage() {
-  const {
-    data: courses,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useCoursesQuery();
+  const [page, setPage] = useState(1);
+  const [nextPage, setNextPage] = useState(1);
+  const [courses, setCourses] = useState([]);
+
+  const { data, isLoading, isSuccess, isError, error } = useCoursesQuery(page);
+
+  useEffect(() => {
+    if (data?.data?.length) {
+      setCourses([...courses, ...data.data]);
+      if (data?.pagination?.next?.page) {
+        setNextPage(data.pagination.next.page);
+      }
+    }
+  }, [data]);
 
   let content;
   if (isLoading) {
@@ -26,7 +34,7 @@ function CoursesPage() {
           Courses
           <FaRegHandPointDown className="inline" />
         </h1>
-        <CoursesList courses={courses.data} />
+        <CoursesList courses={courses} setPage={setPage} nextPage={nextPage} />
       </>
     );
   } else if (isError) {

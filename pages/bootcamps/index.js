@@ -2,19 +2,33 @@
 
 import { FaRegHandPointDown } from "react-icons/fa";
 import { useBootcampsQuery } from "../../services/bootcampsApi";
+import { useState, useEffect } from "react";
 
 // Components
 import BootcampList from "../../components/bootcamps/BootcampList";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 function BootcampsPage() {
+  const [page, setPage] = useState(1);
+  const [nextPage, setNextPage] = useState(1);
+  const [bootcamps, setBootcamps] = useState([]);
+
   const {
-    data: bootcamps,
+    data = [],
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useBootcampsQuery();
+  } = useBootcampsQuery(page);
+
+  useEffect(() => {
+    if (data?.data?.length) {
+      setBootcamps([...bootcamps, ...data.data]);
+      if (data?.pagination?.next?.page) {
+        setNextPage(data.pagination.next.page);
+      }
+    }
+  }, [data]);
 
   let content;
   if (isLoading) {
@@ -26,7 +40,11 @@ function BootcampsPage() {
           Bootcamps
           <FaRegHandPointDown className="inline" />
         </h1>
-        <BootcampList bootcamps={bootcamps.data} />
+        <BootcampList
+          setPage={setPage}
+          nextPage={nextPage}
+          bootcamps={bootcamps}
+        />
       </>
     );
   } else if (isError) {

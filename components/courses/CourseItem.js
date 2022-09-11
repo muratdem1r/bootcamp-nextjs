@@ -12,7 +12,7 @@ function CourseItem({ course }) {
   };
 
   return (
-    <Card className="bg-orange-200">
+    <Card className="bg-orange-200 h-full">
       <h1 className="text-white font-bold text-2xl text-center">
         {course.title}
       </h1>

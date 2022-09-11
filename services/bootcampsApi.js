@@ -3,7 +3,10 @@ import { rootApi } from "./rootApi";
 export const bootcampsApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     bootcamps: builder.query({
-      query: () => "bootcamps",
+      query: (page = 1) => ({
+        url: "bootcamps",
+        params: { limit: 12, page: page },
+      }),
       providesTags: ["Bootcamps"],
     }),
 
