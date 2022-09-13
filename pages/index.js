@@ -2,6 +2,8 @@ import HomeCard from "../components/ui/HomeCard";
 import { useBootcampsQuery } from "../services/bootcampsApi";
 import { useCoursesQuery } from "../services/coursesApi";
 import { useInView } from "react-intersection-observer";
+import { GiTeacher } from "react-icons/gi";
+import { TbCertificate } from "react-icons/tb";
 
 function HomePage() {
   const { ref, inView, entry } = useInView({
@@ -48,8 +50,8 @@ function HomePage() {
         textGradient={"gradient-text-purple"}
         photoGradient={"after:from-indigo-500 after:to-pink-500"}
       />
-      <div className="">
-        <div className="my-20 lg:bg-p-quadro bg-right bg-cover">
+      <div className="flex justify-between items-center lg:bg-p-quadro bg-right bg-cover my-32">
+        <div>
           <h1 className="gradient-text-purple font-bold text-2xl">
             What is a coding bootcamp?
           </h1>
@@ -70,7 +72,11 @@ function HomePage() {
             they have the skills to add real value to a potential employer.
           </p>
         </div>
-        <div className="my-20 md:text-right lg:bg-p-quadro bg-left bg-cover">
+        <GiTeacher className="hidden lg:block w-1/5 h-1/5 text-zinc-900 mr-10" />
+      </div>
+      <div className="flex justify-between items-center lg:bg-p-quadro bg-right bg-cover my-32">
+        <TbCertificate className="hidden lg:block w-1/5 h-1/5 text-zinc-900 ml-10" />
+        <div className="lg:text-right">
           <h1 className="gradient-text-purple font-bold text-2xl">
             Why Coding Bootcamps Are Important?
           </h1>

@@ -12,6 +12,7 @@ import { logout } from "../../store/slices/currentUserSlice";
 import { Menu, Transition } from "@headlessui/react";
 import { GiTireIronCross } from "react-icons/gi";
 import { BiChevronDown, BiUser, BiLogOut } from "react-icons/bi";
+import { FaSolarPanel } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
 import Button from "../ui/Button";
 
@@ -124,6 +125,27 @@ function Navbar() {
                             </NextLink>
                           )}
                         </Menu.Item>
+                        {currentUser.role === "admin" && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <NextLink href="/dashboard">
+                                <button
+                                  onClick={() => {
+                                    setIsOpen(false);
+                                  }}
+                                  className={`${
+                                    active
+                                      ? "bg-gray-500 text-white"
+                                      : "text-gray-900"
+                                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                >
+                                  <FaSolarPanel className="mr-2" />
+                                  Dashboard
+                                </button>
+                              </NextLink>
+                            )}
+                          </Menu.Item>
+                        )}
                         <Menu.Item>
                           {({ active }) => (
                             <button

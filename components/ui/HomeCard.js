@@ -22,7 +22,7 @@ function HomeCard({
 
   return (
     <div
-      className={`flex flex-col overflow-hidden justify-between items-center shadow p-5 border-black rounded md:flex-row md:px-24 md:py-24 ${className}`}
+      className={`flex flex-col overflow-hidden justify-between items-center shadow p-5 border-black rounded lg:flex-row lg:px-24 lg:py-24 ${className}`}
     >
       <div>
         {name && (
@@ -52,22 +52,20 @@ function HomeCard({
       </div>
       {photo && (
         <Transition
+          className={`relative w-full lg:w-[320px] h-[320px]   after:w-1/2 after:h-1/2 after:bg-gradient-to-r after:absolute after:-bottom-1.5 after:-right-1.5 after:rounded after:-z-10 mt-5 lg:mt-0 md:ml-5 ${photoGradient}`}
           show={isShowing}
           enter="transition duration-500 ease-in"
           enterFrom="translate-x-52 opacity-0"
           enterTo="translate-x-0 opacity-100"
         >
-          <div
-            className={`relative w-[320px] h-[320px]  after:w-1/2 after:h-1/2 after:bg-gradient-to-r after:absolute after:-bottom-1.5 after:-right-1.5 after:rounded after:-z-10 md:ml-5 ${photoGradient}`}
-          >
-            <Image
-              width="320"
-              height="320"
-              src={photo}
-              alt={name}
-              className="rounded overflow-visible"
-            />
-          </div>
+          <Image
+            width="1920"
+            height="1280"
+            layout="fill"
+            src={photo}
+            alt={name}
+            className="object-cover rounded overflow-visible"
+          />
         </Transition>
       )}
     </div>

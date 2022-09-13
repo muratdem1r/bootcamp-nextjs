@@ -39,13 +39,14 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
         <h1 className="text-2xl font-bold">{bootcamp.name}</h1>
         <h5>{date}</h5>
         <div className="text-green-500 font-bold flex items-center gap-x-2">
-          <GrMoney className="text-xl" />${bootcamp.averageCost}
+          <GrMoney className="text-xl" />
+          {bootcamp.averageCost ? `$${bootcamp.averageCost}` : "Free"}
         </div>
         <p className="my-3 max-w-2xl">{bootcamp.description}</p>
         <div className="flex items-center gap-x-2">
           Average Rating:{" "}
           <span className="font-bold text-yellow-500">
-            {bootcamp.averageRating}
+            {bootcamp.averageRating || "No Rating"}
           </span>
         </div>
         <div className="flex items-center gap-x-2">
@@ -84,21 +85,23 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
           <CgWebsite className="text-xl" />
           {bootcamp.website}
         </div>
-        <ul className="flex flex-wrap gap-y-2 gap-x-4">
-          <h5 className="w-full font-bold">Courses</h5>
-          {courses.map((course, i) => {
-            return (
-              <li
-                className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
-                key={i}
-              >
-                <Link href={"/courses/" + course._id}>
-                  <a className="inline-block p-1">{course.title}</a>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {courses.length > 0 && (
+          <ul className="flex flex-wrap gap-y-2 gap-x-4">
+            <h5 className="w-full font-bold">Courses</h5>
+            {courses.map((course, i) => {
+              return (
+                <li
+                  className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
+                  key={i}
+                >
+                  <Link href={"/courses/" + course._id}>
+                    <a className="inline-block p-1">{course.title}</a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
       {currentUser && canReview && <ReviewForm id={bootcamp.id} />}
       <ReviewsList reviews={reviews} setCanReview={setCanReview} />
