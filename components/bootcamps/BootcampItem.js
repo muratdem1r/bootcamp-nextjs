@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 // Components
 import Card from "../ui/Card";
 import Button from "../ui/Button";
+import UpdateBootcamp from "./UpdateBootcamp";
 
-function BootcampItem({ bootcamp }) {
+function BootcampItem({ bootcamp, setPage }) {
+  const currentUser = useSelector((state) => state.currentUser.user);
   return (
     <Card className="bg-slate-300 h-full">
       <h1 className="text-white font-bold text-2xl text-center">
@@ -22,13 +25,18 @@ function BootcampItem({ bootcamp }) {
           })}
         </ul>
       </div>
-      <Link href={"/bootcamps/" + bootcamp._id}>
-        <a className="ml-auto">
-          <Button className="text-xs p-3 rounded bg-indigo-800">
-            More info
-          </Button>
-        </a>
-      </Link>
+      <div className="flex items-center">
+        {currentUser?._id === bootcamp.user && (
+          <UpdateBootcamp bootcamp={bootcamp} setPage={setPage} />
+        )}
+        <Link href={"/bootcamps/" + bootcamp._id}>
+          <a className="ml-auto">
+            <Button className="text-xs p-3 rounded bg-indigo-800">
+              More info
+            </Button>
+          </a>
+        </Link>
+      </div>
     </Card>
   );
 }

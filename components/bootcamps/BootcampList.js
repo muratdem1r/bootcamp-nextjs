@@ -16,11 +16,13 @@ function BootcampList({ bootcamps, setPage, nextPage }) {
                 }
               }}
             >
-              <BootcampItem bootcamp={bootcamp} />
+              <BootcampItem bootcamp={bootcamp} setPage={setPage} />
             </InView>
           );
         }
-        return <BootcampItem key={index} bootcamp={bootcamp} />;
+        return (
+          <BootcampItem key={index} bootcamp={bootcamp} setPage={setPage} />
+        );
       })}
     </div>
   );

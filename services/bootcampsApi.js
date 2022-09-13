@@ -25,7 +25,7 @@ export const bootcampsApi = rootApi.injectEndpoints({
     }),
 
     updateBootcamp: builder.mutation({
-      query: (data, id) => ({
+      query: ({ data, id }) => ({
         url: `bootcamps/${id}`,
         method: "PUT",
         body: data,
@@ -47,8 +47,8 @@ export const bootcampsApi = rootApi.injectEndpoints({
     }),
 
     uploadBootcampPhoto: builder.mutation({
-      query: (photo, id) => ({
-        url: `bootcamps/${id}`,
+      query: ({ photo, id }) => ({
+        url: `bootcamps/${id}/photo`,
         method: "PUT",
         body: photo,
       }),
