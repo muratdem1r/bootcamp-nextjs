@@ -9,7 +9,7 @@ function BootcampList({ bootcamps, setPage, nextPage }) {
         if (bootcamps.length - 1 === index) {
           return (
             <InView
-              key={bootcamp.id}
+              key={index}
               onChange={(inView, entry) => {
                 if (inView) {
                   setPage(nextPage);
@@ -20,7 +20,7 @@ function BootcampList({ bootcamps, setPage, nextPage }) {
             </InView>
           );
         }
-        return <BootcampItem key={bootcamp.id} bootcamp={bootcamp} />;
+        return <BootcampItem key={index} bootcamp={bootcamp} />;
       })}
     </div>
   );
