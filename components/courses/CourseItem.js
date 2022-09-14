@@ -12,12 +12,14 @@ function CourseItem({ course }) {
   };
 
   return (
-    <Card className="bg-orange-200 h-full">
-      <h1 className="text-white font-bold text-2xl text-center">
-        {course.title}
-      </h1>
-      <p className="text-neutral-900 text-clamp">{course.description}</p>
-      <div className="flex items-end justify-between self-end ">
+    <Card className="bg-orange-300/80">
+      <div className="flex flex-col gap-y-5 p-5 ">
+        <h1 className="text-white font-bold text-2xl text-center">
+          {course.title}
+        </h1>
+        <p className="text-neutral-900 text-clamp">{course.description}</p>
+      </div>
+      <div className="flex items-center justify-between mt-auto p-5">
         <div className="flex flex-wrap">
           <div className="bg-neutral-200 m-0.5 p-0.5">
             <span className="gradient-text-purple font-bold">

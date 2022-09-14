@@ -6,8 +6,7 @@ import { useUsersQuery } from "../../services/usersApi";
 import { useBootcampsQuery } from "../../services/bootcampsApi";
 import { useCoursesQuery } from "../../services/coursesApi";
 import { Tab } from "@headlessui/react";
-import { useState } from "react";
-import UserItem from "../../components/dashboard/UserItem";
+import UsersTable from "../../components/dashboard/UsersTable";
 import CourseItem from "../../components/dashboard/CourseItem";
 import BootcampItem from "../../components/dashboard/BootcampItem";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
@@ -16,7 +15,11 @@ function index() {
   const currentUser = useSelector((state) => state.currentUser.user);
   const router = useRouter();
 
-  const { data: users, isLoading: isUsersLoading } = useUsersQuery();
+  const {
+    data: users,
+    isLoading: isUsersLoading,
+    isSuccess: isUsersSuccess,
+  } = useUsersQuery();
   const { data: bootcamps, isLoading: isBootcampsLoading } =
     useBootcampsQuery();
   const { data: courses, isLoading: isCoursesLoading } = useCoursesQuery();
@@ -73,9 +76,7 @@ function index() {
             {isUsersLoading ? (
               <LoadingSpinner />
             ) : (
-              users?.data.map((user) => {
-                return <UserItem key={user._id} user={user} />;
-              })
+              isUsersSuccess && <UsersTable users={users} />
             )}
           </Tab.Panel>
           <Tab.Panel>

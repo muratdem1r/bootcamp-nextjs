@@ -1,5 +1,3 @@
-import React from "react";
-
 function CourseItem({ course }) {
   const date = new Date(course.createdAt).toLocaleDateString("en-US", {
     weekday: "long",
@@ -7,7 +5,6 @@ function CourseItem({ course }) {
     month: "long",
     day: "numeric",
   });
-  console.log(course);
   return (
     <div className="flex justify-between gap-10">
       <p>{course._id}</p>

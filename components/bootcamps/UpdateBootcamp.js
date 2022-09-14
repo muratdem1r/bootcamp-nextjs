@@ -46,7 +46,6 @@ function UpdateBootcamp({ bootcamp, setPage }) {
   const imageChangeHandler = (e) => {
     if (e.target.files && e.target.files[0]) {
       const img = e.target.files[0];
-      console.log(img);
       setImage(img);
       setImageURL(URL.createObjectURL(img));
     }
@@ -71,17 +70,17 @@ function UpdateBootcamp({ bootcamp, setPage }) {
         id: bootcamp.id,
       });
 
-      if (resImageUpload.error) {
-        toast.error(resImageUpload.error.data.error);
+      if (resImageUpload?.error) {
+        toast.error(resImageUpload?.error?.data?.error);
         return;
       }
     }
     const res = await updateBootcamp({ data: { ...inputs }, id: bootcamp.id });
 
     if (res?.error) {
-      if (res.error.data.error === "Duplicate field value entered") {
+      if (res?.error?.data?.error === "Duplicate field value entered") {
         toast.error("There is a bootcamp by this name");
-      } else if (res.error.status === 403) {
+      } else if (res?.error?.status === 403) {
         toast.error("You are not allowed to do this");
       } else {
         toast.error("You have already published a bootcamp");

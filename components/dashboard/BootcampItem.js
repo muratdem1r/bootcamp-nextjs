@@ -1,5 +1,3 @@
-import React from "react";
-
 function BootcampItem({ bootcamp }) {
   const date = new Date(bootcamp.createdAt).toLocaleDateString("en-US", {
     weekday: "long",
@@ -7,7 +5,7 @@ function BootcampItem({ bootcamp }) {
     month: "long",
     day: "numeric",
   });
-  console.log(bootcamp);
+
   return (
     <div className="flex justify-between gap-10">
       <p>{bootcamp._id}</p>

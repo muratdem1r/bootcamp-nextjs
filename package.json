@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@headlessui/react": "^1.6.6",
+    "@mui/material": "^5.10.5",
+    "@mui/x-data-grid": "^5.17.2",
     "@reduxjs/toolkit": "^1.8.5",
     "axios": "^0.27.2",
     "next": "12.2.5",
