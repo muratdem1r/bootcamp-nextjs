@@ -23,7 +23,7 @@ function BootcampsPage() {
     isSuccess,
     isError,
     error,
-  } = useBootcampsQuery(page);
+  } = useBootcampsQuery({ page, limit: 12 });
 
   useEffect(() => {
     if (data?.data?.length) {

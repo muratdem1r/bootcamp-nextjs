@@ -7,40 +7,53 @@ import { useBootcampsQuery } from "../../services/bootcampsApi";
 import { useCoursesQuery } from "../../services/coursesApi";
 import { Tab } from "@headlessui/react";
 import UsersTable from "../../components/dashboard/UsersTable";
-import CourseItem from "../../components/dashboard/CourseItem";
-import BootcampItem from "../../components/dashboard/BootcampItem";
+import CoursesTable from "../../components/dashboard/CoursesTable";
+import BootcampsTable from "../../components/dashboard/BootcampsTable";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import { useState } from "react";
 
-function index() {
+function DashboardPage() {
   const currentUser = useSelector((state) => state.currentUser.user);
   const router = useRouter();
+
+  const [hideContent, setHideContent] = useState(true);
 
   const {
     data: users,
     isLoading: isUsersLoading,
     isSuccess: isUsersSuccess,
   } = useUsersQuery();
-  const { data: bootcamps, isLoading: isBootcampsLoading } =
-    useBootcampsQuery();
-  const { data: courses, isLoading: isCoursesLoading } = useCoursesQuery();
+
+  const {
+    data: bootcamps,
+    isLoading: isBootcampsLoading,
+    isSuccess: isBootcampsSuccess,
+  } = useBootcampsQuery({ limit: 100 });
+
+  const {
+    data: courses,
+    isLoading: isCoursesLoading,
+    isSuccess: isCoursesSuccess,
+  } = useCoursesQuery({ limit: 100 });
 
   useEffect(() => {
-    if (!currentUser || currentUser?.role !== "admin") {
+    if (currentUser?.role === "admin") {
+      setHideContent(false);
+    } else {
       router.push("/");
     }
   }, [currentUser]);
-
-  if (currentUser?.role === "admin") {
-    return (
+  return (
+    !hideContent && (
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
-                ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-                  selected ? "bg-blue-500 text-white" : "text-blue-700"
-                }`}
+            ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+              selected ? "bg-blue-500 text-white" : "text-blue-700"
+            }`}
               >
                 Users
               </button>
@@ -50,9 +63,9 @@ function index() {
             {({ selected }) => (
               <button
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
-                ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-                  selected ? "bg-blue-500 text-white" : "text-blue-700"
-                }`}
+            ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+              selected ? "bg-blue-500 text-white" : "text-blue-700"
+            }`}
               >
                 Bootcamps
               </button>
@@ -62,9 +75,9 @@ function index() {
             {({ selected }) => (
               <button
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
-                ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-                  selected ? "bg-blue-500 text-white" : "text-blue-700"
-                }`}
+            ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
+              selected ? "bg-blue-500 text-white" : "text-blue-700"
+            }`}
               >
                 Courses
               </button>
@@ -83,25 +96,20 @@ function index() {
             {isBootcampsLoading ? (
               <LoadingSpinner />
             ) : (
-              bootcamps?.data.map((bootcamp) => {
-                return <BootcampItem key={bootcamp._id} bootcamp={bootcamp} />;
-              })
+              isBootcampsSuccess && <BootcampsTable bootcamps={bootcamps} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isCoursesLoading ? (
               <LoadingSpinner />
             ) : (
-              courses?.data.map((course) => {
-                return <CourseItem key={course._id} course={course} />;
-              })
+              isCoursesSuccess && <CoursesTable courses={courses} />
             )}
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
-    );
-  }
-  return null;
+    )
+  );
 }
 
-export default index;
+export default DashboardPage;

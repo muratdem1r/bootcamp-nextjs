@@ -14,7 +14,12 @@ function HomePage() {
 
   // First Bootcamp
   const { data: bootcamps, isSuccess: isSuccessFirstBootcamp } =
-    useBootcampsQuery();
+    useBootcampsQuery({ limit: 1 });
+
+  // First Course
+  const { data: courses, isSuccess: isSuccessFirstCourse } = useCoursesQuery({
+    limit: 1,
+  });
 
   let firstBootcamp;
   let firstBootcampPhoto;
@@ -25,9 +30,6 @@ function HomePage() {
     firstBootcampPhoto = "/" + firstBootcamp?.photo;
     firstBootcampLink = `/bootcamps/${firstBootcamp?.id}`;
   }
-
-  // First Course
-  const { data: courses, isSuccess: isSuccessFirstCourse } = useCoursesQuery();
 
   let firstCourse;
   let firstCoursePhoto;

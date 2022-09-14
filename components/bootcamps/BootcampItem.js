@@ -1,13 +1,17 @@
-import Link from "next/link";
 import { useSelector } from "react-redux";
 
 // Components
+import Link from "next/link";
 import Card from "../ui/Card";
 import Button from "../ui/Button";
 import UpdateBootcamp from "./UpdateBootcamp";
 import Image from "next/image";
+import { AiFillEdit } from "react-icons/ai";
+import { useState } from "react";
+
 function BootcampItem({ bootcamp, setPage }) {
   const currentUser = useSelector((state) => state.currentUser.user);
+  const [isOpen, setIsOpen] = useState(false);
 
   const photo = "/" + bootcamp.photo;
 
@@ -39,7 +43,21 @@ function BootcampItem({ bootcamp, setPage }) {
       </div>
       <div className="flex items-center mt-auto p-5">
         {currentUser?._id === bootcamp.user && (
-          <UpdateBootcamp bootcamp={bootcamp} setPage={setPage} />
+          <>
+            <button
+              className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Edit
+              <AiFillEdit className="inline" />
+            </button>
+            <UpdateBootcamp
+              bootcamp={bootcamp}
+              setPage={setPage}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+            />
+          </>
         )}
         <Link href={"/bootcamps/" + bootcamp._id}>
           <a className="ml-auto">

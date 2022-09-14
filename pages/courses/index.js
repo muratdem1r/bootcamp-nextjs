@@ -13,7 +13,10 @@ function CoursesPage() {
   const [nextPage, setNextPage] = useState(1);
   const [courses, setCourses] = useState([]);
 
-  const { data, isLoading, isSuccess, isError, error } = useCoursesQuery(page);
+  const { data, isLoading, isSuccess, isError, error } = useCoursesQuery({
+    page,
+    limit: 12,
+  });
 
   useEffect(() => {
     if (data?.data?.length) {

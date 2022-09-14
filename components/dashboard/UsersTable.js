@@ -1,20 +1,22 @@
-import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
-import formatDate from "../../helpers/formatDate";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { Fragment } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import {
   useDeleteUserMutation,
   useUpdateUserMutation,
 } from "../../services/usersApi";
-import { toast } from "react-toastify";
-import { useState } from "react";
+
+// Components
+import Box from "@mui/material/Box";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import formatDate from "../../helpers/formatDate";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { ImCross } from "react-icons/im";
 import { RiArrowUpDownLine } from "react-icons/ri";
 import { BiCheck } from "react-icons/bi";
-import { Fragment } from "react";
 
 function UsersTable({ users }) {
   const [deleteUser] = useDeleteUserMutation();
@@ -101,25 +103,29 @@ function UsersTable({ users }) {
       field: "edit",
       headerName: "",
       width: 100,
+      sortable: false,
       disableColumnMenu: true,
-      renderCell: (params) => (
-        <div className="flex w-full justify-around">
-          <AiFillEdit
-            onClick={() => editClickHandler(params.row)}
-            className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-          />
-          <AiFillDelete
-            onClick={() => deleteClickHandler(params.row)}
-            className="text-xl text-red-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-          />
-        </div>
-      ),
+      renderCell: (params) => {
+        if (params.row.role === "admin") return;
+        return (
+          <div className="flex w-full justify-around">
+            <AiFillEdit
+              onClick={() => editClickHandler(params.row)}
+              className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
+            />
+            <AiFillDelete
+              onClick={() => deleteClickHandler(params.row)}
+              className="text-xl text-red-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
+            />
+          </div>
+        );
+      },
     },
-    { field: "role", headerName: "Role", width: 150 },
+    { field: "role", headerName: "Role", width: 100 },
     { field: "name", headerName: "Name", width: 200 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "createdAt", headerName: "Created At", width: 300 },
-    { field: "_id", headerName: "ID", width: 300 },
+    { field: "_id", headerName: "ID", width: 250 },
   ];
 
   const rows = users.data.map((user) => {
@@ -138,6 +144,16 @@ function UsersTable({ users }) {
           columns={columns}
           pageSize={10}
           disableSelectionOnClick
+          disableColumnSelector
+          disableColumnFilter
+          disableDensitySelector
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
           experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
@@ -219,7 +235,7 @@ function UsersTable({ users }) {
                       />
                     </div>
                     <Listbox
-                      className="mb-10"
+                      className="mt-5 mb-10"
                       value={inputs.role}
                       onChange={(e) => setInputs({ ...inputs, role: e })}
                     >

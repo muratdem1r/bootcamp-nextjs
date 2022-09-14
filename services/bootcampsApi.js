@@ -3,9 +3,9 @@ import { rootApi } from "./rootApi";
 export const bootcampsApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     bootcamps: builder.query({
-      query: (page = 1) => ({
+      query: ({ page = 1, limit }) => ({
         url: "bootcamps",
-        params: { limit: 12, page: page },
+        params: { limit: limit, page: page },
       }),
       providesTags: ["Bootcamps"],
     }),
@@ -36,7 +36,7 @@ export const bootcampsApi = rootApi.injectEndpoints({
     deleteBootcamp: builder.mutation({
       query: (id) => ({
         url: `bootcamps/${id}`,
-        method: "DEL",
+        method: "DELETE",
       }),
       invalidatesTags: ["Bootcamps"],
     }),
