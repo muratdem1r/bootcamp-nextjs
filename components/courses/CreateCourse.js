@@ -1,32 +1,29 @@
-import { Fragment } from "react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import { useNewCourseMutation } from "../../services/coursesApi";
 import { toast } from "react-toastify";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import {
-  useDeleteUserMutation,
-  useUpdateUserMutation,
-} from "../../services/usersApi";
+import formatPhoneNumber from "../../helpers/formatPhoneNumber";
 
 // Components
-import Box from "@mui/material/Box";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import formatDate from "../../helpers/formatDate";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { Dialog, Listbox, Transition } from "@headlessui/react";
+import { FiPlus } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
 import { RiArrowUpDownLine } from "react-icons/ri";
 import { BiCheck } from "react-icons/bi";
+import { Dialog, Listbox, Switch, Transition } from "@headlessui/react";
+import Button from "../../components/ui/Button";
 
-function UsersTable({ users }) {
-  const [deleteUser] = useDeleteUserMutation();
-  const [updateUser] = useUpdateUserMutation();
+function CreateCourse({ bootcamp }) {
+  const skillsEnum = ["beginner", "intermediate", "advanced"];
+
   const [isOpen, setIsOpen] = useState(false);
+  const [createCourse] = useNewCourseMutation();
+
   const [inputs, setInputs] = useState({
-    id: null,
-    name: "",
-    email: "",
-    role: "user",
+    title: "",
+    description: "",
+    weeks: "",
+    tuition: 0,
+    minimumSkill: "beginner",
+    scholarshipAvailable: false,
   });
 
   const inputHandler = (e) => {
@@ -39,124 +36,24 @@ function UsersTable({ users }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const data = { name: inputs.name, email: inputs.email, role: inputs.role };
-
-    const res = await updateUser({ data, id: inputs.id });
-
+    const res = await createCourse({ data: inputs, id: bootcamp.id });
     if (res.error) {
-      toast.error("user couldn't be edited!");
+      toast.error(res.error.data.error);
     } else {
-      toast.success(`User ${inputs.name}, successfully edited.`);
-    }
-    setIsOpen(false);
-  };
-
-  const editClickHandler = (user) => {
-    setInputs({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    });
-    setIsOpen(true);
-  };
-
-  const confirmDeleteHandler = async (user) => {
-    const res = await deleteUser(user.id);
-    if (res.error) {
-      toast.error("user couldn't be deleted!");
-    } else {
-      toast.success(`User ${user.name}, successfully deleted.`);
+      setIsOpen(false);
+      toast.success("New course added.");
     }
   };
-  const deleteClickHandler = (user) => {
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div className="custom-ui">
-            <h1>Are you sure?</h1>
-            <p>You want to delete "{user.name}"?</p>
-            <button
-              className="text-green-500 block border border-green-500 rounded p-2 my-2 w-full hover:bg-green-500 hover:text-white ease-in-out duration-300"
-              onClick={onClose}
-            >
-              No
-            </button>
-            <button
-              className="text-red-500 block border border-red-500 rounded p-2 my-2 w-full hover:bg-red-500 hover:text-white  ease-in-out duration-300"
-              onClick={() => {
-                confirmDeleteHandler(user);
-                onClose();
-              }}
-            >
-              Yes, Delete it!
-            </button>
-          </div>
-        );
-      },
-    });
-  };
-
-  const roleEnum = ["publisher", "user"];
-  const columns = [
-    {
-      field: "edit",
-      headerName: "",
-      width: 100,
-      sortable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => {
-        if (params.row.role === "admin") return;
-        return (
-          <div className="flex w-full justify-around">
-            <AiFillEdit
-              onClick={() => editClickHandler(params.row)}
-              className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-            />
-            <AiFillDelete
-              onClick={() => deleteClickHandler(params.row)}
-              className="text-xl text-red-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-            />
-          </div>
-        );
-      },
-    },
-    { field: "role", headerName: "Role", width: 100 },
-    { field: "name", headerName: "Name", width: 200 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "createdAt", headerName: "Created At", width: 300 },
-    { field: "_id", headerName: "ID", width: 250 },
-  ];
-
-  const rows = users.data.map((user) => {
-    return {
-      ...user,
-      id: user._id,
-      createdAt: formatDate(user.createdAt),
-    };
-  });
 
   return (
     <>
-      <Box sx={{ height: 650, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          rowsPerPageOptions={[10, 50, 100]}
-          disableSelectionOnClick
-          disableColumnSelector
-          disableColumnFilter
-          disableDensitySelector
-          components={{ Toolbar: GridToolbar }}
-          componentsProps={{
-            toolbar: {
-              showQuickFilter: true,
-              quickFilterProps: { debounceMs: 500 },
-            },
-          }}
-          experimentalFeatures={{ newEditingApi: true }}
-        />
-      </Box>
+      <button
+        className="flex items-center gap-1 border border-slate-500 p-1 text-slate-800 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
+        onClick={() => setIsOpen(true)}
+      >
+        New Course <FiPlus className="inline" />
+      </button>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -192,7 +89,7 @@ function UsersTable({ users }) {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Edit User
+                      Create a new course for "{bootcamp.name}" bootcamp
                     </Dialog.Title>
                     <ImCross
                       className="text-red-600 hover:cursor-pointer"
@@ -211,37 +108,104 @@ function UsersTable({ users }) {
                         maxLength={50}
                         className="border-2 rounded p-2"
                         type="text"
-                        name="name"
-                        id="name"
+                        name="title"
+                        id="title"
+                        placeholder="Full Stack Web Development"
                         onChange={inputHandler}
-                        value={inputs.name}
+                        value={inputs.title}
                         required
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label className="font-medium" htmlFor="email">
-                        Email*
+                      <label className="font-medium" htmlFor="description">
+                        Description*
                       </label>
-                      <input
+                      <textarea
+                        maxLength={500}
                         className="border-2 rounded p-2"
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="example@gmail.com"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        name="description"
+                        id="description"
+                        placeholder="In this course you will learn full stack web development, first learning all about the frontend with HTML/CSS/JS/Vue and then the backend with Node.js/Express/MongoDB"
+                        rows={5}
                         onChange={inputHandler}
-                        value={inputs.email}
+                        value={inputs.description}
                         required
                       />
                     </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium" htmlFor="weeks">
+                        Weeks*
+                      </label>
+                      <input
+                        className="border-2 rounded p-2"
+                        type="text"
+                        name="weeks"
+                        id="weeks"
+                        placeholder="12"
+                        onChange={inputHandler}
+                        value={inputs.weeks}
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-medium" htmlFor="tuition">
+                        Tuition*
+                      </label>
+                      <input
+                        className="border-2 rounded p-2"
+                        type="number"
+                        name="tuition"
+                        id="tuition"
+                        placeholder="5000"
+                        onChange={inputHandler}
+                        value={inputs.tuition}
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 mt-5">
+                      <label
+                        className="font-medium"
+                        htmlFor="scholarhipsAvailable"
+                      >
+                        Scholarhip
+                      </label>
+                      <Switch
+                        checked={inputs.scholarshipAvailable}
+                        name="housing"
+                        onChange={() =>
+                          setInputs({
+                            ...inputs,
+                            scholarshipAvailable: !inputs.scholarshipAvailable,
+                          })
+                        }
+                        className={`${
+                          inputs.scholarshipAvailable
+                            ? "bg-blue-600"
+                            : "bg-gray-200"
+                        } relative inline-flex h-6 w-11 items-center rounded-full`}
+                      >
+                        <span
+                          className={`${
+                            inputs.scholarshipAvailable
+                              ? "translate-x-6"
+                              : "translate-x-1"
+                          } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                        />
+                      </Switch>
+                    </div>
+                    <label className="font-medium mt-5">Minimum Skill</label>
                     <Listbox
-                      className="mt-5 mb-10"
-                      value={inputs.role}
-                      onChange={(e) => setInputs({ ...inputs, role: e })}
+                      className="mb-10"
+                      value={inputs.minimumSkill}
+                      onChange={(e) =>
+                        setInputs({ ...inputs, minimumSkill: e })
+                      }
                     >
                       <div className="relative mt-1">
                         <Listbox.Button className="relative w-1/2 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                          <span className="block truncate">{inputs.role}</span>
+                          <span className="block truncate">
+                            {inputs.minimumSkill}
+                          </span>
                           <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <RiArrowUpDownLine
                               className="h-5 w-5 text-gray-400"
@@ -256,7 +220,7 @@ function UsersTable({ users }) {
                           leaveTo="opacity-0"
                         >
                           <Listbox.Options className="absolute mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {roleEnum.map((role, i) => (
+                            {skillsEnum.map((skill, i) => (
                               <Listbox.Option
                                 key={i}
                                 className={({ active }) =>
@@ -266,7 +230,7 @@ function UsersTable({ users }) {
                                       : "text-gray-900"
                                   }`
                                 }
-                                value={role}
+                                value={skill}
                               >
                                 {({ selected }) => (
                                   <>
@@ -275,7 +239,7 @@ function UsersTable({ users }) {
                                         selected ? "font-medium" : "font-normal"
                                       }`}
                                     >
-                                      {role}
+                                      {skill}
                                     </span>
                                     {selected ? (
                                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
@@ -295,7 +259,7 @@ function UsersTable({ users }) {
                     </Listbox>
                     <div className="mt-4">
                       <button className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                        Save Changes
+                        Create Course
                       </button>
                     </div>
                   </form>
@@ -309,4 +273,4 @@ function UsersTable({ users }) {
   );
 }
 
-export default UsersTable;
+export default CreateCourse;

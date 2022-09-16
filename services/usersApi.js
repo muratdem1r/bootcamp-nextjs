@@ -3,7 +3,10 @@ import { rootApi } from "./rootApi";
 export const usersApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     users: builder.query({
-      query: () => "users",
+      query: ({ page = 1, limit = 12 }) => ({
+        url: "users",
+        params: { limit: limit, page: page },
+      }),
       providesTags: ["Users"],
     }),
 

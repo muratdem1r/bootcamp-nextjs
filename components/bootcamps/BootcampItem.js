@@ -6,8 +6,9 @@ import Card from "../ui/Card";
 import Button from "../ui/Button";
 import UpdateBootcamp from "./UpdateBootcamp";
 import Image from "next/image";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { useState } from "react";
+import DeleteBootcamp from "./DeleteBootcamp";
 
 function BootcampItem({ bootcamp, setPage }) {
   const currentUser = useSelector((state) => state.currentUser.user);
@@ -42,7 +43,8 @@ function BootcampItem({ bootcamp, setPage }) {
         </ul>
       </div>
       <div className="flex items-center mt-auto p-5">
-        {currentUser?._id === bootcamp.user && (
+        {(currentUser?._id === bootcamp.user ||
+          currentUser?.role === "admin") && (
           <>
             <button
               className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
@@ -51,6 +53,13 @@ function BootcampItem({ bootcamp, setPage }) {
               Edit
               <AiFillEdit className="inline" />
             </button>
+            <DeleteBootcamp
+              className="flex items-center gap-1 p-1 ml-1 text-red-600 font-medium hover:text-red-700 hover:underline"
+              bootcamp={bootcamp}
+              setPage={setPage}
+            >
+              Delete <AiFillDelete className="inline" />
+            </DeleteBootcamp>
             <UpdateBootcamp
               bootcamp={bootcamp}
               setPage={setPage}

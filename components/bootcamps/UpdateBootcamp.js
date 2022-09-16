@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import {
-  useDeleteBootcampMutation,
   useUpdateBootcampMutation,
   useUploadBootcampPhotoMutation,
 } from "../../services/bootcampsApi";
@@ -10,11 +9,8 @@ import formatPhoneNumber from "../../helpers/formatPhoneNumber";
 // Components
 import { ImCross } from "react-icons/im";
 import { Dialog, Switch, Transition } from "@headlessui/react";
-import { confirmAlert } from "react-confirm-alert";
 
 function UpdateBootcamp({ bootcamp, setPage, isOpen, setIsOpen }) {
-  const [deleteBootcamp] = useDeleteBootcampMutation();
-
   const careerEnum = [
     "Web Development",
     "Mobile Development",
@@ -93,43 +89,6 @@ function UpdateBootcamp({ bootcamp, setPage, isOpen, setIsOpen }) {
       setIsOpen(false);
       toast.success("Bootcamp updated.");
     }
-  };
-
-  const confirmDeleteHandler = async () => {
-    const res = await deleteBootcamp(bootcamp.id);
-    if (res.error) {
-      toast.error("bootcamp couldn't be deleted!");
-    } else {
-      setIsOpen(false);
-      toast.success(`bootcamp ${bootcamp.name}, successfully deleted.`);
-    }
-  };
-  const deleteClickHandler = () => {
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div className="custom-ui">
-            <h1>Are you sure?</h1>
-            <p>You want to delete "{bootcamp.name}"?</p>
-            <button
-              className="text-green-500 block border border-green-500 rounded p-2 my-2 w-full hover:bg-green-500 hover:text-white ease-in-out duration-300"
-              onClick={onClose}
-            >
-              No
-            </button>
-            <button
-              className="text-red-500 block border border-red-500 rounded p-2 my-2 w-full hover:bg-red-500 hover:text-white  ease-in-out duration-300"
-              onClick={() => {
-                confirmDeleteHandler();
-                onClose();
-              }}
-            >
-              Yes, Delete it!
-            </button>
-          </div>
-        );
-      },
-    });
   };
 
   return (
@@ -417,13 +376,6 @@ function UpdateBootcamp({ bootcamp, setPage, isOpen, setIsOpen }) {
                       className="rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
                       Save Changes
-                    </button>
-                    <button
-                      onClick={deleteClickHandler}
-                      type="button"
-                      className="rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    >
-                      Delete
                     </button>
                   </div>
                 </form>

@@ -23,7 +23,9 @@ function CourseDetail({ course }) {
       </div>
       <div>
         Tuition:
-        <span className="text-green-500 font-bold ml-2">${course.tuition}</span>
+        <span className="text-green-500 font-bold ml-2">
+          {course.tuition === 0 ? "Free" : "$" + course.tuition}
+        </span>
       </div>
       <div>
         Minimum Skill:

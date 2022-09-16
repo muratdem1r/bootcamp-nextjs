@@ -10,6 +10,7 @@ import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import ReviewForm from "../reviews/ReviewForm";
 import { useState } from "react";
+import CreateCourse from "../courses/CreateCourse";
 
 function BootcampDetail({ bootcamp, reviews, courses }) {
   const [canReview, setCanReview] = useState(true);
@@ -44,9 +45,9 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
         </div>
         <p className="my-3 max-w-2xl">{bootcamp.description}</p>
         <div className="flex items-center gap-x-2">
-          Average Rating:{" "}
+          Average Rating:
           <span className="font-bold text-yellow-500">
-            {bootcamp.averageRating || "No Rating"}
+            {Number(bootcamp.averageRating).toFixed(2) || "No Rating"}
           </span>
         </div>
         <div className="flex items-center gap-x-2">
@@ -85,23 +86,25 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
           <CgWebsite className="text-xl" />
           {bootcamp.website}
         </div>
-        {courses.length > 0 && (
-          <ul className="flex flex-wrap gap-y-2 gap-x-4">
-            <h5 className="w-full font-bold">Courses</h5>
-            {courses.map((course, i) => {
-              return (
-                <li
-                  className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
-                  key={i}
-                >
-                  <Link href={"/courses/" + course._id}>
-                    <a className="inline-block p-1">{course.title}</a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+        <ul className="flex flex-wrap gap-y-2 gap-x-4">
+          <h5 className="w-full font-bold">Courses</h5>
+          {courses.map((course, i) => {
+            return (
+              <li
+                className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
+                key={i}
+              >
+                <Link href={"/courses/" + course._id}>
+                  <a className="inline-block p-1">{course.title}</a>
+                </Link>
+              </li>
+            );
+          })}
+          {(currentUser?._id === bootcamp.user ||
+            currentUser?.role === "admin") && (
+            <CreateCourse bootcamp={bootcamp} />
+          )}
+        </ul>
       </div>
       {currentUser && canReview && <ReviewForm id={bootcamp.id} />}
       <ReviewsList reviews={reviews} setCanReview={setCanReview} />

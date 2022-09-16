@@ -88,7 +88,7 @@ function CoursesTable({ courses }) {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={10}
+          rowsPerPageOptions={[10, 50, 100]}
           disableSelectionOnClick
           disableColumnSelector
           disableColumnFilter

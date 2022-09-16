@@ -22,19 +22,19 @@ function DashboardPage() {
     data: users,
     isLoading: isUsersLoading,
     isSuccess: isUsersSuccess,
-  } = useUsersQuery();
+  } = useUsersQuery({ limit: 50 });
 
   const {
     data: bootcamps,
     isLoading: isBootcampsLoading,
     isSuccess: isBootcampsSuccess,
-  } = useBootcampsQuery({ limit: 100 });
+  } = useBootcampsQuery({ limit: 50 });
 
   const {
     data: courses,
     isLoading: isCoursesLoading,
     isSuccess: isCoursesSuccess,
-  } = useCoursesQuery({ limit: 100 });
+  } = useCoursesQuery({ limit: 50 });
 
   useEffect(() => {
     if (currentUser?.role === "admin") {

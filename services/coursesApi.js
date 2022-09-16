@@ -3,7 +3,7 @@ import { rootApi } from "./rootApi";
 export const coursesApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
     courses: builder.query({
-      query: ({ page = 1, limit }) => ({
+      query: ({ page = 1, limit = 12 }) => ({
         url: "courses",
         params: { limit: limit, page: page },
       }),
@@ -21,7 +21,7 @@ export const coursesApi = rootApi.injectEndpoints({
     }),
 
     newCourse: builder.mutation({
-      query: (data, id) => ({
+      query: ({ data, id }) => ({
         url: `bootcamps/${id}/courses`,
         method: "POST",
         body: data,

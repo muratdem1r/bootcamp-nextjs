@@ -57,6 +57,7 @@ function CreateBootcamp({ setPage }) {
       }
     } else {
       setPage(1);
+      setIsOpen(false);
       toast.success("Bootcamp added.");
     }
   };

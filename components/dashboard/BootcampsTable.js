@@ -6,7 +6,8 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import UpdateBootcamp from "../bootcamps/UpdateBootcamp";
 import NextLink from "../ui/NextLink";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import DeleteBootcamp from "../bootcamps/DeleteBootcamp";
 
 function BootcampsTable({ bootcamps }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,14 +22,22 @@ function BootcampsTable({ bootcamps }) {
     {
       field: "edit",
       headerName: "",
-      width: 50,
+      width: 100,
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => (
-        <AiFillEdit
-          onClick={() => editClickHandler(params.row)}
-          className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-        />
+        <div className="flex w-full justify-around">
+          <AiFillEdit
+            onClick={() => editClickHandler(params.row)}
+            className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
+          />
+          <DeleteBootcamp
+            className="text-xl text-red-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
+            bootcamp={params.row}
+          >
+            <AiFillDelete />
+          </DeleteBootcamp>
+        </div>
       ),
     },
     {
