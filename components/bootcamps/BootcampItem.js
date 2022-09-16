@@ -12,7 +12,6 @@ import DeleteBootcamp from "./DeleteBootcamp";
 
 function BootcampItem({ bootcamp, setPage }) {
   const currentUser = useSelector((state) => state.currentUser.user);
-  const [isOpen, setIsOpen] = useState(false);
 
   const photo = "/" + bootcamp.photo;
 
@@ -46,13 +45,6 @@ function BootcampItem({ bootcamp, setPage }) {
         {(currentUser?._id === bootcamp.user ||
           currentUser?.role === "admin") && (
           <>
-            <button
-              className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              Edit
-              <AiFillEdit className="inline" />
-            </button>
             <DeleteBootcamp
               className="flex items-center gap-1 p-1 ml-1 text-red-600 font-medium hover:text-red-700 hover:underline"
               bootcamp={bootcamp}
@@ -61,11 +53,13 @@ function BootcampItem({ bootcamp, setPage }) {
               Delete <AiFillDelete className="inline" />
             </DeleteBootcamp>
             <UpdateBootcamp
+              className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
               bootcamp={bootcamp}
               setPage={setPage}
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-            />
+            >
+              Edit
+              <AiFillEdit className="inline" />
+            </UpdateBootcamp>
           </>
         )}
         <Link href={"/bootcamps/" + bootcamp._id}>

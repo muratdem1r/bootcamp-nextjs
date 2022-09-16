@@ -10,14 +10,6 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import DeleteBootcamp from "../bootcamps/DeleteBootcamp";
 
 function BootcampsTable({ bootcamps }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [bootcamp, setBootcamp] = useState({});
-
-  const editClickHandler = (bootcamp) => {
-    setBootcamp(bootcamp);
-    setIsOpen(true);
-  };
-
   const columns = [
     {
       field: "edit",
@@ -27,10 +19,12 @@ function BootcampsTable({ bootcamps }) {
       disableColumnMenu: true,
       renderCell: (params) => (
         <div className="flex w-full justify-around">
-          <AiFillEdit
-            onClick={() => editClickHandler(params.row)}
-            className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-          />
+          <UpdateBootcamp
+            className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+            bootcamp={params.row}
+          >
+            <AiFillEdit className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer" />
+          </UpdateBootcamp>
           <DeleteBootcamp
             className="text-xl text-red-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
             bootcamp={params.row}
@@ -86,13 +80,6 @@ function BootcampsTable({ bootcamps }) {
           experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
-      {isOpen && (
-        <UpdateBootcamp
-          bootcamp={bootcamp}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      )}
     </>
   );
 }

@@ -1,22 +1,21 @@
-import { useDeleteBootcampMutation } from "../../services/bootcampsApi";
+import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useDeleteUserMutation } from "../../services/usersApi";
+
+// Components
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 
-function DeleteBootcamp({ bootcamp, setPage, className, children }) {
+function DeleteUser({ user, className, children }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [deleteBootcamp] = useDeleteBootcampMutation();
 
-  const confirmDeleteHandler = async () => {
-    const res = await deleteBootcamp(bootcamp.id);
+  const [deleteUser] = useDeleteUserMutation();
+
+  const confirmDeleteHandler = async (user) => {
+    const res = await deleteUser(user.id);
     if (res.error) {
-      toast.error("bootcamp couldn't be deleted!");
+      toast.error("user couldn't be deleted!");
     } else {
-      if (setPage) {
-        setPage(1);
-      }
-      toast.success(`bootcamp ${bootcamp.name}, successfully deleted.`);
+      toast.success(`User ${user.name}, successfully deleted.`);
     }
   };
 
@@ -68,7 +67,7 @@ function DeleteBootcamp({ bootcamp, setPage, className, children }) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Do you want to delete "{bootcamp.name}" ?
+                      Do you want to delete "{user.name}" ?
                     </p>
                   </div>
 
@@ -77,7 +76,7 @@ function DeleteBootcamp({ bootcamp, setPage, className, children }) {
                       type="button"
                       className="rounded-md  bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                       onClick={() => {
-                        confirmDeleteHandler();
+                        confirmDeleteHandler(user);
                         setIsOpen(false);
                       }}
                     >
@@ -101,4 +100,4 @@ function DeleteBootcamp({ bootcamp, setPage, className, children }) {
   );
 }
 
-export default DeleteBootcamp;
+export default DeleteUser;

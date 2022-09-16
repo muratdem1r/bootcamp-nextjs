@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 // Components
 import Card from "../ui/Card";
 import Button from "../ui/Button";
+import { useSelector } from "react-redux";
 
 function CourseItem({ course }) {
+  const currentUser = useSelector((state) => state.currentUser.user);
   const router = useRouter();
 
   const showDetailsHandler = () => {
@@ -33,6 +35,14 @@ function CourseItem({ course }) {
         >
           More info
         </Button>
+      </div>
+      <div className="flex items-center mt-auto p-5">
+        {(currentUser?._id === course.user ||
+          currentUser?.role === "admin") && (
+          <>
+            <p>deneme</p>
+          </>
+        )}
       </div>
     </Card>
   );
