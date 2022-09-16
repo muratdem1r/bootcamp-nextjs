@@ -1,27 +1,21 @@
-import { Fragment } from "react";
-import { useRouter } from "next/router";
-import { useDeleteBootcampMutation } from "../../services/bootcampsApi";
+import { Fragment, useState } from "react";
+
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useDeleteCourseMutation } from "../../services/coursesApi";
 
 // Components
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 
-function DeleteBootcamp({
-  bootcamp,
-  setPage,
-  returnHome,
-  className,
-  children,
-}) {
+function DeleteCourse({ course, setPage, returnHome, className, children }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [deleteBootcamp] = useDeleteBootcampMutation();
+  const [deleteCourse] = useDeleteCourseMutation();
 
   const confirmDeleteHandler = async () => {
-    const res = await deleteBootcamp(bootcamp.id);
+    const res = await deleteCourse(course._id);
     if (res.error) {
-      toast.error("bootcamp couldn't be deleted!");
+      toast.error("course couldn't be deleted!");
     } else {
       if (returnHome === true) {
         router.push("/");
@@ -29,7 +23,7 @@ function DeleteBootcamp({
       if (setPage) {
         setPage(1);
       }
-      toast.success(`bootcamp ${bootcamp.name}, successfully deleted.`);
+      toast.success(`course ${course.title}, successfully deleted.`);
     }
   };
 
@@ -81,7 +75,7 @@ function DeleteBootcamp({
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Do you want to delete "{bootcamp.name}" ?
+                      Do you want to delete "{course.title}" ?
                     </p>
                   </div>
 
@@ -114,4 +108,4 @@ function DeleteBootcamp({
   );
 }
 
-export default DeleteBootcamp;
+export default DeleteCourse;

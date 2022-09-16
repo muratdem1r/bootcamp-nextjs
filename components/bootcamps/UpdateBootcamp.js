@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   useUpdateBootcampMutation,
   useUploadBootcampPhotoMutation,
@@ -40,6 +40,23 @@ function UpdateBootcamp({ bootcamp, setPage, className, children }) {
     jobGuarantee: bootcamp.jobGuarantee,
     acceptGi: bootcamp.acceptGi,
   });
+
+  useEffect(() => {
+    setInputs({
+      name: bootcamp.name,
+      description: bootcamp.description,
+      website: bootcamp.website,
+      phone: bootcamp.phone,
+      email: bootcamp.email,
+      address: bootcamp.address,
+      careers: bootcamp.careers,
+      housing: bootcamp.housing,
+      jobAssistance: bootcamp.jobAssistance,
+      jobGuarantee: bootcamp.jobGuarantee,
+      acceptGi: bootcamp.acceptGi,
+    });
+    setImageURL(bootcamp.photo);
+  }, [bootcamp]);
 
   const imageChangeHandler = (e) => {
     if (e.target.files && e.target.files[0]) {

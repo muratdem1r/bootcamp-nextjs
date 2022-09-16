@@ -20,7 +20,11 @@ function CoursesPage() {
 
   useEffect(() => {
     if (data?.data?.length) {
-      setCourses([...courses, ...data.data]);
+      if (page === 1) {
+        setCourses([...data.data]);
+      } else {
+        setCourses([...courses, ...data.data]);
+      }
       if (data?.pagination?.next?.page) {
         setNextPage(data.pagination.next.page);
       }

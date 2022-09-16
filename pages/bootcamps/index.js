@@ -12,7 +12,6 @@ import CreateBootcamp from "../../components/bootcamps/CreateBootcamp";
 
 function BootcampsPage() {
   const currentUser = useSelector((state) => state.currentUser.user);
-  const [canCreateBootcamp, setCanCreateBootcamp] = useState(false);
   const [page, setPage] = useState(1);
   const [nextPage, setNextPage] = useState(1);
   const [bootcamps, setBootcamps] = useState([]);

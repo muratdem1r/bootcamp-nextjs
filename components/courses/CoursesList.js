@@ -16,11 +16,13 @@ function CoursesList({ courses, setPage, nextPage }) {
                 }
               }}
             >
-              <CourseItem course={course} />
+              <CourseItem course={course} setPage={setPage} />
             </InView>
           );
         }
-        return <CourseItem key={course._id} course={course} />;
+        return (
+          <CourseItem key={course._id} course={course} setPage={setPage} />
+        );
       })}
     </div>
   );

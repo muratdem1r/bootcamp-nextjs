@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 // Components
 import ReviewsList from "../reviews/ReviewsList";
@@ -7,10 +9,11 @@ import { GrMoney } from "react-icons/gr";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { CgWebsite } from "react-icons/cg";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
 import ReviewForm from "../reviews/ReviewForm";
-import { useState } from "react";
 import CreateCourse from "../courses/CreateCourse";
+import UpdateBootcamp from "./UpdateBootcamp";
+import DeleteBootcamp from "./DeleteBootcamp";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function BootcampDetail({ bootcamp, reviews, courses }) {
   const [canReview, setCanReview] = useState(true);
@@ -28,6 +31,26 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
   return (
     <>
       <div className="grid shadow-sm p-5 gap-5 bg-neutral-100">
+        {(currentUser?._id === bootcamp.id ||
+          currentUser?.role === "admin") && (
+          <div className="flex items-center gap-3">
+            <UpdateBootcamp
+              className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+              bootcamp={bootcamp}
+            >
+              Edit
+              <AiFillEdit className="inline" />
+            </UpdateBootcamp>
+            <DeleteBootcamp
+              className="flex items-center gap-1 p-1 text-red-600 font-medium hover:text-red-700 hover:underline"
+              bootcamp={bootcamp}
+              returnHome={true}
+            >
+              Delete
+              <AiFillDelete className="inline" />
+            </DeleteBootcamp>
+          </div>
+        )}
         <div className="w-full h-96 relative">
           <Image
             src={photo}

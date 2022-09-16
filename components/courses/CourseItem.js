@@ -1,11 +1,14 @@
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 // Components
 import Card from "../ui/Card";
 import Button from "../ui/Button";
-import { useSelector } from "react-redux";
+import UpdateCourse from "./UpdateCourse";
+import DeleteCourse from "./DeleteCourse";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-function CourseItem({ course }) {
+function CourseItem({ course, setPage }) {
   const currentUser = useSelector((state) => state.currentUser.user);
   const router = useRouter();
 
@@ -36,14 +39,27 @@ function CourseItem({ course }) {
           More info
         </Button>
       </div>
-      <div className="flex items-center mt-auto p-5">
-        {(currentUser?._id === course.user ||
-          currentUser?.role === "admin") && (
-          <>
-            <p>deneme</p>
-          </>
-        )}
-      </div>
+
+      {(currentUser?._id === course.user || currentUser?.role === "admin") && (
+        <div className="flex items-center px-5 pb-5">
+          <UpdateCourse
+            className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+            course={course}
+            setPage={setPage}
+          >
+            Edit
+            <AiFillEdit className="inline" />
+          </UpdateCourse>
+          <DeleteCourse
+            className="flex items-center gap-1 p-1 text-red-600 font-medium hover:text-red-700 hover:underline"
+            course={course}
+            setPage={setPage}
+          >
+            Delete
+            <AiFillDelete className="inline" />
+          </DeleteCourse>
+        </div>
+      )}
     </Card>
   );
 }

@@ -7,7 +7,6 @@ import Button from "../ui/Button";
 import UpdateBootcamp from "./UpdateBootcamp";
 import Image from "next/image";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { useState } from "react";
 import DeleteBootcamp from "./DeleteBootcamp";
 
 function BootcampItem({ bootcamp, setPage }) {

@@ -1,10 +1,16 @@
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 // Components
 import Button from "../../components/ui/Button";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
+import UpdateCourse from "./UpdateCourse";
+import DeleteCourse from "./DeleteCourse";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function CourseDetail({ course }) {
+  const currentUser = useSelector((state) => state.currentUser.user);
+
   const options = {
     weekday: "long",
     year: "numeric",
@@ -15,6 +21,25 @@ function CourseDetail({ course }) {
 
   return (
     <div className="grid shadow-sm p-5 gap-5 bg-neutral-100">
+      {(currentUser?._id === course.user || currentUser?.role === "admin") && (
+        <div className="flex items-center gap-3">
+          <UpdateCourse
+            className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+            course={course}
+          >
+            Edit
+            <AiFillEdit className="inline" />
+          </UpdateCourse>
+          <DeleteCourse
+            className="flex items-center gap-1 p-1 text-red-600 font-medium hover:text-red-700 hover:underline"
+            course={course}
+            returnHome={true}
+          >
+            Delete
+            <AiFillDelete className="inline" />
+          </DeleteCourse>
+        </div>
+      )}
       <h1 className="text-2xl font-bold">{course.title}</h1>
       <h5>{date}</h5>
       <div>

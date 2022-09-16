@@ -30,7 +30,7 @@ export const coursesApi = rootApi.injectEndpoints({
     }),
 
     updateCourse: builder.mutation({
-      query: (data, id) => ({
+      query: ({ data, id }) => ({
         url: `courses/${id}`,
         method: "PUT",
         body: data,
@@ -41,7 +41,7 @@ export const coursesApi = rootApi.injectEndpoints({
     deleteCourse: builder.mutation({
       query: (id) => ({
         url: `courses/${id}`,
-        method: "DEL",
+        method: "DELETE",
       }),
       invalidatesTags: ["Courses"],
     }),
