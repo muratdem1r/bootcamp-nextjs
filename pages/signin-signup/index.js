@@ -2,7 +2,7 @@ import SigninSignupForm from "../../components/signin-signup-form/SigninSignupFo
 
 function SigninSignupPage() {
   return (
-    <div className="w-full md:w-1/2 md:mx-auto">
+    <div className="relative h-screen sm:h-auto md:w-1/2 md:mx-auto">
       <SigninSignupForm />
     </div>
   );

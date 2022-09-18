@@ -13,15 +13,17 @@ function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [sending, setSending] = useState(false);
+
   const [forgotPass] = useForgotPassMutation();
   const [resetPass] = useResetPassMutation();
 
   const sendMailHandler = async (e) => {
     e.preventDefault();
-    console.log(email);
+    setSending(true);
 
     const res = await forgotPass(email);
     if (res.error) {
@@ -30,6 +32,7 @@ function ForgotPasswordPage() {
       setEmailSent(true);
       toast.success("Email sent.");
     }
+    setSending(false);
   };
 
   const resetPassHandler = async (e) => {
@@ -49,7 +52,7 @@ function ForgotPasswordPage() {
     <>
       <div className="w-full md:w-1/2 md:mx-auto">
         <form
-          className="flex flex-col sm:flex-row sm:items-center"
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-center"
           onSubmit={sendMailHandler}
         >
           <div className="my-5 flex flex-col sm:flex-row sm:items-center gap-3">
@@ -64,13 +67,25 @@ function ForgotPasswordPage() {
               required
             />
           </div>
-          <Button
-            className={` p-2 sm:ml-2 ${
-              emailSent ? "bg-slate-400" : "bg-green-700"
-            }`}
-          >
-            {emailSent ? "Send Again" : "Send Mail"}
-          </Button>
+          {!sending ? (
+            <button
+              type="button"
+              className="p-2 sm:ml-2 bg-slate-400 text-white"
+            >
+              Sending
+              <span className="animate-bounce inline-block">.</span>
+              <span className="animate-bounce inline-block">.</span>
+              <span className="animate-bounce inline-block">.</span>
+            </button>
+          ) : (
+            <Button
+              className={` p-2 sm:ml-2 ${
+                emailSent ? "bg-slate-400" : "bg-green-700"
+              }`}
+            >
+              {emailSent ? "Send Again" : "Send Mail"}
+            </Button>
+          )}
         </form>
 
         {emailSent && (
@@ -78,20 +93,9 @@ function ForgotPasswordPage() {
             className="flex flex-col gap-5 p-5 shadow my-10"
             onSubmit={resetPassHandler}
           >
-            <div className="my-2 flex flex-col sm:flex-row sm:items-center gap-3">
-              <label htmlFor="password">New Password:</label>
+            <div className="my-2 flex flex-col gap-3">
               <div>
-                <input
-                  className="border-2 rounded p-2 focus:outline-none border-slate-100 focus:border-slate-300"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  id="password"
-                  required
-                  minLength={6}
-                  placeholder="123456"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <label htmlFor="password">New Password</label>
                 {!showPassword ? (
                   <FaEyeSlash
                     onClick={() => setShowPassword(!showPassword)}
@@ -104,6 +108,17 @@ function ForgotPasswordPage() {
                   />
                 )}
               </div>
+              <input
+                className="border-2 rounded p-2 focus:outline-none border-slate-100 focus:border-slate-300"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                required
+                minLength={6}
+                placeholder="123456"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="my-2 flex flex-col">
               <label htmlFor="token">Token:</label>
