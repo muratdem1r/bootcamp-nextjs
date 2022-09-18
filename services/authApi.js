@@ -29,16 +29,16 @@ export const authApi = rootApi.injectEndpoints({
       query: (email) => ({
         url: "auth/forgotpassword",
         method: "POST",
-        body: email,
+        body: { email: email },
       }),
       invalidatesTags: ["Auth"],
     }),
 
     resetPass: builder.mutation({
-      query: (id, password) => ({
-        url: `auth/resetpassword/${id}`,
+      query: ({ token, password }) => ({
+        url: `auth/resetpassword/${token}`,
         method: "PUT",
-        body: password,
+        body: { password: password },
       }),
       invalidatesTags: ["Auth"],
     }),

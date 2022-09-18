@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import Card from "../ui/Card";
 import Button from "../ui/Button";
-import UpdateBootcamp from "./UpdateBootcamp";
 import Image from "next/image";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import UpdateBootcamp from "./UpdateBootcamp";
 import DeleteBootcamp from "./DeleteBootcamp";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function BootcampItem({ bootcamp, setPage }) {
   const currentUser = useSelector((state) => state.currentUser.user);

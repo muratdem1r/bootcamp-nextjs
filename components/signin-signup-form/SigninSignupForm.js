@@ -12,6 +12,7 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 // Components
 import Button from "../ui/Button";
+import NextLink from "../ui/NextLink";
 
 function SigninSignupForm() {
   const router = useRouter();
@@ -152,6 +153,12 @@ function SigninSignupForm() {
             required
           />
         </div>
+        <NextLink
+          className="text-center hover:underline"
+          href="/forgotpassword"
+        >
+          Forgot Password?
+        </NextLink>
         <Button className="bg-slate-400 w-1/3 mx-auto py-2">Submit</Button>
       </form>
     </>

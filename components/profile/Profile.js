@@ -1,16 +1,46 @@
 import { useState } from "react";
-import { AiFillEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   useUpdatePassMutation,
   useUpdateUserDetailsMutation,
 } from "../../services/authApi";
+import { useBootcampsQuery } from "../../services/bootcampsApi";
+import { useEffect } from "react";
+import Link from "next/link";
+
+// Components
 import Button from "../ui/Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import UpdateBootcamp from "../bootcamps/UpdateBootcamp";
+import DeleteBootcamp from "../bootcamps/DeleteBootcamp";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { GoPrimitiveDot } from "react-icons/go";
 
 function Profile() {
   const currentUser = useSelector((state) => state.currentUser.user);
+  const [profileBootcamps, setProfileBootcamps] = useState([]);
+
+  const {
+    data = [],
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useBootcampsQuery({
+    limit: 1000,
+  });
+  useEffect(() => {
+    if (isSuccess) {
+      let array = [];
+      data.data.forEach((bootcamp) => {
+        if (currentUser._id === bootcamp.user) {
+          array.push(bootcamp);
+        }
+      });
+      setProfileBootcamps(array);
+    }
+  }, [data]);
   const [updateUser] = useUpdateUserDetailsMutation();
   const [updatePass] = useUpdatePassMutation();
 
@@ -285,6 +315,35 @@ function Profile() {
             Change Password
           </Button>
         </form>
+      )}
+      {profileBootcamps && (
+        <div className="p-5 shadow my-10 relative">
+          <h3 className="mb-5 font-bold">Your Bootcamps</h3>
+          <ul className="flex flex-col gap-2">
+            {profileBootcamps.map((bootcamp, i) => {
+              return (
+                <li className="flex items-center" key={i}>
+                  <GoPrimitiveDot className="text-xs mr-1" />
+                  <Link href={`/bootcamps/${bootcamp.id}`}>
+                    {bootcamp.name}
+                  </Link>
+                  <DeleteBootcamp
+                    className="flex items-center gap-1 p-1 ml-1 text-red-600 font-medium hover:text-red-700 hover:underline"
+                    bootcamp={bootcamp}
+                  >
+                    <AiFillDelete />
+                  </DeleteBootcamp>
+                  <UpdateBootcamp
+                    className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+                    bootcamp={bootcamp}
+                  >
+                    <AiFillEdit />
+                  </UpdateBootcamp>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </>
   );
