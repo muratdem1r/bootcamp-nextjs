@@ -23,7 +23,8 @@
     "react-icons": "^4.4.0",
     "react-intersection-observer": "^9.4.0",
     "react-redux": "^8.0.2",
-    "react-toastify": "^9.0.8"
+    "react-toastify": "^9.0.8",
+    "tailwindcss-animation-delay": "^1.0.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",

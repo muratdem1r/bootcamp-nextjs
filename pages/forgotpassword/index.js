@@ -67,16 +67,17 @@ function ForgotPasswordPage() {
               required
             />
           </div>
-          {!sending ? (
-            <button
-              type="button"
-              className="p-2 sm:ml-2 bg-slate-400 text-white"
-            >
+          {sending ? (
+            <div className="p-2 sm:ml-2 bg-slate-400 text-white">
               Sending
               <span className="animate-bounce inline-block">.</span>
-              <span className="animate-bounce inline-block">.</span>
-              <span className="animate-bounce inline-block">.</span>
-            </button>
+              <span className="animate-bounce animation-delay-200 inline-block">
+                .
+              </span>
+              <span className="animate-bounce animation-delay-400 inline-block">
+                .
+              </span>
+            </div>
           ) : (
             <Button
               className={` p-2 sm:ml-2 ${

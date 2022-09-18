@@ -12,10 +12,7 @@ module.exports = {
       backgroundImage: {
         "p-quadro": "url('/quadro.svg')",
       },
-      animation: {
-        "bounce-delay": "bounce 1s 1s infinite",
-      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animation-delay")],
 };
