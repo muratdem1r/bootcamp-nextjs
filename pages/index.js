@@ -6,7 +6,7 @@ import { GiTeacher } from "react-icons/gi";
 import { TbCertificate } from "react-icons/tb";
 
 function HomePage() {
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0,
     triggerOnce: true,
@@ -17,7 +17,11 @@ function HomePage() {
     useBootcampsQuery({ limit: 1 });
 
   // First Course
-  const { data: courses, isSuccess: isSuccessFirstCourse } = useCoursesQuery({
+  const {
+    data: courses,
+    isSuccess: isSuccessFirstCourse,
+    isLoading: isLoadingFirstCourse,
+  } = useCoursesQuery({
     limit: 1,
   });
 
@@ -51,6 +55,7 @@ function HomePage() {
         photo={firstBootcampPhoto}
         textGradient={"gradient-text-purple"}
         photoGradient={"after:from-indigo-500 after:to-pink-500"}
+        isLoading={isLoadingFirstCourse}
       />
       <div className="flex justify-between items-center lg:bg-p-quadro bg-right bg-cover my-32">
         <div>

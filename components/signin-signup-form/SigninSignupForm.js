@@ -153,10 +153,12 @@ function SigninSignupForm() {
           </div>
           <button
             type="button"
-            className="lg:w-1/2 mx-auto hover:underline"
+            className="hover:underline"
             onClick={() => setShowRegister(!showRegister)}
           >
-            Already have an account? Sign in!
+            Already have an account?
+            <br />
+            Sign in!
           </button>
           <Button className="bg-slate-400 w-1/3 mx-auto py-2">Submit</Button>
         </form>
@@ -219,10 +221,12 @@ function SigninSignupForm() {
           </NextLink>
           <button
             type="button"
-            className="lg:w-1/2 mx-auto hover:underline"
+            className="hover:underline"
             onClick={() => setShowRegister(!showRegister)}
           >
-            Don`t you have account yet? Sign Up!
+            Don`t you have account yet?
+            <br />
+            Sign Up!
           </button>
           <Button className="bg-slate-400 w-1/3 mx-auto py-2">Submit</Button>
         </form>
