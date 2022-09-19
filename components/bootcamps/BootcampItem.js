@@ -25,12 +25,12 @@ function BootcampItem({ bootcamp, setPage }) {
           className="rounded-t"
         />
       </div>
-      <div className="p-5 flex flex-col gap-y-5">
+      <div className="p-5 flex flex-col h-1/2 gap-y-5">
         <h1 className="text-white font-bold text-2xl text-center">
           {bootcamp.name}
         </h1>
-        <p className="text-neutral-500 clamp">{bootcamp.description}</p>
-        <ul className="flex flex-wrap">
+        <p className="text-neutral-500 text-clamp">{bootcamp.description}</p>
+        <ul className="flex flex-wrap mt-auto">
           {bootcamp.careers.map((career, i) => {
             return (
               <li key={i} className="bg-neutral-200 m-0.5 p-0.5">

@@ -1,52 +1,15 @@
 import { useState } from "react";
 import formatDate from "../../helpers/formatDate";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 
 // Components
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import UpdateCourse from "../courses/UpdateCourse";
+import DeleteCourse from "../courses/DeleteCourse";
+import NextLink from "../ui/NextLink";
 
 function CoursesTable({ courses }) {
-  const [isOpen, setIsOpen] = useState(false);
-  console.log(courses);
-  const editClickHandler = (course) => {
-    console.log(course);
-    setIsOpen(true);
-  };
-
-  const confirmDeleteHandler = (course) => {
-    console.log(course);
-  };
-  const deleteClickHandler = (course) => {
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div className="custom-ui">
-            <h1>Are you sure?</h1>
-            <p>You want to delete "{course.name}"?</p>
-            <button
-              className="text-green-500 block border border-green-500 rounded p-2 my-2 w-full hover:bg-green-500 hover:text-white ease-in-out duration-300"
-              onClick={onClose}
-            >
-              No
-            </button>
-            <button
-              className="text-red-500 block border border-red-500 rounded p-2 my-2 w-full hover:bg-red-500 hover:text-white  ease-in-out duration-300"
-              onClick={() => {
-                confirmDeleteHandler(course);
-                onClose();
-              }}
-            >
-              Yes, Delete it!
-            </button>
-          </div>
-        );
-      },
-    });
-  };
-
   const columns = [
     {
       field: "edit",
@@ -56,18 +19,34 @@ function CoursesTable({ courses }) {
       disableColumnMenu: true,
       renderCell: (params) => (
         <div className="flex w-full justify-around">
-          <AiFillEdit
-            onClick={() => editClickHandler(params.row)}
-            className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-          />
-          <AiFillDelete
-            onClick={() => deleteClickHandler(params.row)}
+          <UpdateCourse
+            className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+            course={params.row}
+          >
+            <AiFillEdit className="text-xl text-green-600 transition-colors hover:text-blue-500 hover:cursor-pointer" />
+          </UpdateCourse>
+          <DeleteCourse
             className="text-xl text-red-600 transition-colors hover:text-blue-500 hover:cursor-pointer"
-          />
+            course={params.row}
+          >
+            <AiFillDelete />
+          </DeleteCourse>
         </div>
       ),
     },
-    { field: "title", headerName: "Name", width: 250 },
+    {
+      field: "title",
+      headerName: "Name",
+      width: 250,
+      renderCell: (params) => (
+        <NextLink
+          className="text-blue-500 hover:underline hover:text-blue-400 transition-colors"
+          href={`/courses/${params.row.id}`}
+        >
+          {params.row.title}
+        </NextLink>
+      ),
+    },
     { field: "user", headerName: "User ID", width: 250 },
     { field: "bootcamp", headerName: "Bootcamp", width: 250 },
     { field: "createdAt", headerName: "Created At", width: 250 },

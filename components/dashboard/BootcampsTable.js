@@ -4,9 +4,9 @@ import formatDate from "../../helpers/formatDate";
 // Components
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import UpdateBootcamp from "../bootcamps/UpdateBootcamp";
 import NextLink from "../ui/NextLink";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import UpdateBootcamp from "../bootcamps/UpdateBootcamp";
 import DeleteBootcamp from "../bootcamps/DeleteBootcamp";
 
 function BootcampsTable({ bootcamps }) {
