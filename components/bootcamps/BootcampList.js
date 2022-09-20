@@ -2,7 +2,7 @@
 import { InView } from "react-intersection-observer";
 import BootcampItem from "./BootcampItem";
 
-function BootcampList({ bootcamps, setPage, nextPage }) {
+function BootcampList({ bootcamps, setParams, nextPage }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
       {bootcamps.map((bootcamp, index) => {
@@ -11,17 +11,17 @@ function BootcampList({ bootcamps, setPage, nextPage }) {
             <InView
               key={index}
               onChange={(inView, entry) => {
-                if (inView) {
-                  setPage(nextPage);
+                if (inView && bootcamps.length >= 12) {
+                  setParams((state) => ({ ...state, page: nextPage }));
                 }
               }}
             >
-              <BootcampItem bootcamp={bootcamp} setPage={setPage} />
+              <BootcampItem bootcamp={bootcamp} setParams={setParams} />
             </InView>
           );
         }
         return (
-          <BootcampItem key={index} bootcamp={bootcamp} setPage={setPage} />
+          <BootcampItem key={index} bootcamp={bootcamp} setParams={setParams} />
         );
       })}
     </div>

@@ -9,7 +9,7 @@ import { Dialog, Transition } from "@headlessui/react";
 
 function DeleteBootcamp({
   bootcamp,
-  setPage,
+  setParams,
   returnHome,
   className,
   children,
@@ -26,8 +26,8 @@ function DeleteBootcamp({
       if (returnHome === true) {
         router.push("/");
       }
-      if (setPage) {
-        setPage(1);
+      if (setParams) {
+        setParams((state) => ({ ...state, page: 1 }));
       }
       toast.success(`bootcamp ${bootcamp.name}, successfully deleted.`);
     }

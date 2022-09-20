@@ -10,7 +10,7 @@ import formatPhoneNumber from "../../helpers/formatPhoneNumber";
 import { ImCross } from "react-icons/im";
 import { Dialog, Switch, Transition } from "@headlessui/react";
 
-function UpdateBootcamp({ bootcamp, setPage, className, children }) {
+function UpdateBootcamp({ bootcamp, setParams, className, children }) {
   const [isOpen, setIsOpen] = useState(false);
   const careerEnum = [
     "Web Development",
@@ -101,8 +101,8 @@ function UpdateBootcamp({ bootcamp, setPage, className, children }) {
         toast.error("You have already published a bootcamp");
       }
     } else {
-      if (setPage) {
-        setPage(1);
+      if (setParams) {
+        setParams((state) => ({ ...state, page: 1 }));
       }
       setIsOpen(false);
       toast.success("Bootcamp updated.");

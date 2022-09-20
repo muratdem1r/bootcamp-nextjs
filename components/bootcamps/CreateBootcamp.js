@@ -9,7 +9,7 @@ import { ImCross } from "react-icons/im";
 import { Dialog, Switch, Transition } from "@headlessui/react";
 import Button from "../../components/ui/Button";
 
-function CreateBootcamp({ setPage }) {
+function CreateBootcamp({ setParams }) {
   const careerEnum = [
     "Web Development",
     "Mobile Development",
@@ -56,7 +56,7 @@ function CreateBootcamp({ setPage }) {
         toast.error("You have already published a bootcamp");
       }
     } else {
-      setPage(1);
+      setParams((state) => ({ ...state, page: 1 }));
       setIsOpen(false);
       toast.success("Bootcamp added.");
     }

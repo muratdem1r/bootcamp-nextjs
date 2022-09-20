@@ -9,7 +9,7 @@ import UpdateBootcamp from "./UpdateBootcamp";
 import DeleteBootcamp from "./DeleteBootcamp";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-function BootcampItem({ bootcamp, setPage }) {
+function BootcampItem({ bootcamp, setParams }) {
   const currentUser = useSelector((state) => state.currentUser.user);
 
   const photo = "/" + bootcamp.photo;
@@ -47,14 +47,14 @@ function BootcampItem({ bootcamp, setPage }) {
             <DeleteBootcamp
               className="flex items-center gap-1 p-1 ml-1 text-red-600 font-medium hover:text-red-700 hover:underline"
               bootcamp={bootcamp}
-              setPage={setPage}
+              setParams={setParams}
             >
               Delete <AiFillDelete className="inline" />
             </DeleteBootcamp>
             <UpdateBootcamp
               className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
               bootcamp={bootcamp}
-              setPage={setPage}
+              setParams={setParams}
             >
               Edit
               <AiFillEdit className="inline" />
