@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 // Components
 import CoursesList from "../../components/courses/CoursesList";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import PageLoadingSpinner from "../../components/ui/PageLoadingSpinner";
 
 function CoursesPage() {
   const [page, setPage] = useState(1);
@@ -33,7 +33,7 @@ function CoursesPage() {
 
   let content;
   if (isLoading) {
-    content = <LoadingSpinner />;
+    content = <PageLoadingSpinner />;
   } else if (isSuccess) {
     content = (
       <>

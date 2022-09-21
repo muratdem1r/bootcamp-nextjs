@@ -9,7 +9,7 @@ import { Tab } from "@headlessui/react";
 import UsersTable from "../../components/dashboard/UsersTable";
 import CoursesTable from "../../components/dashboard/CoursesTable";
 import BootcampsTable from "../../components/dashboard/BootcampsTable";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import PageLoadingSpinner from "../../components/ui/PageLoadingSpinner";
 import { useState } from "react";
 
 function DashboardPage() {
@@ -87,21 +87,21 @@ function DashboardPage() {
         <Tab.Panels className="mt-2">
           <Tab.Panel>
             {isUsersLoading ? (
-              <LoadingSpinner />
+              <PageLoadingSpinner />
             ) : (
               isUsersSuccess && <UsersTable users={users} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isBootcampsLoading ? (
-              <LoadingSpinner />
+              <PageLoadingSpinner />
             ) : (
               isBootcampsSuccess && <BootcampsTable bootcamps={bootcamps} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isCoursesLoading ? (
-              <LoadingSpinner />
+              <PageLoadingSpinner />
             ) : (
               isCoursesSuccess && <CoursesTable courses={courses} />
             )}

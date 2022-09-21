@@ -16,6 +16,8 @@ import UpdateBootcamp from "../bootcamps/UpdateBootcamp";
 import DeleteBootcamp from "../bootcamps/DeleteBootcamp";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { GoPrimitiveDot } from "react-icons/go";
+import CreateBootcamp from "../bootcamps/CreateBootcamp";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 function Profile() {
   const currentUser = useSelector((state) => state.currentUser.user);
@@ -316,33 +318,43 @@ function Profile() {
           </Button>
         </form>
       )}
-      {profileBootcamps && (
+      {profileBootcamps && currentUser.role !== "user" && (
         <div className="p-5 shadow my-10 relative">
           <h3 className="mb-5 font-bold">Your Bootcamps</h3>
-          <ul className="flex flex-col gap-2">
-            {profileBootcamps.map((bootcamp, i) => {
-              return (
-                <li className="flex items-center" key={i}>
-                  <GoPrimitiveDot className="text-xs mr-1" />
-                  <Link href={`/bootcamps/${bootcamp.id}`}>
-                    {bootcamp.name}
-                  </Link>
-                  <DeleteBootcamp
-                    className="flex items-center gap-1 p-1 ml-1 text-red-600 font-medium hover:text-red-700 hover:underline"
-                    bootcamp={bootcamp}
-                  >
-                    <AiFillDelete />
-                  </DeleteBootcamp>
-                  <UpdateBootcamp
-                    className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
-                    bootcamp={bootcamp}
-                  >
-                    <AiFillEdit />
-                  </UpdateBootcamp>
-                </li>
-              );
-            })}
-          </ul>
+          {isLoading && <LoadingSpinner />}
+          {currentUser.role !== "admin" &&
+          isSuccess &&
+          profileBootcamps.length === 0 ? (
+            <CreateBootcamp />
+          ) : (
+            isSuccess && (
+              <ul className="flex flex-col gap-2 mb-5">
+                {profileBootcamps.map((bootcamp, i) => {
+                  return (
+                    <li className="flex items-center hover:underline" key={i}>
+                      <GoPrimitiveDot className="text-xs mr-1" />
+                      <Link href={`/bootcamps/${bootcamp.id}`}>
+                        {bootcamp.name}
+                      </Link>
+                      <DeleteBootcamp
+                        className="flex items-center gap-1 p-1 ml-1 text-red-600 font-medium hover:text-red-700 hover:underline"
+                        bootcamp={bootcamp}
+                      >
+                        <AiFillDelete />
+                      </DeleteBootcamp>
+                      <UpdateBootcamp
+                        className="flex items-center gap-1 p-1 text-green-600 font-medium hover:text-green-700 hover:underline"
+                        bootcamp={bootcamp}
+                      >
+                        <AiFillEdit />
+                      </UpdateBootcamp>
+                    </li>
+                  );
+                })}
+              </ul>
+            )
+          )}
+          {currentUser.role === "admin" && <CreateBootcamp />}
         </div>
       )}
     </>

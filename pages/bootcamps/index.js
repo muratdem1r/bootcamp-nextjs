@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 // Components
 import BootcampList from "../../components/bootcamps/BootcampList";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import PageLoadingSpinner from "../../components/ui/PageLoadingSpinner";
 import CreateBootcamp from "../../components/bootcamps/CreateBootcamp";
 import FilterBootcamps from "../../components/bootcamps/FilterBootcamps";
 
@@ -52,7 +52,7 @@ function BootcampsPage() {
 
   let content;
   if (isLoading) {
-    content = <LoadingSpinner />;
+    content = <PageLoadingSpinner />;
   } else if (isSuccess) {
     content = (
       <>

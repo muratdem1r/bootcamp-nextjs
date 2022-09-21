@@ -6,7 +6,7 @@ import { useCourseQuery } from "../../services/coursesApi";
 // Components
 import CourseDetail from "../../components/courses/CourseDetail";
 import NotFound from "../../components/not-found/NotFound";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import PageLoadingSpinner from "../../components/ui/PageLoadingSpinner";
 
 function CourseDetailPage() {
   const router = useRouter();
@@ -23,7 +23,7 @@ function CourseDetailPage() {
   let content;
 
   if (isLoading) {
-    content = <LoadingSpinner />;
+    content = <PageLoadingSpinner />;
   } else if (isSuccess) {
     content = <CourseDetail course={course.data} />;
   } else if (isError) {

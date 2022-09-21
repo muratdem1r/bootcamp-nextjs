@@ -8,7 +8,7 @@ import { useReviewsBootcampQuery } from "../../services/reviewsApi";
 // Components
 import BootcampDetail from "../../components/bootcamps/BootcampDetail";
 import NotFound from "../../components/not-found/NotFound";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import PageLoadingSpinner from "../../components/ui/PageLoadingSpinner";
 
 function BootcampDetailsPage() {
   const router = useRouter();
@@ -42,7 +42,7 @@ function BootcampDetailsPage() {
   let content;
 
   if (isBootcampLoading || isCoursesLoading || isReviewsLoading) {
-    content = <LoadingSpinner />;
+    content = <PageLoadingSpinner />;
   } else if (isBootcampSuccess && isCoursesSuccess && isReviewsSuccess) {
     content = (
       <BootcampDetail

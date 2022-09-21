@@ -56,7 +56,9 @@ function CreateBootcamp({ setParams }) {
         toast.error("You have already published a bootcamp");
       }
     } else {
-      setParams((state) => ({ ...state, page: 1 }));
+      if (setParams) {
+        setParams((state) => ({ ...state, page: 1 }));
+      }
       setIsOpen(false);
       toast.success("Bootcamp added.");
     }
