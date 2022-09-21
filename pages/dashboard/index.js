@@ -9,32 +9,42 @@ import { Tab } from "@headlessui/react";
 import UsersTable from "../../components/dashboard/UsersTable";
 import CoursesTable from "../../components/dashboard/CoursesTable";
 import BootcampsTable from "../../components/dashboard/BootcampsTable";
-import PageLoadingSpinner from "../../components/ui/PageLoadingSpinner";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import { useState } from "react";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 function DashboardPage() {
   const currentUser = useSelector((state) => state.currentUser.user);
   const router = useRouter();
 
   const [hideContent, setHideContent] = useState(true);
+  const [bootcampParameters, setBootcampParameters] = useState(skipToken);
+  const [courseParameters, setCourseParameters] = useState(skipToken);
 
   const {
     data: users,
     isLoading: isUsersLoading,
     isSuccess: isUsersSuccess,
-  } = useUsersQuery({ limit: 50 });
+  } = useUsersQuery({ limit: 1000 });
 
   const {
     data: bootcamps,
     isLoading: isBootcampsLoading,
     isSuccess: isBootcampsSuccess,
-  } = useBootcampsQuery({ limit: 50 });
+  } = useBootcampsQuery(bootcampParameters);
 
   const {
     data: courses,
     isLoading: isCoursesLoading,
     isSuccess: isCoursesSuccess,
-  } = useCoursesQuery({ limit: 50 });
+  } = useCoursesQuery(courseParameters);
+
+  const bootcampsButtonHandler = () => {
+    setBootcampParameters({ limit: 1000 });
+  };
+  const coursesButtonHandler = () => {
+    setCourseParameters({ limit: 1000 });
+  };
 
   useEffect(() => {
     if (currentUser?.role === "admin") {
@@ -43,6 +53,7 @@ function DashboardPage() {
       router.push("/");
     }
   }, [currentUser]);
+
   return (
     !hideContent && (
       <Tab.Group>
@@ -62,6 +73,7 @@ function DashboardPage() {
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
+                onClick={bootcampsButtonHandler}
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
             ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
               selected ? "bg-blue-500 text-white" : "text-blue-700"
@@ -74,6 +86,7 @@ function DashboardPage() {
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
+                onClick={coursesButtonHandler}
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
             ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
               selected ? "bg-blue-500 text-white" : "text-blue-700"
@@ -87,21 +100,21 @@ function DashboardPage() {
         <Tab.Panels className="mt-2">
           <Tab.Panel>
             {isUsersLoading ? (
-              <PageLoadingSpinner />
+              <LoadingSpinner className="text-center mt-20" />
             ) : (
               isUsersSuccess && <UsersTable users={users} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isBootcampsLoading ? (
-              <PageLoadingSpinner />
+              <LoadingSpinner className="text-center mt-20" />
             ) : (
               isBootcampsSuccess && <BootcampsTable bootcamps={bootcamps} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isCoursesLoading ? (
-              <PageLoadingSpinner />
+              <LoadingSpinner className="text-center mt-20" />
             ) : (
               isCoursesSuccess && <CoursesTable courses={courses} />
             )}
