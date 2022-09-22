@@ -68,7 +68,6 @@ function BootcampsPage() {
           Bootcamps
           <FaRegHandPointDown className="inline" />
         </h1>
-
         <BootcampList
           setParams={setParams}
           nextPage={nextPage}

@@ -129,7 +129,10 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
           )}
         </ul>
       </div>
-      {currentUser && canReview && <ReviewForm id={bootcamp.id} />}
+
+      {currentUser && canReview && currentUser._id !== bootcamp.user && (
+        <ReviewForm id={bootcamp.id} />
+      )}
       <ReviewsList reviews={reviews} setCanReview={setCanReview} />
     </>
   );
