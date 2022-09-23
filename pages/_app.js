@@ -17,6 +17,7 @@ import { useGetLoggedinUserQuery } from "../services/authApi";
 // Components
 import Layout from "../components/layout/Layout";
 import { ToastContainer } from "react-toastify";
+import ScrollToTop from "../components/ui/ScrollToTop";
 
 function MyApp({ Component, pageProps }) {
   const dispatch = useDispatch();
@@ -53,8 +54,9 @@ function MyApp({ Component, pageProps }) {
     <div className={darkMode ? "dark" : ""}>
       <Layout>
         <Component {...pageProps} />
-        <ToastContainer />
       </Layout>
+      <ToastContainer />
+      <ScrollToTop />
     </div>
   );
 }
