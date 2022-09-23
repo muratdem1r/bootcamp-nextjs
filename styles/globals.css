@@ -36,6 +36,12 @@ p,h1,h2,h3,h4,h5{
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+    .text-clamp-2{
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
     .text-clamp{
         overflow: hidden;
         display: -webkit-box;

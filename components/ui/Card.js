@@ -1,10 +1,9 @@
 import React from "react";
+import styles from "./Card.module.css";
 
 function Card({ children, className }) {
   return (
-    <div className={`shadow-md rounded flex flex-col h-full ${className}`}>
-      {children}
-    </div>
+    <div className={`rounded ${styles.card} ${className}`}>{children}</div>
   );
 }
 

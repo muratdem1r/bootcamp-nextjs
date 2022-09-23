@@ -5,7 +5,7 @@ import { BiFileFind } from "react-icons/bi";
 
 function BootcampList({ bootcamps, setParams, nextPage }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {bootcamps.length === 0 && (
         <p className="flex items-center">
           <BiFileFind className="text-2xl" />
@@ -16,15 +16,16 @@ function BootcampList({ bootcamps, setParams, nextPage }) {
         if (bootcamps.length - 1 === index) {
           return (
             <InView
+              as={BootcampItem}
+              bootcamp={bootcamp}
+              setParams={setParams}
               key={index}
               onChange={(inView, entry) => {
                 if (inView && bootcamps.length >= 12) {
                   setParams((state) => ({ ...state, page: nextPage }));
                 }
               }}
-            >
-              <BootcampItem bootcamp={bootcamp} setParams={setParams} />
-            </InView>
+            ></InView>
           );
         }
         return (

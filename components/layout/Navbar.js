@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { logout } from "../../store/slices/currentUserSlice";
+import { switchDarkMode } from "../../store/slices/darkModeSlice";
 
 // Components
 import { Menu, Transition } from "@headlessui/react";
@@ -15,11 +16,13 @@ import { BiChevronDown, BiUser, BiLogOut } from "react-icons/bi";
 import { FaSolarPanel } from "react-icons/fa";
 import { IoIosMenu } from "react-icons/io";
 import Button from "../ui/Button";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 import styles from "./Navbar.module.css";
 
 function Navbar() {
   const currentUser = useSelector((state) => state.currentUser.user);
+  const darkMode = useSelector((state) => state.darkMode.darkMode);
 
   const dispatch = useDispatch();
 
@@ -35,6 +38,15 @@ function Navbar() {
     localStorage.clear("token");
     dispatch(logout());
     toast.success("Logged out!");
+  };
+
+  const darkModeHandler = () => {
+    if (!darkMode) {
+      localStorage.setItem("darkMode", "dark");
+    } else {
+      localStorage.setItem("darkMode", "white");
+    }
+    dispatch(switchDarkMode());
   };
 
   return (
@@ -179,6 +191,13 @@ function Navbar() {
               )}
             </li>
           </ul>
+          <button onClick={darkModeHandler}>
+            {darkMode ? (
+              <MdDarkMode className="text-xl hover:cursor-pointer text-black" />
+            ) : (
+              <MdLightMode className="text-xl hover:cursor-pointer text-black" />
+            )}
+          </button>
         </nav>
       </div>
     </header>

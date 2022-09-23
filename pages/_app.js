@@ -2,13 +2,14 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { skipToken } from "@reduxjs/toolkit/dist/query/react";
 
 // Store
 import { wrapper } from "../store/store";
 import { setCurrentUser } from "../store/slices/currentUserSlice";
+import { switchDarkMode } from "../store/slices/darkModeSlice";
 
 // Services
 import { useGetLoggedinUserQuery } from "../services/authApi";
@@ -19,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 
 function MyApp({ Component, pageProps }) {
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.darkMode.darkMode);
   const [token, setToken] = useState(skipToken);
 
   const {
@@ -30,6 +32,12 @@ function MyApp({ Component, pageProps }) {
   } = useGetLoggedinUserQuery(token);
 
   useEffect(() => {
+    const darkMode = localStorage.getItem("darkMode");
+
+    if (darkMode === "dark") {
+      dispatch(switchDarkMode());
+    }
+
     const localToken = localStorage.getItem("token");
     if (localToken === null) return;
     setToken(localToken);
@@ -42,10 +50,12 @@ function MyApp({ Component, pageProps }) {
   }, [user, isSuccess]);
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-      <ToastContainer />
-    </Layout>
+    <div className={darkMode ? "dark" : ""}>
+      <Layout>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </Layout>
+    </div>
   );
 }
 
