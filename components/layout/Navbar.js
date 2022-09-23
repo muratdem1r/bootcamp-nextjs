@@ -50,7 +50,7 @@ function Navbar() {
   };
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} dark:bg-navbar`}>
       <div className="w-11/12 max-w-7xl mx-auto flex justify-between items-center py-5">
         <div className={styles.logo}>
           <Link href="/">murat</Link>
@@ -73,12 +73,12 @@ function Navbar() {
           )}
         </button>
         <nav
-          className={`flex justify-center items-center ease-in duration-300 bg-slate-100 h-screen fixed top-0 left-0 md:h-auto w-full md:static md:w-auto ${
+          className={`flex justify-center items-center transition-transform bg-slate-100 dark:bg-navbar h-screen fixed top-0 left-0 md:h-auto w-full md:static md:w-auto ${
             !isOpen ? "translate-x-full md:translate-x-0" : ""
           } `}
           id="navbar"
         >
-          <ul className="flex flex-col items-center md:flex-row">
+          <ul className="flex flex-col items-center md:flex-row text-stone-900 dark:text-white">
             <li
               onClick={() => {
                 setIsOpen(false);
@@ -99,10 +99,10 @@ function Navbar() {
               {currentUser ? (
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
-                    <Menu.Button className="text-black inline-flex justify-center items-center rounded-md bg-opacity-20 bg-slate-400 px-2 py-1  hover:bg-opacity-30 hover:text-black">
+                    <Menu.Button className="text-black dark:text-white inline-flex justify-center items-center rounded-md bg-opacity-20 bg-slate-400 px-2 py-1  hover:bg-opacity-30 hover:text-black">
                       {currentUser.name}
                       <BiChevronDown
-                        className="ml-2 -mr-1 h-5 w-5 text-black "
+                        className="ml-2 -mr-1 h-5 w-5 text-black dark:text-white"
                         aria-hidden="true"
                       />
                     </Menu.Button>
@@ -193,9 +193,9 @@ function Navbar() {
           </ul>
           <button onClick={darkModeHandler}>
             {darkMode ? (
-              <MdDarkMode className="text-xl hover:cursor-pointer text-black" />
+              <MdDarkMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
             ) : (
-              <MdLightMode className="text-xl hover:cursor-pointer text-black" />
+              <MdLightMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
             )}
           </button>
         </nav>

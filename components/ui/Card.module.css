@@ -1,12 +1,6 @@
-.card{
-    transition: 150ms;
-    box-shadow: 0 2px 8px -3px #bbb;
-}
+
 .card img{
     transition: scale 150ms;
-}
-.card:hover{
-    box-shadow: 0 6px 12px 3px #bbb;
 }
 .card:hover img{
     scale: 1.05;

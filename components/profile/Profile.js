@@ -133,7 +133,7 @@ function Profile() {
         <div className="flex flex-col gap-2">
           <h1 className="font-bold">Name</h1>
           <input
-            className={`bg-white duration-100 ease-in-out ${
+            className={`bg-white dark:bg-dark duration-100 ease-in-out ${
               updatePressed &&
               "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
             }`}
@@ -149,7 +149,7 @@ function Profile() {
         <div className="flex flex-col gap-2">
           <h1 className="font-bold">Email</h1>
           <input
-            className={`bg-white duration-100 ease-in-out ${
+            className={`bg-white dark:bg-dark duration-100 ease-in-out ${
               updatePressed &&
               "border-2 border-slate-300 rounded p-2 focus:outline-none focus:border-slate-100 my-5"
             }`}
@@ -183,7 +183,7 @@ function Profile() {
             <div>
               <input
                 className={`
-                border-2 rounded p-2 focus:outline-none  ml-2 ${
+                border-2 rounded p-2 focus:outline-none  ml-2 text-black ${
                   wrongPass
                     ? "border-red-500 focus:border-red-400"
                     : "border-slate-300 focus:border-slate-100"
@@ -226,7 +226,7 @@ function Profile() {
             <div>
               <input
                 className={`
-                border-2 rounded p-2 focus:outline-none  ml-2 ${
+                border-2 rounded p-2 focus:outline-none  ml-2 text-black ${
                   mismatchedPass
                     ? "border-red-500 focus:border-red-400"
                     : "border-slate-300 focus:border-slate-100"
@@ -269,7 +269,7 @@ function Profile() {
             <div>
               <input
                 className={`
-                border-2 rounded p-2 focus:outline-none  ml-2 ${
+                border-2 rounded p-2 focus:outline-none  ml-2 text-black ${
                   mismatchedPass
                     ? "border-red-500 focus:border-red-400"
                     : "border-slate-300 focus:border-slate-100"
@@ -321,7 +321,7 @@ function Profile() {
       {profileBootcamps && currentUser.role !== "user" && (
         <div className="p-5 shadow my-10 relative">
           <h3 className="mb-5 font-bold">Your Bootcamps</h3>
-          {isLoading && <LoadingSpinner />}
+          {isLoading && <LoadingSpinner className="mb-2" />}
           {currentUser.role !== "admin" &&
           isSuccess &&
           profileBootcamps.length === 0 ? (

@@ -29,14 +29,19 @@ function BootcampItem({ bootcamp, setParams }) {
             </div>
 
             <div className="flex flex-1 flex-col gap-y-3 mt-5">
-              <h1 className="text-black font-bold text-2xl">{bootcamp.name}</h1>
-              <p className="text-neutral-500 text-clamp-2">
+              <h1 className="text-black dark:text-white font-bold text-2xl">
+                {bootcamp.name}
+              </h1>
+              <p className="text-neutral-500 dark:text-neutral-300 text-clamp-2">
                 {bootcamp.description}
               </p>
               <ul className="flex flex-wrap mt-2">
                 {bootcamp.careers.map((career, i) => {
                   return (
-                    <li key={i} className="bg-neutral-100 m-0.5 p-0.5">
+                    <li
+                      key={i}
+                      className="bg-neutral-100 dark:bg-neutral-300 m-0.5 p-0.5"
+                    >
                       <span className="gradient-text-purple font-bold">
                         {career}
                       </span>

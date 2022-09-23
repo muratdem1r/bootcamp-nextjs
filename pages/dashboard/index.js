@@ -57,13 +57,15 @@ function DashboardPage() {
   return (
     !hideContent && (
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 dark:bg-blue-900/50 p-1">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
             ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-              selected ? "bg-blue-500 text-white" : "text-blue-700"
+              selected
+                ? "bg-blue-500 text-white"
+                : "text-blue-700 dark:text-blue-300"
             }`}
               >
                 Users
@@ -76,7 +78,9 @@ function DashboardPage() {
                 onClick={bootcampsButtonHandler}
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
             ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-              selected ? "bg-blue-500 text-white" : "text-blue-700"
+              selected
+                ? "bg-blue-500 text-white"
+                : "text-blue-700 dark:text-blue-300"
             }`}
               >
                 Bootcamps
@@ -89,7 +93,9 @@ function DashboardPage() {
                 onClick={coursesButtonHandler}
                 className={`w-full rounded-lg py-2.5 text-sm font-medium leading-5
             ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 ${
-              selected ? "bg-blue-500 text-white" : "text-blue-700"
+              selected
+                ? "bg-blue-500 text-white"
+                : "text-blue-700 dark:text-blue-300"
             }`}
               >
                 Courses
@@ -100,21 +106,21 @@ function DashboardPage() {
         <Tab.Panels className="mt-2">
           <Tab.Panel>
             {isUsersLoading ? (
-              <LoadingSpinner className="text-center mt-20" />
+              <LoadingSpinner className="mt-20 mx-auto" />
             ) : (
               isUsersSuccess && <UsersTable users={users} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isBootcampsLoading ? (
-              <LoadingSpinner className="text-center mt-20" />
+              <LoadingSpinner className="mt-20 mx-auto" />
             ) : (
               isBootcampsSuccess && <BootcampsTable bootcamps={bootcamps} />
             )}
           </Tab.Panel>
           <Tab.Panel>
             {isCoursesLoading ? (
-              <LoadingSpinner className="text-center mt-20" />
+              <LoadingSpinner className="mt-20 mx-auto" />
             ) : (
               isCoursesSuccess && <CoursesTable courses={courses} />
             )}

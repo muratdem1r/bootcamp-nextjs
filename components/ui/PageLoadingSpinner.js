@@ -1,11 +1,6 @@
-import React from "react";
-import Image from "next/image";
-
 function PagePageLoadingSpinner() {
   return (
-    <div className="p fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-transparent">
-      <Image src="/Rocket.gif" alt="loading" width="64" height="64"></Image>
-    </div>
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[url('/Rocket.gif')] dark:bg-[url('/Rocket-dark.gif')] w-16 h-16"></div>
   );
 }
 

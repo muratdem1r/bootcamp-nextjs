@@ -20,7 +20,7 @@ function CourseDetail({ course }) {
   const date = new Date(course.createdAt).toLocaleDateString("en-US", options);
 
   return (
-    <div className="grid shadow-sm p-5 gap-5 bg-neutral-100">
+    <div className="grid shadow-sm p-5 gap-5 bg-neutral-100 dark:bg-neutral-300 text-black">
       {(currentUser?._id === course.user || currentUser?.role === "admin") && (
         <div className="flex items-center gap-3">
           <UpdateCourse

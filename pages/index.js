@@ -79,10 +79,10 @@ function HomePage() {
             they have the skills to add real value to a potential employer.
           </p>
         </div>
-        <GiTeacher className="hidden lg:block w-1/5 h-1/5 text-zinc-900 mr-10" />
+        <GiTeacher className="hidden lg:block w-1/5 h-1/5 text-zinc-900 dark:text-white mr-10" />
       </div>
       <div className="flex justify-between items-center lg:bg-p-quadro bg-right bg-cover my-32">
-        <TbCertificate className="hidden lg:block w-1/5 h-1/5 text-zinc-900 ml-10" />
+        <TbCertificate className="hidden lg:block w-1/5 h-1/5 text-zinc-900 dark:text-white ml-10" />
         <div className="lg:text-right">
           <h1 className="gradient-text-purple font-bold text-2xl">
             Why Coding Bootcamps Are Important?

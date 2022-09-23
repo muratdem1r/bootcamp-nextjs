@@ -63,7 +63,7 @@ function CoursesTable({ courses }) {
   });
   return (
     <>
-      <Box sx={{ height: 650, width: "100%" }}>
+      <Box sx={{ height: 650, width: "100%", bgcolor: "white" }}>
         <DataGrid
           rows={rows}
           columns={columns}
