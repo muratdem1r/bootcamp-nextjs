@@ -190,14 +190,16 @@ function Navbar() {
                 </NextLink>
               )}
             </li>
+            <li>
+              <button onClick={darkModeHandler}>
+                {darkMode ? (
+                  <MdDarkMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
+                ) : (
+                  <MdLightMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
+                )}
+              </button>
+            </li>
           </ul>
-          <button onClick={darkModeHandler}>
-            {darkMode ? (
-              <MdDarkMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
-            ) : (
-              <MdLightMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
-            )}
-          </button>
         </nav>
       </div>
     </header>
