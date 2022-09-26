@@ -65,11 +65,14 @@ function Navbar() {
           <span className="sr-only">Open main menu</span>
           {isOpen ? (
             <GiTireIronCross
-              className="block md:hidden h-6 w-6"
+              className="block md:hidden h-6 w-6 dark:text-white"
               aria-hidden="true"
             />
           ) : (
-            <IoIosMenu className="block md:hidden h-8 w-8" aria-hidden="true" />
+            <IoIosMenu
+              className="block md:hidden h-8 w-8 dark:text-white"
+              aria-hidden="true"
+            />
           )}
         </button>
         <nav
@@ -183,7 +186,7 @@ function Navbar() {
                     onClick={() => {
                       setIsOpen(false);
                     }}
-                    className="py-2.5 px-5 bg-indigo-800"
+                    className="py-2.5 px-5 bg-indigo-800 dark:hover:shadow-white"
                   >
                     Sign-in
                   </Button>
@@ -193,9 +196,9 @@ function Navbar() {
             <li>
               <button onClick={darkModeHandler}>
                 {darkMode ? (
-                  <MdDarkMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
+                  <MdDarkMode className="text-xl hover:cursor-pointer text-black dark:text-white hover:scale-125 transition-transform" />
                 ) : (
-                  <MdLightMode className="text-xl hover:cursor-pointer text-black dark:text-white" />
+                  <MdLightMode className="text-xl hover:cursor-pointer text-black dark:text-white hover:scale-125 transition-transform" />
                 )}
               </button>
             </li>

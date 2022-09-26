@@ -16,16 +16,15 @@ function BootcampList({ bootcamps, setParams, nextPage }) {
         if (bootcamps.length - 1 === index) {
           return (
             <InView
-              as={BootcampItem}
-              bootcamp={bootcamp}
-              setParams={setParams}
               key={index}
-              onChange={(inView, entry) => {
+              onChange={(inView) => {
                 if (inView && bootcamps.length >= 12) {
                   setParams((state) => ({ ...state, page: nextPage }));
                 }
               }}
-            ></InView>
+            >
+              <BootcampItem bootcamp={bootcamp} setParams={setParams} />
+            </InView>
           );
         }
         return (

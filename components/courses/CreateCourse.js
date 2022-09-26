@@ -48,7 +48,7 @@ function CreateCourse({ bootcamp }) {
   return (
     <>
       <button
-        className="flex items-center gap-1 border border-slate-500 p-1 text-slate-800 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
+        className="flex items-center gap-1 border border-slate-500 p-1 text-slate-800 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer dark:text-white dark:hover:shadow-white"
         onClick={() => setIsOpen(true)}
       >
         New Course <FiPlus className="inline" />

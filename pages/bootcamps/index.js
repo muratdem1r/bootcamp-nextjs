@@ -32,7 +32,6 @@ function BootcampsPage() {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useBootcampsQuery(params);
 
   useEffect(() => {

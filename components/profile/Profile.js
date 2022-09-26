@@ -27,8 +27,6 @@ function Profile() {
     data = [],
     isLoading,
     isSuccess,
-    isError,
-    error,
   } = useBootcampsQuery({
     limit: 1000,
   });

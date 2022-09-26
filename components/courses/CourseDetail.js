@@ -20,7 +20,7 @@ function CourseDetail({ course }) {
   const date = new Date(course.createdAt).toLocaleDateString("en-US", options);
 
   return (
-    <div className="grid shadow-sm p-5 gap-5 bg-neutral-100 dark:bg-neutral-300 text-black">
+    <div className="grid shadow-sm p-5 gap-5 bg-neutral-100 text-black dark:bg-navbar dark:text-white">
       {(currentUser?._id === course.user || currentUser?.role === "admin") && (
         <div className="flex items-center gap-3">
           <UpdateCourse
@@ -68,16 +68,16 @@ function CourseDetail({ course }) {
         )}
       </div>
       <div className="border-2 rounded mt-10 p-5 md:w-1/2">
-        <h5 className="font-bold text-lg text-slate-800">
+        <h5 className="font-bold text-lg text-slate-800 dark:text-white">
           {course.bootcamp.name}
         </h5>
-        <p className="my-3 max-w-2xl text-slate-600">
+        <p className="my-3 max-w-2xl text-slate-600 dark:text-white/80">
           {course.bootcamp.description}
         </p>
 
         <Link className="w-full" href={"/bootcamps/" + course.bootcamp.id}>
           <a>
-            <Button className="py-2.5 px-5 bg-indigo-800 text-sm">
+            <Button className="py-2.5 px-5 bg-indigo-800 text-sm dark:hover:shadow-white">
               check out
             </Button>
           </a>

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 // Components
 import ReviewsList from "../reviews/ReviewsList";
-import { GrMoney } from "react-icons/gr";
+import { GiMoneyStack } from "react-icons/gi";
 import { HiMail, HiPhone } from "react-icons/hi";
 import { CgWebsite } from "react-icons/cg";
 import { BsCheckLg, BsXOctagonFill } from "react-icons/bs";
@@ -30,7 +30,7 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
 
   return (
     <>
-      <div className="grid shadow-sm p-5 gap-5 bg-neutral-100 dark:bg-neutral-300 text-black">
+      <div className="grid shadow-sm p-5 gap-5 bg-neutral-100 text-black dark:bg-navbar dark:text-white">
         {(currentUser?._id === bootcamp.user ||
           currentUser?.role === "admin") && (
           <div className="flex items-center gap-3">
@@ -63,7 +63,7 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
         <h1 className="text-2xl font-bold">{bootcamp.name}</h1>
         <h5>{date}</h5>
         <div className="text-green-500 font-bold flex items-center gap-x-2">
-          <GrMoney className="text-xl" />
+          <GiMoneyStack className="text-xl text-black dark:text-white" />
           {bootcamp.averageCost ? `$${bootcamp.averageCost}` : "Free"}
         </div>
         <p className="my-3 max-w-2xl">{bootcamp.description}</p>
@@ -114,7 +114,7 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
           {courses.map((course, i) => {
             return (
               <li
-                className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer"
+                className="bg-slate-500 text-slate-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0] hover:shadow-black hover:cursor-pointer dark:hover:shadow-white"
                 key={i}
               >
                 <Link href={"/courses/" + course._id}>

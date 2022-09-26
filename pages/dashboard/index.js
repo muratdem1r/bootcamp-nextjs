@@ -1,17 +1,18 @@
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useUsersQuery } from "../../services/usersApi";
 import { useBootcampsQuery } from "../../services/bootcampsApi";
 import { useCoursesQuery } from "../../services/coursesApi";
+import { useState } from "react";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
+
+// Components
 import { Tab } from "@headlessui/react";
 import UsersTable from "../../components/dashboard/UsersTable";
 import CoursesTable from "../../components/dashboard/CoursesTable";
 import BootcampsTable from "../../components/dashboard/BootcampsTable";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import { useState } from "react";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 function DashboardPage() {
   const currentUser = useSelector((state) => state.currentUser.user);

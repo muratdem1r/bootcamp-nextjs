@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 // Components
 import Link from "next/link";
 import Card from "../ui/Card";
-import Button from "../ui/Button";
 import Image from "next/image";
 import UpdateBootcamp from "./UpdateBootcamp";
 import DeleteBootcamp from "./DeleteBootcamp";
@@ -15,7 +14,7 @@ function BootcampItem({ bootcamp, setParams }) {
   const photo = "/" + bootcamp.photo;
 
   return (
-    <Card className="p-5 flex flex-col">
+    <Card className="p-5 flex flex-col h-full">
       <Link href={"/bootcamps/" + bootcamp._id}>
         <a>
           <div className="flex flex-col h-full">

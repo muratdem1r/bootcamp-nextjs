@@ -24,13 +24,7 @@ function MyApp({ Component, pageProps }) {
   const darkMode = useSelector((state) => state.darkMode.darkMode);
   const [token, setToken] = useState(skipToken);
 
-  const {
-    data: user,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetLoggedinUserQuery(token);
+  const { data: user, isSuccess } = useGetLoggedinUserQuery(token);
 
   useEffect(() => {
     const darkMode = localStorage.getItem("darkMode");

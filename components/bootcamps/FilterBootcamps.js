@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Listbox, Switch, Transition } from "@headlessui/react";
+import { Listbox, Transition } from "@headlessui/react";
 import { RiArrowUpDownLine } from "react-icons/ri";
 import { BiCheck } from "react-icons/bi";
 
@@ -24,10 +24,11 @@ function FilterBootcamps({ params, setParams }) {
   return (
     <div>
       <div className="flex flex-wrap justify-around gap-2">
-        {filters.map((filter) => {
+        {filters.map((filter, index) => {
           const filterName = filter.name;
           return (
             <Listbox
+              key={index}
               value={params[filterName]}
               className="mb-10 w-2/5 md:w-auto md:flex-1"
               onChange={(e) => {
