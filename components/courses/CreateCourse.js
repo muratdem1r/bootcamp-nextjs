@@ -89,7 +89,8 @@ function CreateCourse({ bootcamp }) {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Create a new course for "{bootcamp.name}" bootcamp
+                      Create a new course for &quot;{bootcamp.name}&quot;
+                      bootcamp
                     </Dialog.Title>
                     <ImCross
                       className="text-red-600 hover:cursor-pointer"

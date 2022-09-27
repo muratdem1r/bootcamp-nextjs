@@ -9,6 +9,7 @@ import formatPhoneNumber from "../../helpers/formatPhoneNumber";
 // Components
 import { ImCross } from "react-icons/im";
 import { Dialog, Switch, Transition } from "@headlessui/react";
+import Image from "next/image";
 
 function UpdateBootcamp({ bootcamp, setParams, className, children }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
   ];
 
   const [image, setImage] = useState(null);
-  const [imageURL, setImageURL] = useState(bootcamp.photo);
+  const [imageURL, setImageURL] = useState(`/${bootcamp.photo}`);
 
   const [updateBootcamp] = useUpdateBootcampMutation();
   const [uploadImage] = useUploadBootcampPhotoMutation();
@@ -55,7 +56,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
       jobGuarantee: bootcamp.jobGuarantee,
       acceptGi: bootcamp.acceptGi,
     });
-    setImageURL(bootcamp.photo);
+    setImageURL(`/${bootcamp.photo}`);
   }, [bootcamp]);
 
   const imageChangeHandler = (e) => {
@@ -390,7 +391,14 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                         })}
                       </ul>
                     </div>
-                    <img className="h-[320px] object-contain" src={imageURL} />
+                    <div className="w-full h-[320px] relative">
+                      <Image
+                        src={imageURL}
+                        alt={bootcamp.name}
+                        layout="fill"
+                        objectFit="contain"
+                      />
+                    </div>
                     <input
                       type="file"
                       name="image"

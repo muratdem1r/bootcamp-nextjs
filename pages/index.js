@@ -124,7 +124,7 @@ function HomePage() {
       </div>
       <div className="my-20">
         <h1 className="gradient-text-orange text-center font-bold text-2xl">
-          There's a lot to learn!
+          There’s a lot to learn!
         </h1>
         <p className="font-bold text-center leading-7 my-4">
           Getting professional-level development skills takes a lot of work and

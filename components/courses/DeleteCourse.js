@@ -75,7 +75,7 @@ function DeleteCourse({ course, setPage, returnHome, className, children }) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Do you want to delete "{course.title}" ?
+                      Do you want to delete &quot;{course.title}&quot; ?
                     </p>
                   </div>
 

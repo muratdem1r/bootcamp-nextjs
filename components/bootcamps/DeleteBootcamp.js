@@ -81,7 +81,7 @@ function DeleteBootcamp({
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Do you want to delete "{bootcamp.name}" ?
+                      Do you want to delete &quot;{bootcamp.name}&quot; ?
                     </p>
                   </div>
 
