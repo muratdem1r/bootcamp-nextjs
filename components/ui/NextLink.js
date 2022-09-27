@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const NextLink = React.forwardRef((props, ref) => {
+function NextLink(props, ref) {
   const { href, children, ...rest } = props;
   return (
     <Link href={href}>
@@ -10,6 +10,6 @@ const NextLink = React.forwardRef((props, ref) => {
       </a>
     </Link>
   );
-});
+}
 
-export default NextLink;
+export default React.forwardRef(NextLink);
