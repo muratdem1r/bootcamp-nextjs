@@ -67,7 +67,7 @@ function DeleteUser({ user, className, children }) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Do you want to delete "{user.name}" ?
+                      Do you want to delete &quot;{user.name}&quot; ?
                     </p>
                   </div>
 
