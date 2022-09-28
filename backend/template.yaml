@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-sam-express
+
+  SAM Template
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  BootcampBackendFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./
+      Handler: lambda.handler
+      Runtime: nodejs12.x
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          PARAM1: VALUE
+          NODE_ENV: development
+          PORT: 5000
+          MONGO_URI: mongodb+srv://muratdem1r:wvtdDcEPHMMQTidj@cluster0.ve9a4dv.mongodb.net/?retryWrites:true&w:majority
+          FILE_UPLOAD_PATH: ./public/uploads
+          MAX_FILE_UPLOAD: 1000000
+          JWT_SECRET: f2idrdaiu6789sa6a9qas
+          JWT_EXPIRE: 30d
+          JWT_COOKIE_EXPIRE: 30
+          SMTP_HOST: smtp.mailtrap.io
+          SMTP_PORT: 2525
+          SMTP_EMAIL: e07d2ff8cd0aa7
+          SMTP_PASSWORD: f34f8a339cce37
+          FROM_EMAIL: janedoe@hello.com
+          FROM_NAME: Bootcamp-API
+      Events:
+        BootcampAPIRoot:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /
+            Method: ANY
+        BootcampAPI:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY

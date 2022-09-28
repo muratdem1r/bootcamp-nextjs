@@ -14,7 +14,9 @@
     "categories": {
       "function": {
         "bootcampAPIFunction": {
-          "test": "1"
+          "test": "1",
+          "deploymentBucketName": "amplify-amplify1122e0dcc19e4-staging-81256-deployment",
+          "s3Key": "amplify-builds/bootcampAPIFunction-55374257737171487744-build.zip"
         }
       }
     }
