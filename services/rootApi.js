@@ -8,6 +8,9 @@ export const api = createApi({
       const accessToken = localStorage.getItem("token");
 
       headers.set("Authorization", `Bearer ${accessToken}`);
+      headers.set("Access-Control-Allow-Headers", "Content-Type");
+      headers.set("Access-Control-Allow-Origin", "*");
+      headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
 
       return headers;
     },
