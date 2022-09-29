@@ -2,13 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-<<<<<<< HEAD
     baseUrl: process.env.NEXT_PUBLIC_AWS_HOST,
-=======
-    baseUrl:
-      "https://vqd86ub631.execute-api.us-east-1.amazonaws.com/Prod/api/v1/",
-    mode: "no-cors",
->>>>>>> 8971dfc47277a8c6c7c7bb72e97afe7d85bb87de
     prepareHeaders: (headers) => {
       const accessToken = localStorage.getItem("token");
 
