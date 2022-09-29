@@ -4,6 +4,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
       "https://vqd86ub631.execute-api.us-east-1.amazonaws.com/Prod/api/v1/",
+    mode: "no-cors",
     prepareHeaders: (headers) => {
       const accessToken = localStorage.getItem("token");
 
