@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/roshangrewal/bootcamp-api#readme",
   "dependencies": {
+    "aws-serverless-express": "^3.3.5",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -40,9 +42,7 @@
     "node-geocoder": "^3.27.0",
     "nodemailer": "^6.4.10",
     "slugify": "^1.4.0",
-    "xss-clean": "^0.1.1",
-    "aws-serverless-express": "^3.3.5",
-    "body-parser": "^1.18.3"
+    "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

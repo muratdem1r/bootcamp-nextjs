@@ -14,6 +14,9 @@ const cors = require("cors");
 const logger = require("./middleware/logger");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
+const cors = require("cors");
+// Initialize express application
+const app = express();
 
 // Load env variables
 dotenv.config({ path: "./config/config.env" });
@@ -21,15 +24,15 @@ dotenv.config({ path: "./config/config.env" });
 // Connect to database
 connectDB();
 
+// CORS-enabled for all origins
+app.use(cors());
+
 // Route files
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
 const auth = require("./routes/auth");
 const users = require("./routes/users");
 const reviews = require("./routes/reviews");
-
-// Initialize express application
-const app = express();
 
 // Body parser
 app.use(express.json());
