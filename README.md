@@ -10,7 +10,15 @@ npm run dev
 yarn dev
 ```
 
-Then, run the development server in root directory:
+Then, install dependencies in root directory:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Run the development server in root directory:
 
 ```bash
 npm run dev
