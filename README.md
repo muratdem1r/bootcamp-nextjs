@@ -2,7 +2,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, go to "bootcamp-api" folder **follow instructions in the readme file** and run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Then, run the development server in root directory:
 
 ```bash
 npm run dev
@@ -12,23 +20,35 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Packages
+* Redux Toolkit
+* Tailwindcss
+* HeadlessUI
+* MaterialUI
+* Toastify
+* React Icons
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Features
+* Register/Login
+* Admin, Publisher, User roles (User can leave a review for bootcamps, Publisher can publish a bootcamp, Admin can manage everything in dashboard)
+* Dark Mode
+* Filter for Bootcamp List
+* Forgot Password
+* CRUD Operations for Bootcamps, Courses and Users
+* MaterialUI Data Grid for Dashboard Table
+* Infinite Scroll Pagination
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Images
+<img src="https://user-images.githubusercontent.com/59487469/198165315-577896bc-f26a-4f77-935f-f8d99d755116.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198165399-65200159-9386-4b1f-b5ff-33738d760b5d.png" width="30%"></img> 
+<img src="https://user-images.githubusercontent.com/59487469/198165508-9c96780b-8af2-44e2-9df4-e4e480a20e13.png" width="30%"></img> 
+<img src="https://user-images.githubusercontent.com/59487469/198166157-f023d895-d7d1-48df-86ba-100715cb97d4.png" width="30%"></img> 
+<img src="https://user-images.githubusercontent.com/59487469/198165741-41ad8976-6d17-44c2-adcc-4fb94009a665.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198167336-beb4c573-4b81-42ee-8bb2-aa3906f8fae7.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198167380-475365a0-6aaf-4b68-a236-77596c081e69.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198167406-e22b2fbe-b9c5-4317-a71e-90a5781eb96b.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198167424-90382d99-2089-487a-a50b-b2ef54dbab87.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198168232-5fac7e63-9106-4aa5-a626-621f3dcbf30a.png" width="30%"></img>
+<img src="https://user-images.githubusercontent.com/59487469/198168294-7c6e9f7c-475e-45e5-a850-fac3245e3fc3.png" width="30%"></img>
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
