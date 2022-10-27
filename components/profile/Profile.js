@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   useUpdatePassMutation,
@@ -8,6 +8,7 @@ import {
 import { useBootcampsQuery } from "../../services/bootcampsApi";
 import { useEffect } from "react";
 import Link from "next/link";
+import { setCurrentUser } from "../../store/slices/currentUserSlice";
 
 // Components
 import Button from "../ui/Button";
@@ -20,6 +21,7 @@ import CreateBootcamp from "../bootcamps/CreateBootcamp";
 import LoadingSpinner from "../ui/LoadingSpinner";
 
 function Profile() {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser.user);
   const [profileBootcamps, setProfileBootcamps] = useState([]);
 
@@ -79,6 +81,7 @@ function Profile() {
       toast.error("Something went wrong!");
     } else {
       setUpdatePressed(false);
+      dispatch(setCurrentUser({ user: res.data }));
       toast.success("You have updated your profile.");
     }
   };

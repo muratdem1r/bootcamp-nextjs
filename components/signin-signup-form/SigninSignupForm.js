@@ -65,12 +65,6 @@ function SigninSignupForm() {
     }
   }, [user, isSuccess]);
 
-  useEffect(() => {
-    if (currentUser) {
-      router.push("/");
-    }
-  }, [currentUser]);
-
   return (
     <>
       <RegisterForm

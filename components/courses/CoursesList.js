@@ -9,9 +9,9 @@ function CoursesList({ courses, setPage, nextPage }) {
         if (courses.length - 1 === index) {
           return (
             <InView
-              key={course._id}
-              onChange={(inView, entry) => {
-                if (inView) {
+              key={index}
+              onChange={(inView) => {
+                if (inView && courses.length >= 12) {
                   setPage(nextPage);
                 }
               }}
@@ -20,9 +20,7 @@ function CoursesList({ courses, setPage, nextPage }) {
             </InView>
           );
         }
-        return (
-          <CourseItem key={course._id} course={course} setPage={setPage} />
-        );
+        return <CourseItem key={index} course={course} setPage={setPage} />;
       })}
     </div>
   );

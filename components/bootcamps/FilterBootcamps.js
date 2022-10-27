@@ -37,7 +37,7 @@ function FilterBootcamps({ params, setParams }) {
             >
               <div className="relative mt-1">
                 <h4 className="mb-1 font-normal">{filter.title}</h4>
-                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                <Listbox.Button className="relative w-full  cursor-default rounded-lg bg-white dark:bg-slate-300 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                   <span className="block truncate text-black">
                     {(params[filterName] === true && "True") ||
                       (params[filterName] === false && "False") ||
@@ -56,7 +56,7 @@ function FilterBootcamps({ params, setParams }) {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <Listbox.Options className="z-10 absolute mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="z-10 absolute mt-1 max-h-60 overflow-auto rounded-md bg-white dark:bg-slate-300 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <Listbox.Option
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
@@ -155,7 +155,7 @@ function FilterBootcamps({ params, setParams }) {
         >
           <div className="relative mt-1 ">
             <h4 className="mb-1 font-normal">Filter by Career</h4>
-            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm ">
+            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-slate-300 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm ">
               <span className="block truncate text-black">
                 {params.careersIn || "All"}
               </span>
@@ -172,7 +172,7 @@ function FilterBootcamps({ params, setParams }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="z-10 absolute mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="z-10 absolute mt-1 max-h-60 overflow-auto rounded-md bg-white dark:bg-slate-300 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 <Listbox.Option
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
@@ -240,7 +240,7 @@ function FilterBootcamps({ params, setParams }) {
         >
           <div className="relative mt-1">
             <h4 className="mb-1 font-normal">Filter by Average Cost</h4>
-            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-slate-300 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
               <span className="block truncate text-black">
                 {params.averageCost || "All"}
               </span>
@@ -257,7 +257,7 @@ function FilterBootcamps({ params, setParams }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="z-10 absolute mt-1 max-h-60 w-2/3 md:w-1/4 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="z-10 absolute mt-1 max-h-60 w-2/3 md:w-1/4 overflow-auto rounded-md bg-white dark:bg-slate-300 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 <Listbox.Option
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${

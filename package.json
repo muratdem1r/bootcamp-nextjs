@@ -32,6 +32,5 @@
     "eslint-config-next": "12.2.5",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
-  },
-  "proxy": "https://1365backe7.execute-api.us-east-1.amazonaws.com/Prod/"
+  }
 }

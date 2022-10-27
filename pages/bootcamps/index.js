@@ -18,7 +18,7 @@ function BootcampsPage() {
 
   const [params, setParams] = useState({
     page: 1,
-    limit: 12,
+    limit: 9,
     careersIn: undefined,
     averageCost: undefined,
     housing: undefined,
@@ -47,7 +47,7 @@ function BootcampsPage() {
     } else if (data?.data?.length === 0) {
       setBootcamps([]);
     }
-  }, [data]);
+  }, [data, params.page]);
 
   let content;
   if (isLoading) {

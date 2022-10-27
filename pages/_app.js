@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }) {
   const { data: user, isSuccess } = useGetLoggedinUserQuery(token);
 
   useEffect(() => {
+    console.log("welcome");
     const darkMode = localStorage.getItem("darkMode");
 
     if (darkMode === "dark") {
@@ -40,9 +41,12 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(setCurrentUser({ user: user.data }));
+      console.log("success");
+      dispatch(setCurrentUser({ user: user?.data }));
+    } else {
+      dispatch(setCurrentUser({ user: null }));
     }
-  }, [user, isSuccess]);
+  }, [user]);
 
   return (
     <div className={darkMode ? "dark" : ""}>

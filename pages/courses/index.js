@@ -14,7 +14,7 @@ function CoursesPage() {
   const [courses, setCourses] = useState([]);
 
   const { data, isLoading, isSuccess, isError, error } = useCoursesQuery({
-    page,
+    page: page,
     limit: 12,
   });
 
@@ -45,7 +45,8 @@ function CoursesPage() {
       </>
     );
   } else if (isError) {
-    content = <p>{error}</p>;
+    console.log(error);
+    content = <></>;
   }
 
   return content;

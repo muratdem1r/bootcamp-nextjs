@@ -17,7 +17,7 @@ function CourseItem({ course, setPage }) {
   };
 
   return (
-    <Card className="bg-orange-300/80">
+    <Card className="bg-orange-300/80 flex flex-col h-full">
       <div className="flex flex-col gap-y-5 p-5 ">
         <h1 className="text-white font-bold text-2xl text-center">
           {course.title}

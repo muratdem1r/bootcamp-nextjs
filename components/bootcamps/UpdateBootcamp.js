@@ -178,7 +178,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                         id="name"
                         placeholder="Devcentral Bootcamp"
                         onChange={inputHandler}
-                        value={inputs.name}
+                        value={inputs.name || ""}
                         required
                       />
                     </div>
@@ -194,7 +194,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                         placeholder="Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in front end and full stack web development"
                         rows={5}
                         onChange={inputHandler}
-                        value={inputs.description}
+                        value={inputs.description || ""}
                         required
                       />
                     </div>
@@ -209,7 +209,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                         id="address"
                         placeholder="45 Upper College Rd Kingston RI 02881"
                         onChange={inputHandler}
-                        value={inputs.address}
+                        value={inputs.address || ""}
                         required
                       />
                     </div>
@@ -225,7 +225,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                         placeholder="example@gmail.com"
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                         onChange={inputHandler}
-                        value={inputs.email}
+                        value={inputs.email || ""}
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -245,7 +245,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                             phone: formatPhoneNumber(e.target.value),
                           });
                         }}
-                        value={inputs.phone}
+                        value={inputs.phone || ""}
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -260,7 +260,7 @@ function UpdateBootcamp({ bootcamp, setParams, className, children }) {
                         pattern="https?://.*"
                         id="website"
                         onChange={inputHandler}
-                        value={inputs.website}
+                        value={inputs.website || ""}
                       />
                     </div>
                     <div className="flex flex-col gap-2">

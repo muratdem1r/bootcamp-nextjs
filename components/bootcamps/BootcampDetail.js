@@ -70,7 +70,9 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
         <div className="flex items-center gap-x-2">
           Average Rating:
           <span className="font-bold text-yellow-500">
-            {Number(bootcamp.averageRating).toFixed(2) || "No Rating"}
+            {bootcamp.averageRating
+              ? Number(bootcamp.averageRating).toFixed(2)
+              : "No Rating"}
           </span>
         </div>
         <div className="flex items-center gap-x-2">
@@ -97,18 +99,26 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
             <BsXOctagonFill className="text-red-600 text-xl " />
           )}
         </div>
-        <div className="flex items-center gap-x-2">
-          <HiMail className="text-xl" />
-          {bootcamp.email}
-        </div>
-        <div className="flex items-center gap-x-2">
-          <HiPhone className="text-xl" />
-          {bootcamp.phone}
-        </div>
-        <div className="flex items-center gap-x-2">
-          <CgWebsite className="text-xl" />
-          {bootcamp.website}
-        </div>
+        {bootcamp.email && (
+          <div className="flex items-center gap-x-2">
+            <HiMail className="text-xl" />
+            {bootcamp.email}
+          </div>
+        )}
+
+        {bootcamp.phone && (
+          <div className="flex items-center gap-x-2">
+            <HiPhone className="text-xl" />
+            {bootcamp.phone}
+          </div>
+        )}
+
+        {bootcamp.website && (
+          <div className="flex items-center gap-x-2">
+            <CgWebsite className="text-xl" />
+            {bootcamp.website}
+          </div>
+        )}
         <ul className="flex flex-wrap gap-y-2 gap-x-4">
           <h5 className="w-full font-bold">Courses</h5>
           {courses.map((course, i) => {
@@ -123,6 +133,9 @@ function BootcampDetail({ bootcamp, reviews, courses }) {
               </li>
             );
           })}
+          {courses.length === 0 && currentUser?.role === "user" && (
+            <p>No Course</p>
+          )}
           {(currentUser?._id === bootcamp.user ||
             currentUser?.role === "admin") && (
             <CreateCourse bootcamp={bootcamp} />

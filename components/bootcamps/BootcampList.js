@@ -18,7 +18,7 @@ function BootcampList({ bootcamps, setParams, nextPage }) {
             <InView
               key={index}
               onChange={(inView) => {
-                if (inView && bootcamps.length >= 12) {
+                if (inView && bootcamps.length >= 9) {
                   setParams((state) => ({ ...state, page: nextPage }));
                 }
               }}
